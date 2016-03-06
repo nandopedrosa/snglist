@@ -1,0 +1,78 @@
+#loading {
+    display: none;
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    z-index: 2;
+    overflow: auto;
+}
+
+#sng-nav-menu {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 16px;
+    line-height: 32px;
+}
+
+#sng-nav-menu a:hover {
+    color: #288edf;
+    text-decoration: none;
+}
+
+.sng-feature {
+    margin-bottom: 30px;
+}
+
+.sng-blue {
+    color: #337ab7;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    color: white !important;
+}
+
+a.navbar-brand:hover {
+    color: #288edf !important;
+}
+
+.navbar-default {
+    background-color: #4a4d4e;
+}
+
+#navbar-info > ul > li > a {
+    color: white;
+}
+
+a {
+    color: #2E79BA;
+}
+
+/* Sticky Footer */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #4a4d4e;
+}
+
+.footer-text {
+    margin-top: 20px;
+    color: white;
+
+}
+

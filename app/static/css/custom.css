@@ -7,12 +7,16 @@
     overflow: auto;
 }
 
+#sng-collapse {
+    float: right;
+}
+
 #sng-nav-menu {
     margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
     font-size: 16px;
-    line-height: 32px;
+    line-height: 18px;
 }
 
 #sng-nav-menu a:hover {
@@ -24,8 +28,12 @@
     margin-bottom: 30px;
 }
 
+.sng-dropdown-menu-link {
+    color: #288edf !important;
+}
+
 .sng-blue {
-    color: #337ab7;
+    color: #337ab7 !important;
 }
 
 .navbar-brand {

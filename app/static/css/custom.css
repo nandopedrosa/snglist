@@ -11,6 +11,12 @@
     float: right;
 }
 
+@media (max-width: 767px){
+  .navbar-nav li a {
+    color: white !important;
+  }
+}
+
 #sng-nav-menu {
     margin-top: 15px;
     padding-left: 15px;
@@ -26,10 +32,6 @@
 
 .sng-feature {
     margin-bottom: 30px;
-}
-
-.sng-dropdown-menu-link {
-    color: #288edf !important;
 }
 
 .sng-blue {

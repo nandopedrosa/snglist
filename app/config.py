@@ -28,11 +28,11 @@ LANGUAGES = {
     'pt': 'Português'
 }
 
-BABEL_DEFAULT_LOCALE = 'pt_BR'
+BABEL_DEFAULT_LOCALE = 'en_US'
 
 # Database Configuration
 if os.environ.get('DATABASE_URL') is None:
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:admin@localhost/as-mais-lidas'  # Development Database
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:admin@localhost/snglist'  # Development Database
 else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']  # Heroku Database
 

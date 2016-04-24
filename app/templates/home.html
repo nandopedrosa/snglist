@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+    <header class="jumbotron sng-top-spacer">
+        <h1>Songlist Plus
+            <small class="sng-blue">{{ _('music on your figners') }}</small>
+        </h1>
+        <p >{{ _('Songlist Plus is a web-based and mobile application with all the features your band needs. Manage bands, songs, shows and share your repertoire with your friends. Sync everything with your mobile device and start rocking! ') }}</p>
+        <button type="button" class="btn btn-lg btn-danger">{{ _('Create free account') }}</button>
+    </header>
+    <hr>
+
+    <div class="row" style="padding-left: 30px">
+           <div class="col-md-3 col-sm-6 sng-feature">
+                <h2>{{ _('Songs & Setlists') }}</h2>
+                <p>{{ _('Add as many songs as you want to your repertoire and use them to build setlists') }}</p>
+                <p>
+                    <a href="#" class="btn btn-primary">{{ _('More Info') }}</a>
+                </p>
+            </div>
+            <div class="col-md-3 col-sm-6 sng-feature">
+                <h2>{{ _('Lyrics & Chords') }}</h2>
+                <p>{{ _('Add lyrics and chords to your songs so you may never forget them') }}</p>
+                <p>
+                    <a href="#" class="btn btn-primary">{{ _('More Info') }}</a>
+                </p>
+            </div>
+              <div class="col-md-3 col-sm-6 sng-feature">
+                <h2>{{ _('Sharing') }}</h2>
+                <p>{{ _('Share songs and setlists with your friends and bandmates') }}</p>
+                <p>
+                    <a href="#" class="btn btn-primary">{{ _('More Info') }}</a>
+                </p>
+            </div>
+              <div class="col-md-3 col-sm-6 sng-feature">
+                <h2>{{ _('Mobile') }}</h2>
+                <p>{{ _('Download the mobile app and sync it with the web-based interface') }}</p>
+                <p>
+                    <a href="#" class="btn btn-primary">{{ _('More Info') }}</a>
+                </p>
+            </div>
+    </div>
+{% endblock %}

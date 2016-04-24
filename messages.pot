@@ -1,0 +1,90 @@
+# Translations template for PROJECT.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-04-24 09:03-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: app/templates/base.html:49
+msgid "PORTUGUÊS"
+msgstr ""
+
+#: app/templates/base.html:52
+msgid "Contact"
+msgstr ""
+
+#: app/templates/base.html:55
+msgid "About"
+msgstr ""
+
+#: app/templates/base.html:58
+msgid "Sign in"
+msgstr ""
+
+#: app/templates/base.html:70
+msgid "music on your figners"
+msgstr ""
+
+#: app/templates/base.html:72
+msgid ""
+"Songlist Plus is a web-based and mobile application with all the features"
+" your band needs. Manage bands, songs, shows and share your repertoire "
+"with your friends. Sync everything with your mobile device and start "
+"rocking! "
+msgstr ""
+
+#: app/templates/base.html:73
+msgid "Create free account"
+msgstr ""
+
+#: app/templates/base.html:80
+msgid "Songs & Setlists"
+msgstr ""
+
+#: app/templates/base.html:81
+msgid ""
+"Add as many songs as you want to your repertoire and use them to build "
+"setlists"
+msgstr ""
+
+#: app/templates/base.html:83 app/templates/base.html:90
+#: app/templates/base.html:97 app/templates/base.html:104
+msgid "More Info"
+msgstr ""
+
+#: app/templates/base.html:87
+msgid "Lyrics & Chords"
+msgstr ""
+
+#: app/templates/base.html:88
+msgid "Add lyrics and chords to your songs so you may never forget them"
+msgstr ""
+
+#: app/templates/base.html:94
+msgid "Sharing"
+msgstr ""
+
+#: app/templates/base.html:95
+msgid "Share songs and setlists with your friends and bandmates"
+msgstr ""
+
+#: app/templates/base.html:101
+msgid "Mobile"
+msgstr ""
+
+#: app/templates/base.html:102
+msgid "Download the mobile app and sync it with the web-based interface"
+msgstr ""
+

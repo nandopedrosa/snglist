@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-04-24 09:03-0300\n"
+"POT-Creation-Date: 2016-04-27 00:17-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,65 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
+#: app/forms.py:17
+msgid "Name"
+msgstr ""
+
+#: app/forms.py:17
+msgid "Enter your name"
+msgstr ""
+
+#: app/forms.py:18
+msgid "Please, enter your name"
+msgstr ""
+
+#: app/forms.py:19
+msgid "Your name must have a minimum of 3 characters"
+msgstr ""
+
+#: app/forms.py:20
+msgid "Your name must have a maximum of 128 characters"
+msgstr ""
+
+#: app/forms.py:23
+msgid "Enter your email"
+msgstr ""
+
+#: app/forms.py:24
+msgid "Please, enter your email"
+msgstr ""
+
+#: app/forms.py:25
+msgid "Your email must have a minimum of 6 characters"
+msgstr ""
+
+#: app/forms.py:26
+msgid "Please, inform a valid email"
+msgstr ""
+
+#: app/forms.py:29
+msgid "Message"
+msgstr ""
+
+#: app/forms.py:30
+msgid "Please, write your message"
+msgstr ""
+
+#: app/forms.py:31
+msgid "Your message must have between 3 and 4000 characters"
+msgstr ""
+
+#: app/forms.py:32
+msgid ""
+"Enter your message with suggestions, bug reports or anything else you "
+"think is important"
+msgstr ""
+
 #: app/templates/base.html:49
 msgid "PORTUGUÊS"
 msgstr ""
 
-#: app/templates/base.html:52
+#: app/templates/base.html:52 app/templates/contact.html:6
 msgid "Contact"
 msgstr ""
 
@@ -33,11 +87,11 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
-#: app/templates/base.html:70
+#: app/templates/home.html:5
 msgid "music on your figners"
 msgstr ""
 
-#: app/templates/base.html:72
+#: app/templates/home.html:7
 msgid ""
 "Songlist Plus is a web-based and mobile application with all the features"
 " your band needs. Manage bands, songs, shows and share your repertoire "
@@ -45,46 +99,46 @@ msgid ""
 "rocking! "
 msgstr ""
 
-#: app/templates/base.html:73
+#: app/templates/home.html:8
 msgid "Create free account"
 msgstr ""
 
-#: app/templates/base.html:80
+#: app/templates/home.html:14
 msgid "Songs & Setlists"
 msgstr ""
 
-#: app/templates/base.html:81
+#: app/templates/home.html:15
 msgid ""
 "Add as many songs as you want to your repertoire and use them to build "
 "setlists"
 msgstr ""
 
-#: app/templates/base.html:83 app/templates/base.html:90
-#: app/templates/base.html:97 app/templates/base.html:104
+#: app/templates/home.html:17 app/templates/home.html:24
+#: app/templates/home.html:31 app/templates/home.html:38
 msgid "More Info"
 msgstr ""
 
-#: app/templates/base.html:87
+#: app/templates/home.html:21
 msgid "Lyrics & Chords"
 msgstr ""
 
-#: app/templates/base.html:88
+#: app/templates/home.html:22
 msgid "Add lyrics and chords to your songs so you may never forget them"
 msgstr ""
 
-#: app/templates/base.html:94
+#: app/templates/home.html:28
 msgid "Sharing"
 msgstr ""
 
-#: app/templates/base.html:95
+#: app/templates/home.html:29
 msgid "Share songs and setlists with your friends and bandmates"
 msgstr ""
 
-#: app/templates/base.html:101
+#: app/templates/home.html:35
 msgid "Mobile"
 msgstr ""
 
-#: app/templates/base.html:102
+#: app/templates/home.html:36
 msgid "Download the mobile app and sync it with the web-based interface"
 msgstr ""
 

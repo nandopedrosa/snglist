@@ -75,15 +75,6 @@ class TlsSMTPHandler(logging.handlers.SMTPHandler):
 
 
 """
-=================================================== Global Functions ====================================
-"""
-
-
-def current_year():
-    return datetime.now().year
-
-
-"""
 =================================================== App Initilization ====================================
 """
 
@@ -118,7 +109,17 @@ if not app.debug and MAIL_SERVER != '':
     mail_handler.setLevel(logging.ERROR)
     app.logger.addHandler(mail_handler)
 
-# Updating global functions...
+"""
+=================================================== Global Functions ====================================
+Useful for calling directly from within Jinja templates
+"""
+
+
+def current_year():
+    return datetime.now().year
+
+
+# Injecting global functions...
 app.jinja_env.globals.update(current_year=current_year)
 
 from app import views

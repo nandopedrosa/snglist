@@ -7,23 +7,78 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-04-24 09:03-0300\n"
-"PO-Revision-Date: 2016-04-24 16:20-0300\n"
+"POT-Creation-Date: 2016-04-27 00:17-0300\n"
+"PO-Revision-Date: 2016-04-26 23:58-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-"X-Generator: Poedit 1.8.6\n"
+
+#: app/forms.py:17
+msgid "Name"
+msgstr "Nome"
+
+#: app/forms.py:17
+msgid "Enter your name"
+msgstr "Digite o seu nome"
+
+#: app/forms.py:18
+msgid "Please, enter your name"
+msgstr "Por favor, digite o seu nome"
+
+#: app/forms.py:19
+msgid "Your name must have a minimum of 3 characters"
+msgstr "Seu nome deve ter pelo menos 3 caracteres"
+
+#: app/forms.py:20
+msgid "Your name must have a maximum of 128 characters"
+msgstr "Seu nome deve ter no máximo 128 caracteres"
+
+#: app/forms.py:23
+msgid "Enter your email"
+msgstr "Digite seu email"
+
+#: app/forms.py:24
+msgid "Please, enter your email"
+msgstr "Por favor, digite seu email"
+
+#: app/forms.py:25
+msgid "Your email must have a minimum of 6 characters"
+msgstr "O seu email deve ter no mínimo 6 caracteres"
+
+#: app/forms.py:26
+msgid "Please, inform a valid email"
+msgstr "Por favor, informe um email válido"
+
+#: app/forms.py:29
+msgid "Message"
+msgstr "Mensagem"
+
+#: app/forms.py:30
+msgid "Please, write your message"
+msgstr "Por favor, escreva sua mensagem"
+
+#: app/forms.py:31
+msgid "Your message must have between 3 and 4000 characters"
+msgstr "Sua mensagem deve ter entre 3 e 4000 caracteres"
+
+#: app/forms.py:32
+msgid ""
+"Enter your message with suggestions, bug reports or anything else you "
+"think is important"
+msgstr ""
+"Envie sua mensagem com sugestões, erros encontrados ou qualquer coisa que"
+" você julgar importante"
 
 #: app/templates/base.html:49
 msgid "PORTUGUÊS"
 msgstr "ENGLISH"
 
-#: app/templates/base.html:52
+#: app/templates/base.html:52 app/templates/contact.html:6
 msgid "Contact"
 msgstr "Contato"
 
@@ -35,64 +90,68 @@ msgstr "Sobre"
 msgid "Sign in"
 msgstr "Entrar"
 
-#: app/templates/base.html:70
+#: app/templates/home.html:5
 msgid "music on your figners"
 msgstr "música nos seus dedos"
 
-#: app/templates/base.html:72
+#: app/templates/home.html:7
 msgid ""
-"Songlist Plus is a web-based and mobile application with all the "
-"features your band needs. Manage bands, songs, shows and share your "
-"repertoire with your friends. Sync everything with your mobile device "
-"and start rocking! "
+"Songlist Plus is a web-based and mobile application with all the features"
+" your band needs. Manage bands, songs, shows and share your repertoire "
+"with your friends. Sync everything with your mobile device and start "
+"rocking! "
 msgstr ""
 "Songlist Plus é uma aplicação Web e Mobile com todos os recursos que sua "
 "banda precisa. Gerencie bands, músicas, shows e compartilhe seu "
 "repertório com seus amigos. Sincronize tudo com seu dispositivo móvel e "
 "comece a tocar!"
 
-#: app/templates/base.html:73
+#: app/templates/home.html:8
 msgid "Create free account"
 msgstr "Criar conta gratuita"
 
-#: app/templates/base.html:80
+#: app/templates/home.html:14
 msgid "Songs & Setlists"
 msgstr "Músicas e Repertórios"
 
-#: app/templates/base.html:81
+#: app/templates/home.html:15
 msgid ""
 "Add as many songs as you want to your repertoire and use them to build "
 "setlists"
-msgstr ""
-"Adicione quantas músicas você quiser ao seu repertório e monte setlists"
+msgstr "Adicione quantas músicas você quiser ao seu repertório e monte setlists"
 
-#: app/templates/base.html:83 app/templates/base.html:90
-#: app/templates/base.html:97 app/templates/base.html:104
+#: app/templates/home.html:17 app/templates/home.html:24
+#: app/templates/home.html:31 app/templates/home.html:38
 msgid "More Info"
 msgstr "Mais detalhes"
 
-#: app/templates/base.html:87
+#: app/templates/home.html:21
 msgid "Lyrics & Chords"
 msgstr "Letras e Cifras"
 
-#: app/templates/base.html:88
+#: app/templates/home.html:22
 msgid "Add lyrics and chords to your songs so you may never forget them"
-msgstr ""
-"Adicione letras e cifras às suas músicas para que você nunca as esqueça"
+msgstr "Adicione letras e cifras às suas músicas para que você nunca as esqueça"
 
-#: app/templates/base.html:94
+#: app/templates/home.html:28
 msgid "Sharing"
 msgstr "Compartilhamento"
 
-#: app/templates/base.html:95
+#: app/templates/home.html:29
 msgid "Share songs and setlists with your friends and bandmates"
-msgstr ""
-"Compartilhe músicas e repertório com seus amigos e membros de banda"
+msgstr "Compartilhe músicas e repertório com seus amigos e membros de banda"
 
-#: app/templates/base.html:101
+#: app/templates/home.html:35
 msgid "Mobile"
 msgstr "Móvel"
 
-#: app/templates/base.html:102
+#: app/templates/home.html:36
 msgid "Download the mobile app and sync it with the web-based interface"
 msgstr "Baixe o aplicativo móvel e sincronize suas músicas com ele"
+
+#~ msgid "Close"
+#~ msgstr "Fechar"
+
+#~ msgid "Send"
+#~ msgstr "Enviar"
+

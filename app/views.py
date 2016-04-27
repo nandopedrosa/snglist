@@ -12,6 +12,7 @@ from flask import render_template, request, session, redirect, url_for, jsonify
 from flask.ext.babel import gettext
 from app import app, babel
 from app.config import LANGUAGES
+from app.forms import ContactForm
 
 
 @app.route('/')
@@ -23,6 +24,15 @@ def index():
     """
 
     return render_template("home.html")
+
+
+@app.route('/contact', methods=["GET"])
+def contact():
+    """
+    Renders the contact page
+    :return: The rendered contact page
+    """
+    return render_template("contact.html", contact_form=ContactForm())
 
 
 @app.route('/change-language', methods=['POST'])

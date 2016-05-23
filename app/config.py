@@ -32,7 +32,7 @@ BABEL_DEFAULT_LOCALE = 'en_US'
 
 # Database Configuration
 if os.environ.get('DATABASE_URL') is None:
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:admin@localhost/snglist'  # Development Database
+    SQLALCHEMY_DATABASE_URI = ''  # Development Database (SQLite)
 else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']  # Heroku Database
 

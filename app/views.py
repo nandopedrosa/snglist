@@ -35,6 +35,29 @@ def contact():
     return render_template("contact.html", contact_form=ContactForm())
 
 
+@app.route('/send-message', methods=["POST"])
+def send_message():
+    """
+    Sends a contact message
+    :return: a JSON file with status code (OK/ERROR). If an error occurs, the JSON file also has a list with the error
+    messages and related fields
+    """
+    form = ContactForm(request.form)
+
+    if form.validate():
+        form.errors['error'] = False
+        form.errors['msg'] = gettext('Message successfully sent')
+        # send_email(form.name.data, form.email.data, form.message.data)
+        print('Email enviado');
+
+    else:
+        form.errors['error'] = True
+        form.errors['msg'] = gettext('Your message could not be sent')
+        print('Email não enviado');
+
+    return jsonify(form.errors)
+
+
 @app.route('/change-language', methods=['POST'])
 def change_language():
     """

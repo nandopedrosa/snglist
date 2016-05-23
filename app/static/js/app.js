@@ -24,13 +24,31 @@
             });
         };
     }]);
-
+ 
     //-------------------------------- Contact Form Controller ------------------------------------------
     app.controller('ContactFormController', ['$http', function ($http) {
 
+    	var ctrl = this;
+    	ctrl.errors = {}; //List of errors   	     	
+    	ctrl.formData = {}; //Form to be serialized
+    	ctrl.message = ''; //Error or Success message
+
+
         //Sends a new contact message and handles the response
         this.sendMessage = function () {
-            //TODO: post send message
+            $http.post('/send-message', ctrl.formData)
+            	.then(function(response) {
+                	console.log(response.data);
+                	if(response.data.error) {                		
+                		ctrl.errors.error = true;                		
+                		ctrl.errors.name = response.data.name[0];
+                		ctrl.errors.email = response.data.email[0];
+                		ctrl.errors.message = response.data.message[0];                		
+                	} else {
+                		ctrl.errors.error = false;                		
+                	}
+                	ctrl.message = response.data.msg;
+            	});
         };
     }]);
 

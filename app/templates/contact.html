@@ -7,29 +7,28 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12" ng-controller="ContactFormController as contactCtrl">
-            <div class="alert alert-danger" ng-show="contactCtrl.errors.error" role="alert">[[ contactCtrl.message ]]</div>
-            <div class="alert alert-success" ng-show="contactCtrl.errors.error != undefined && contactCtrl.errors.error == false" role="alert">[[ contactCtrl.message ]]</div>
-            <form id="contact-form">
-                {{ contact_form.hidden_tag() }}
+    <div class="row" ng-cloak>
+        <div class="col-xs-12" ng-controller="ContactFormController as contactCtlr">
+            <div class="alert alert-danger" ng-show="contactCtlr.errors.error" role="alert">[[ contactCtlr.message ]]</div>
+            <div class="alert alert-success" ng-show="contactCtlr.errors.error != undefined && contactCtlr.errors.error == false" role="alert">[[ contactCtlr.message ]]</div>
+            <form id="contact-form">                
                 <div class="form-group">
                     {{ contact_form.name.label }}
-                    {{ contact_form.name(class="form-control", ng_model="contactCtrl.formData.name", placeholder=contact_form.name.description) }}
-                    <p class="text-danger" ng-show="contactCtrl.errors.name">[[ contactCtrl.errors.name ]]</p>
+                    {{ contact_form.name(class="form-control", ng_model="contactCtlr.formData.name", placeholder=contact_form.name.description) }}
+                    <p class="text-danger">[[ contactCtlr.errors.name ]]</p>
                 </div>
                 <div class="form-group">
                     {{ contact_form.email.label }}
-                    {{ contact_form.email(class="form-control", ng_model="contactCtrl.formData.email", placeholder=contact_form.email.description) }}
-                    <p class="text-danger" ng-show="contactCtrl.errors.email">[[ contactCtrl.errors.email ]]</p>
+                    {{ contact_form.email(class="form-control", ng_model="contactCtlr.formData.email", placeholder=contact_form.email.description) }}
+                    <p class="text-danger">[[ contactCtlr.errors.email ]]</p>
                 </div>
                 <div class="form-group">
                     {{ contact_form.message.label }}
-                    {{ contact_form.message(class="form-control", ng_model="contactCtrl.formData.message", rows="4", placeholder=contact_form.message.description) }}
-                    <p class="text-danger" ng-show="contactCtrl.errors.message">[[ contactCtrl.errors.message ]]</p>
+                    {{ contact_form.message(class="form-control", ng_model="contactCtlr.formData.message", rows="4", placeholder=contact_form.message.description) }}
+                    <p class="text-danger">[[ contactCtlr.errors.message ]]</p>
                 </div>                
             </form>            
-            <button ng-click="contactCtrl.sendMessage()" type="button" class="btn btn-primary pull-left">{{_('Send')}}</button>
+            <button ng-click="contactCtlr.sendMessage()" type="button" class="btn btn-primary pull-left">{{_('Send')}}</button>
         </div>        
     </div>   
 

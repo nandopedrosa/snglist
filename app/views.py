@@ -55,6 +55,7 @@ def send_message():
         form.errors['msg'] = gettext('Your message could not be sent')
         print('Email não enviado');
 
+    print(form.errors)
     return jsonify(form.errors)
 
 

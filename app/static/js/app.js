@@ -14,6 +14,9 @@
         $interpolateProvider.endSymbol(']]');
     }]);
 
+    //Global Variable used by Form Controllers
+    app.value('csrf', $('meta[name="csrf-token"]').attr('content'));
+
     //-------------------------------- NavBar Controller ------------------------------------------
     app.controller('NavBarController', ['$http', function ($http) {
 
@@ -26,29 +29,43 @@
     }]);
  
     //-------------------------------- Contact Form Controller ------------------------------------------
-    app.controller('ContactFormController', ['$http', function ($http) {
+    app.controller('ContactFormController', ['$http', 'csrf', function ($http, csrf) {
 
-    	var ctrl = this;
-    	ctrl.errors = {}; //List of errors   	     	
+    	var ctrl = this;    	     	
     	ctrl.formData = {}; //Form to be serialized
     	ctrl.message = ''; //Error or Success message
 
 
         //Sends a new contact message and handles the response
         this.sendMessage = function () {
-            $http.post('/send-message', ctrl.formData)
-            	.then(function(response) {
-                	console.log(response.data);
-                	if(response.data.error) {                		
-                		ctrl.errors.error = true;                		
-                		ctrl.errors.name = response.data.name[0];
-                		ctrl.errors.email = response.data.email[0];
-                		ctrl.errors.message = response.data.message[0];                		
-                	} else {
-                		ctrl.errors.error = false;                		
-                	}
-                	ctrl.message = response.data.msg;
-            	});
+            ctrl.errors = {}; //List of errors              
+            $http({
+                method: 'POST',
+                url: '/send-message',
+                data: $.param(ctrl.formData),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': csrf}
+            })
+            .then(function(response) {            	
+            	if(response.data.error) {                		                                		
+                    ctrl.errors.error = true;                		
+            		
+                    if(response.data.name != undefined) {
+                        ctrl.errors.name = response.data.name[0];
+                    }
+
+                    if(response.data.email != undefined) {
+                        ctrl.errors.email = response.data.email[0];    
+                    }
+
+                    if(response.data.message != undefined) {
+                        ctrl.errors.message = response.data.message[0];                          
+                    }            		
+            		
+            	} else {
+            		ctrl.errors.error = false;                		
+            	}
+            	ctrl.message = response.data.msg;
+        	});
         };
     }]);
 

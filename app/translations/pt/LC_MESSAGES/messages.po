@@ -3,159 +3,163 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2016-05-20 18:10-0300\n"
-"PO-Revision-Date: 2016-05-20 18:12-0300\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-05-23 22:51-0300\n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.1.1\n"
+"Last-Translator: \n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: app/forms.py:35
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: app/forms.py:35
 msgid "Enter your name"
-msgstr ""
+msgstr "Digite o seu nome"
 
 #: app/forms.py:37
 msgid "Please, enter your name"
-msgstr ""
+msgstr "Por favor, digite o seu nome"
 
 #: app/forms.py:38
 msgid "Your name must have a minimum of 3 characters"
-msgstr ""
+msgstr "O seu nome deve ter no mínimo 3 caracteres"
 
 #: app/forms.py:39
 msgid "Your name must have a maximum of 128 characters"
-msgstr ""
+msgstr "O seu nome deve ter no máximo 128 caracteres"
 
 #: app/forms.py:42
 msgid "Enter your email"
-msgstr ""
+msgstr "Digite seu email"
 
 #: app/forms.py:43
 msgid "Please, enter your email"
-msgstr ""
+msgstr "Por favor, digite seu email"
 
 #: app/forms.py:44
 msgid "Your email must have a minimum of 6 characters"
-msgstr ""
+msgstr "O seu email deve ter no mínimo 6 caracteres"
 
 #: app/forms.py:45
 msgid "Please, inform a valid email"
-msgstr ""
+msgstr "Por favor, informe um email válido"
 
 #: app/forms.py:48
 msgid "Message"
-msgstr ""
+msgstr "Mensagem"
 
 #: app/forms.py:49
 msgid "Please, write your message"
-msgstr ""
+msgstr "Por favor, escreva sua mensagem"
 
 #: app/forms.py:50
 msgid "Your message must have between 3 and 4000 characters"
-msgstr ""
+msgstr "A sua mensagem deve ter entre 3 e 4000 caracteres"
 
 #: app/forms.py:51
 msgid ""
 "Enter your message with suggestions, bug reports or anything else you "
 "think is important"
 msgstr ""
+"Envie sua mensagem com sugestões, erros encontrados ou qualquer outra "
+"coisa que você julgar importante"
 
 #: app/views.py:49
 msgid "Message successfully sent"
-msgstr ""
+msgstr "Mensagem enviada com sucesso"
 
 #: app/views.py:55
 msgid "Your message could not be sent"
-msgstr ""
+msgstr "Sua mensagem não pode ser enviada"
 
 #: app/templates/base.html:49
 msgid "PORTUGUÃŠS"
-msgstr ""
+msgstr "ENGLISH"
 
 #: app/templates/base.html:52 app/templates/contact.html:6
 msgid "Contact"
-msgstr ""
+msgstr "Contato"
 
 #: app/templates/base.html:55
 msgid "About"
-msgstr ""
+msgstr "Sobre"
 
 #: app/templates/base.html:58
 msgid "Sign in"
-msgstr ""
+msgstr "Entrar"
 
 #: app/templates/contact.html:32
 msgid "Send"
-msgstr ""
+msgstr "Enviar"
 
 #: app/templates/home.html:5
 msgid "music on your figners"
-msgstr ""
+msgstr "música nos seus dedos"
 
 #: app/templates/home.html:7
 msgid ""
-"Songlist Plus is a web-based and mobile application with all the features"
-" your band needs. Manage bands, songs, shows and share your repertoire "
-"with your friends. Sync everything with your mobile device and start "
-"rocking! "
+"Songlist Plus is a web-based and mobile application with all the "
+"features your band needs. Manage bands, songs, shows and share your "
+"repertoire with your friends. Sync everything with your mobile device "
+"and start rocking! "
 msgstr ""
+"Songlist Plus é uma aplicação web e mobile que todas as funcionalidades "
+"que sua banda precisa. Gerencie bandas, músicas, shows e compartilhe seu "
+"repertório com seus amigos. Sincronize tudo com seu dispositivo móvel e "
+"comece a tocar!"
 
 #: app/templates/home.html:8
 msgid "Create free account"
-msgstr ""
+msgstr "Criar conta gratuita"
 
 #: app/templates/home.html:14
 msgid "Songs & Setlists"
-msgstr ""
+msgstr "Músicas e Setlists"
 
 #: app/templates/home.html:15
 msgid ""
 "Add as many songs as you want to your repertoire and use them to build "
 "setlists"
-msgstr ""
+msgstr "Adicione quantas músicas você quiser ao seu repertório"
 
 #: app/templates/home.html:17 app/templates/home.html:24
 #: app/templates/home.html:31 app/templates/home.html:38
 msgid "More Info"
-msgstr ""
+msgstr "Mais informação"
 
 #: app/templates/home.html:21
 msgid "Lyrics & Chords"
-msgstr ""
+msgstr "Letras e Cifras"
 
 #: app/templates/home.html:22
 msgid "Add lyrics and chords to your songs so you may never forget them"
 msgstr ""
+"Adicione letras e cifras às suas músicas para que você nunca as esqueça"
 
 #: app/templates/home.html:28
 msgid "Sharing"
-msgstr ""
+msgstr "Compartilhe"
 
 #: app/templates/home.html:29
 msgid "Share songs and setlists with your friends and bandmates"
 msgstr ""
+"Compartilhe músicas e repertórios com seus amigos e membros de banda"
 
 #: app/templates/home.html:35
 msgid "Mobile"
-msgstr ""
+msgstr "Móvel"
 
 #: app/templates/home.html:36
 msgid "Download the mobile app and sync it with the web-based interface"
-msgstr ""
-
-#~ msgid "PORTUGUÃƒÅ S"
-#~ msgstr ""
-
+msgstr "Baixe o aplicativo móvel e sincronize com o site"

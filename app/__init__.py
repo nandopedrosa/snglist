@@ -8,6 +8,7 @@ __email__ = "fpedrosa@gmail.com"
 from flask import Flask
 from flask.ext.mail import Mail
 from flask.ext.babel import Babel
+from flask_wtf.csrf import CsrfProtect
 from flask.json import JSONEncoder as BaseEncoder
 from speaklater import _LazyString
 from app.config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
@@ -79,6 +80,9 @@ class TlsSMTPHandler(logging.handlers.SMTPHandler):
 """
 
 app = Flask(__name__)
+
+# CSRF Protection
+CsrfProtect(app)
 
 # Load Configurations
 app.config.from_pyfile('config.py')

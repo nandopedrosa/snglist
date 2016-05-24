@@ -9,8 +9,7 @@
 
     <div class="row" ng-cloak>
         <div class="col-xs-12" ng-controller="ContactFormController as contactCtlr">
-            <div class="alert alert-danger" ng-show="contactCtlr.errors.error" role="alert">[[ contactCtlr.message ]]</div>
-            <div class="alert alert-success" ng-show="contactCtlr.errors.error != undefined && contactCtlr.errors.error == false" role="alert">[[ contactCtlr.message ]]</div>
+            <div class="alert" ng-class="{'alert-danger': contactCtlr.errors.error == true, 'alert-success': contactCtlr.errors.error == false}" ng-show="contactCtlr.message != ''" role="alert">[[ contactCtlr.message ]]</div>            
             <form id="contact-form">                
                 <div class="form-group">
                     {{ contact_form.name.label }}

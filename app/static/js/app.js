@@ -8,14 +8,15 @@
 (function () {
     var app = angular.module('songlist', []);
 
-    //Change template start and end symbol to play nice with Flask's Jinja2 Templates
-    app.config(['$interpolateProvider', function ($interpolateProvider) {
+    app.config(['$interpolateProvider', '$httpProvider', function ($interpolateProvider, $httpProvider) {
+        //Change template start and end symbol to play nice with Flask's Jinja2 Templates
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
-    }]);
 
-    //Global Variable used by Form Controllers
-    app.value('csrf', $('meta[name="csrf-token"]').attr('content'));
+        //Setup default AJAX post request headers
+        $httpProvider.defaults.headers.post = {'Content-Type': 'application/x-www-form-urlencoded', 
+                                                'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')};        
+    }]);    
 
     //-------------------------------- NavBar Controller ------------------------------------------
     app.controller('NavBarController', ['$http', function ($http) {
@@ -29,42 +30,40 @@
     }]);
  
     //-------------------------------- Contact Form Controller ------------------------------------------
-    app.controller('ContactFormController', ['$http', 'csrf', function ($http, csrf) {
+    app.controller('ContactFormController', ['$http', function ($http) {
 
-    	var ctrl = this;    	     	
-    	ctrl.formData = {}; //Form to be serialized
-    	ctrl.message = ''; //Error or Success message
-
+    	var contactCtlr = this;    	     	
+    	contactCtlr.formData = {}; //Form to be serialized
+    	contactCtlr.message = ''; //Error or Success message
 
         //Sends a new contact message and handles the response
         this.sendMessage = function () {
-            ctrl.errors = {}; //List of errors              
+            contactCtlr.errors = {}; //Init errors              
             $http({
                 method: 'POST',
                 url: '/send-message',
-                data: $.param(ctrl.formData),
-                headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': csrf}
+                data: $.param(contactCtlr.formData)                
             })
             .then(function(response) {            	
             	if(response.data.error) {                		                                		
-                    ctrl.errors.error = true;                		
+                    contactCtlr.errors.error = true;                		
             		
                     if(response.data.name != undefined) {
-                        ctrl.errors.name = response.data.name[0];
+                        contactCtlr.errors.name = response.data.name[0];
                     }
 
                     if(response.data.email != undefined) {
-                        ctrl.errors.email = response.data.email[0];    
+                        contactCtlr.errors.email = response.data.email[0];    
                     }
 
                     if(response.data.message != undefined) {
-                        ctrl.errors.message = response.data.message[0];                          
+                        contactCtlr.errors.message = response.data.message[0];                          
                     }            		
             		
             	} else {
-            		ctrl.errors.error = false;                		
+            		contactCtlr.errors.error = false;                		
             	}
-            	ctrl.message = response.data.msg;
+            	contactCtlr.message = response.data.msg;
         	});
         };
     }]);

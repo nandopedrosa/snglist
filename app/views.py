@@ -13,6 +13,7 @@ from flask.ext.babel import gettext
 from app import app, babel
 from app.config import LANGUAGES
 from app.forms import ContactForm
+from app.util import send_email
 
 
 @app.route('/')
@@ -47,15 +48,11 @@ def send_message():
     if form.validate():
         form.errors['error'] = False
         form.errors['msg'] = gettext('Message successfully sent')
-        # send_email(form.name.data, form.email.data, form.message.data)
-        print('Email enviado');
-
+        send_email(form.name.data, form.email.data, form.message.data)
     else:
         form.errors['error'] = True
         form.errors['msg'] = gettext('Your message could not be sent')
-        print('Email não enviado');
 
-    print(form.errors)
     return jsonify(form.errors)
 
 

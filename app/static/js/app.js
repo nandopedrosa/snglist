@@ -41,7 +41,7 @@
             contactCtlr.errors = {}; //Init errors              
             $http({
                 method: 'POST',
-                url: '/send-message',
+                url: '/contact',
                 data: $.param(contactCtlr.formData)                
             })
             .then(function(response) {            	
@@ -66,6 +66,50 @@
             	}
             	contactCtlr.message = response.data.msg;
         	});
+        };
+    }]);
+
+//-------------------------------- Signup Form Controller ------------------------------------------
+    app.controller('SignupFormController', ['$http', function ($http) {
+
+        var signupCtlr = this;             
+        signupCtlr.formData = {}; //Form to be serialized
+        signupCtlr.message = ''; //Error or Success message
+
+        //Signs up a new user
+        this.signup = function () {
+            signupCtlr.errors = {}; //Init errors              
+            $http({
+                method: 'POST',
+                url: '/signup',
+                data: $.param(signupCtlr.formData)                
+            })
+            .then(function(response) {              
+                if(response.data.error) {                                                               
+                    signupCtlr.errors.error = true;                        
+                    
+                    if(response.data.name != undefined) {
+                        signupCtlr.errors.name = response.data.name[0];
+                    }
+
+                    if(response.data.email != undefined) {
+                        signupCtlr.errors.email = response.data.email[0];    
+                    }
+
+                    if(response.data.password != undefined) {
+                        signupCtlr.errors.password = response.data.password[0];                          
+                    }       
+
+                     if(response.data.password2 != undefined) {
+                        signupCtlr.errors.password2 = response.data.password2[0];                          
+                    }               
+                    
+                } else {
+                    signupCtlr.errors.error = false;      
+                    signupCtlr.formData = {};                  
+                }
+                signupCtlr.message = response.data.msg;
+            });
         };
     }]);
 

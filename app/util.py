@@ -7,14 +7,43 @@ __email__ = "fpedrosa@gmail.com"
 """
 
 from flask.ext.mail import Message
+from flask import url_for
 from app import app, mail
 from app.decorators import async
 from app.config import ADMINS
 
 
-def send_email(username, reply_to, text_body):
+def send_confirmation(username, email, token):
     """
-    Sends an email to the given recipients
+    Sends a confirmation email to a new user
+    :param username: the name of the person who just registered
+    :param email: the email of the recipient
+    :param token: auth token
+    :return: None
+    """
+    subject = get_text("Welcome to Songlist Plus!")
+    msg = Message(subject, recipients=email)
+    msg.body = get_text(
+        """Dear {0},
+
+        Welcome to Songlist Plus!
+
+        To confirm your account, please click on the following link:
+
+        {1}
+
+        Sincerely,
+
+        The Songlist Plus Team
+
+        Note: this is an automatic message, there is no need to reply.
+        """).format(username, url_for('confirmation', token=token, _external=True))
+    __send_email_async(app, msg)
+
+
+def send_contact(username, reply_to, text_body):
+    """
+    Sends a contact message to the given recipients
     :param username: the name of the person who sent the contact message
     :param reply_to: the email of the person who sent the contact message
     :param text_body: the message

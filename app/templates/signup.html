@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="page-header">{{ _('Create free account') }}</h1>
+        </div>
+    </div>
+
+     <div class="row" ng-cloak>
+        <div class="col-xs-12" ng-controller="SignupFormController as signupCtlr">
+            <div class="alert" ng-class="{'alert-danger': signupCtlr.errors.error == true, 'alert-success': signupCtlr.errors.error == false}" ng-show="signupCtlr.message != ''" role="alert">[[ signupCtlr.message ]]</div>            
+            <form id="signup-form">                
+                <div class="form-group">
+                    {{ signup_form.name.label }}
+                    {{ signup_form.name(class="form-control", ng_model="signupCtlr.formData.name", placeholder=signup_form.name.description) }}
+                    <p class="text-danger">[[ signupCtlr.errors.name ]]</p>
+                </div>
+                <div class="form-group">
+                    {{ signup_form.email.label }}
+                    {{ signup_form.email(class="form-control", ng_model="signupCtlr.formData.email", placeholder=signup_form.email.description) }}
+                    <p class="text-danger">[[ signupCtlr.errors.email ]]</p>
+                </div>
+                <div class="form-group">
+                    {{ signup_form.password.label }}
+                    {{ signup_form.password(class="form-control", ng_model="signupCtlr.formData.password", placeholder=signup_form.password.description) }}
+                    <p class="text-danger">[[ signupCtlr.errors.password ]]</p>
+                </div>         
+                <div class="form-group">
+                    {{ signup_form.password2.label }}
+                    {{ signup_form.password2(class="form-control", ng_model="signupCtlr.formData.password2", placeholder=signup_form.password2.description) }}
+                    <p class="text-danger">[[ signupCtlr.errors.password2 ]]</p>
+                </div>                       
+            </form>            
+            <button ng-click="signupCtlr.signup()" type="button" class="btn btn-primary pull-left">{{_('Register')}}</button>
+        </div>        
+    </div>   
+
+{% endblock %}

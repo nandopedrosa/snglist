@@ -13,7 +13,7 @@
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
 
-        //Setup default AJAX post request headers
+        //Setup default AJAX post request headers (gets token from HTML meta header)
         $httpProvider.defaults.headers.post = {'Content-Type': 'application/x-www-form-urlencoded', 
                                                 'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')};        
     }]);    
@@ -61,7 +61,8 @@
                     }            		
             		
             	} else {
-            		contactCtlr.errors.error = false;                		
+            		contactCtlr.errors.error = false;      
+                    contactCtlr.formData = {};          		
             	}
             	contactCtlr.message = response.data.msg;
         	});

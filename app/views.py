@@ -9,11 +9,12 @@ __email__ = "fpedrosa@gmail.com"
 
 import json
 from flask import render_template, request, session, redirect, url_for, jsonify
+from flask.ext.login import login_user, logout_user, login_required, current_user
 from flask.ext.babel import gettext
 from app import app, babel
 from app.config import LANGUAGES
 from app.forms import ContactForm, SignupForm
-from app.util import send_contact
+from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY
 
 
 @app.route('/')
@@ -58,7 +59,7 @@ def get_locale():
 
 
 @app.route('/contact', methods=["GET", "POST"])
-def send_message():
+def contact():
     """
     Sends a contact message
     :return:
@@ -74,7 +75,8 @@ def send_message():
 
     if form.validate():
         form.errors['error'] = False
-        send_contact(form.name.data, form.email.data, form.message.data)
+        body = CONTACT_MAIL_BODY.format(form.name.data, form.email.data, form.message.data)
+        send_email([form.email.data], '[snglist] Someone has sent you a contact message', body)
         form.errors['msg'] = gettext('Message successfully sent')
     else:
         form.errors['error'] = True
@@ -84,9 +86,9 @@ def send_message():
 
 
 @app.route('/signup', methods=["GET", "POST"])
-def contact():
+def signup():
     """
-    Renders the contact page
+    Renders the signup page
     :return: The rendered contact page
     """
     if request.method == 'GET':
@@ -96,10 +98,22 @@ def contact():
 
     if form.validate():
         form.errors['error'] = False
-        # TODO: criar usuario (nao confirmado) e mandar email de confirmacao
+        body = CONFIRMATION_MAIL_BODY.format(form.name.data, url_for('confirmation', token='123456', _external=True))
+        send_email([form.email.data], 'Welcome to Songlist Plus!', body)
         form.errors['msg'] = gettext('Signup succesful')
     else:
         form.errors['error'] = True
         form.errors['msg'] = gettext('Signup unsuccessful. Check the errors below.')
 
     return jsonify(form.errors)
+
+
+@app.route('/confirm/<token>')
+@login_required
+def confirm(token):
+    """
+    Confirms (activates) a user, given a valid token
+    :param token: the authentication token
+    :return: the main page (with a possible success message)
+    """
+    None

@@ -86,6 +86,15 @@ def contact():
     return jsonify(form.errors)
 
 
+@app.route('/info')
+def info():
+    """
+    Renders the More Info Page
+    :return: The rendered "More Info" Page
+    """
+    return render_template("info.html")
+
+
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     """
@@ -157,7 +166,6 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             flash(gettext('Login successful'))
-            redirect(url_for('index'))
         # If not, then we return an error message
         else:
             form.errors['error'] = True

@@ -141,6 +141,8 @@
                     } else {
                         loginCtlr.errors.error = false;      
                         loginCtlr.formData = {};
+                        baseURL = window.location.protocol + "//" + window.location.host;
+                        window.location.href = baseURL;
                     }
                     loginCtlr.message = response.data.msg;
                 });

@@ -2,15 +2,15 @@ Flask-Migrate instructions:
 
 Initialize the DB:
 
-    $ python migrate.py db init
+    python migrate.py db init
 
 Migrate the changes (remember to import your app models):
 
-    $ python migrate.py db migrate
+    python migrate.py db migrate
 
 Update (apply) the changes to DB:
 
-    $ python migrate.py db upgrade
+    python migrate.py db upgrade
 
 Note: it was not straightforward to install Postgres + psycopg and use Flask-Migrate.
 Things to bear in mind:

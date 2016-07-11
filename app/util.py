@@ -8,6 +8,7 @@ __email__ = "fpedrosa@gmail.com"
 
 from flask.ext.mail import Message
 from flask import url_for
+from flask.ext.babel import gettext
 from app import app, mail
 from app.decorators import async
 from app.config import ADMINS
@@ -15,7 +16,7 @@ from app.config import ADMINS
 # Constants
 CONTACT_MAIL_BODY = "Name: {0} \n\nReply to: {1} \n\nMessage:\n\n{2}"
 
-CONFIRMATION_MAIL_BODY = """Welcome to Songlist Plus!
+CONFIRMATION_MAIL_BODY = gettext("""Welcome to Songlist Plus!
 
 To confirm your account, please click on the following link:
 
@@ -26,7 +27,7 @@ Sincerely,
 The Songlist Plus Team
 
 Note: this is an automatic message, there is no need to reply.
-"""
+""")
 
 
 def send_email(to, subject, body):

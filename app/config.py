@@ -8,6 +8,8 @@ __email__ = "fpedrosa@gmail.com"
 """
 import os
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 # Security settings for WTForms
 CSRF_ENABLED = True
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -22,7 +24,7 @@ MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 MAIL_DEFAULT_SENDER = 'songlistplus@gmail.com'
 ADMINS = ['fpedrosa@gmail.com']
 
-# available languages
+# BABEL
 LANGUAGES = {
     'en': 'English',
     'pt': 'Português'
@@ -31,9 +33,11 @@ LANGUAGES = {
 BABEL_DEFAULT_LOCALE = 'en_US'
 
 # Database Configuration
+SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 if os.environ.get('DATABASE_URL') is None:
-    SQLALCHEMY_DATABASE_URI = ''  # Development Database (SQLite)
+    SQLALCHEMY_DATABASE_URI = (
+    'sqlite:///' + os.path.join(basedir, 'data.db') + '?check_same_thread=False')  # Development Database (SQLite)
 else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']  # Heroku Database
-
-SQLALCHEMY_TRACK_MODIFICATIONS = False

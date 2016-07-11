@@ -7,10 +7,11 @@ __email__ = "fpedrosa@gmail.com"
 """
 
 from flask.ext.wtf import Form
-from wtforms import StringField, TextAreaField, PasswordField
-from wtforms.widgets import TextArea, TextInput, PasswordInput
+from wtforms import StringField, TextAreaField, PasswordField, BooleanField, ValidationError
+from wtforms.widgets import TextArea, TextInput, PasswordInput, CheckboxInput
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from flask.ext.babel import lazy_gettext
+from app.models import User
 
 
 # Angular Models (necessary to render custom angular attributes)
@@ -38,7 +39,14 @@ class AngularJSPasswordInput(PasswordInput):
         return super(AngularJSPasswordInput, self).__call__(field, **kwargs)
 
 
-# noinspection PyAbstractClass
+class AngularJSCheckboxInput(CheckboxInput):
+    def __call__(self, field, **kwargs):
+        for key in list(kwargs):
+            if key.startswith('ng_'):
+                kwargs['ng-' + key[3:]] = kwargs.pop(key)
+        return super(AngularJSCheckboxInput, self).__call__(field, **kwargs)
+
+
 class ContactForm(Form):
     name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(), description=lazy_gettext('Enter your name'),
                        validators=[
@@ -71,7 +79,7 @@ class SignupForm(Form):
     email = StringField("Email", widget=AngularJSTextInput(), description=lazy_gettext('Enter your email'), validators=[
         InputRequired(lazy_gettext("Please, enter your email"))
         , Length(min=6, message=lazy_gettext("Your email must have a minimum of 6 characters"))
-        , Email(message=lazy_gettext("Please, inform a valid email"))
+        , Email(message=lazy_gettext('Please, inform a valid email'))
     ])
 
     password = PasswordField(lazy_gettext("Password"),
@@ -86,3 +94,26 @@ class SignupForm(Form):
                               widget=AngularJSPasswordInput(),
                               description=lazy_gettext('Confirm your password'),
                               validators=[InputRequired(lazy_gettext('Please, confirm your password'))])
+
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError(lazy_gettext('Email already registered.'))
+
+
+class LoginForm(Form):
+    email = StringField("Email", widget=AngularJSTextInput(), description=lazy_gettext('Enter your email'), validators=[
+        InputRequired(lazy_gettext("Please, enter your email"))
+        , Length(min=6, message=lazy_gettext("Your email must have a minimum of 6 characters"))
+        , Email(message=lazy_gettext("Please, inform a valid email"))
+    ])
+
+    password = PasswordField(lazy_gettext("Password"),
+                             widget=AngularJSPasswordInput(),
+                             description=lazy_gettext('Enter your password (at least 6 characters)'),
+                             validators=[
+                                 InputRequired(lazy_gettext('Please, enter your password')),
+                                 Length(min=6, message=lazy_gettext("Your password must have at least 6 characters")),
+                             ])
+
+    remember_me = BooleanField(lazy_gettext('Keep me logged in'),
+                               widget=AngularJSCheckboxInput())

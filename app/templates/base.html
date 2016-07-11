@@ -55,16 +55,27 @@
                 <li>
                     <a href="#" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
                 </li>
-                <li>
-                    <a href="#">{{ _('Sign in') }}</a>
-                </li>
-
+                {% if current_user.is_authenticated %}
+                    <li>
+                        <a href="/logout">{{ _('Sign Out') }}</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="/login">{{ _('Sign in') }}</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="container">
+     {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
 
     <!-- Page content-->
     {% block content %} {% endblock %}

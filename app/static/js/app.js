@@ -112,5 +112,39 @@
             });
         };
     }]);
+//-------------------------------- Login Form Controller ------------------------------------------
+    app.controller('LoginFormController', ['$http', function ($http) {
+            var loginCtlr = this;             
+            loginCtlr.formData = {}; //Form to be serialized
+            loginCtlr.message = ''; //Error or Success message
 
-})();
+            //Log in a new user
+            this.login = function () {
+                loginCtlr.errors = {}; //Init errors              
+                $http({
+                    method: 'POST',
+                    url: '/login',
+                    data: $.param(loginCtlr.formData)                
+                })
+                .then(function(response) {              
+                    if(response.data.error) {                                                               
+                        loginCtlr.errors.error = true;                        
+                      
+                        if(response.data.email != undefined) {
+                            loginCtlr.errors.email = response.data.email[0];    
+                        }
+
+                        if(response.data.password != undefined) {
+                            loginCtlr.errors.password = response.data.password[0];                          
+                        }                        
+                        
+                    } else {
+                        loginCtlr.errors.error = false;      
+                        loginCtlr.formData = {};
+                    }
+                    loginCtlr.message = response.data.msg;
+                });
+            };
+        }]);
+
+})(); //End app

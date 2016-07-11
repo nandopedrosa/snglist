@@ -8,13 +8,14 @@ __email__ = "fpedrosa@gmail.com"
 """
 
 import json
-from flask import render_template, request, session, redirect, url_for, jsonify
+from flask import render_template, request, session, redirect, url_for, jsonify, flash
 from flask.ext.login import login_user, logout_user, login_required, current_user
-from flask.ext.babel import gettext
-from app import app, babel
+from flask.ext.babel import gettext, lazy_gettext
+from app import app, babel, db
 from app.config import LANGUAGES
-from app.forms import ContactForm, SignupForm
+from app.forms import ContactForm, SignupForm, LoginForm
 from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY
+from app.models import User
 
 
 @app.route('/')
@@ -98,9 +99,20 @@ def signup():
 
     if form.validate():
         form.errors['error'] = False
-        body = CONFIRMATION_MAIL_BODY.format(form.name.data, url_for('confirmation', token='123456', _external=True))
-        send_email([form.email.data], 'Welcome to Songlist Plus!', body)
-        form.errors['msg'] = gettext('Signup succesful')
+
+        # We add the user to the Database with a pending confirmation
+        user = User(name=form.name.data, email=form.email.data, password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+
+        # Then we send a confirmation email
+        token = user.generate_confirmation_token()
+        body = CONFIRMATION_MAIL_BODY.format(user.name, url_for('confirm', token=token, _external=True))
+        send_email([user.email], gettext('Welcome to Songlist Plus!'), body)
+
+        form.errors['msg'] = gettext(
+            'Signup succesful. To complete your registration, check your email and follow the instructions.')
+
     else:
         form.errors['error'] = True
         form.errors['msg'] = gettext('Signup unsuccessful. Check the errors below.')
@@ -109,11 +121,62 @@ def signup():
 
 
 @app.route('/confirm/<token>')
-@login_required
 def confirm(token):
     """
     Confirms (activates) a user, given a valid token
     :param token: the authentication token
     :return: the main page (with a possible success message)
     """
-    None
+    if current_user.confirmed:
+        return redirect(url_for('index'))
+
+    if current_user.confirm_token(token):
+        flash(gettext('You have confirmed your account. Thanks!'))
+    else:
+        flash(gettext('The confirmation link is invalid or has expired.'))
+
+    return redirect(url_for('index'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """
+    Renders login page
+    :return: The rendered login page or a success logged in user (redirect)
+    """
+    form = LoginForm()
+
+    if request.method == 'GET':
+        return render_template("login.html", login_form=form)
+
+    if form.validate():
+        # First we try to instantiate a valid user with the given credentials
+        user = User.query.filter_by(email=form.email.data).first()
+
+        # If the user is valid, then the login is successful
+        if user is not None and user.verify_password(form.password.data):
+            login_user(user, form.remember_me.data)
+            flash(gettext('Login successful'))
+            redirect(url_for('index'))
+        # If not, then we return an error message
+        else:
+            form.errors['error'] = True
+            form.errors['msg'] = gettext('Invalid email or password')
+
+    else:
+        form.errors['error'] = True
+        form.errors['msg'] = gettext('Login unsuccessful. Check the errors below')
+
+    return jsonify(form.errors)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    """
+    Signs out the current user
+    :return: The main page
+    """
+    logout_user()
+    flash(gettext('You have been logged out.'))
+    return redirect(url_for('index'))

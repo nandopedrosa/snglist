@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="page-header">Login</h1>
+        </div>
+    </div>
+
+     <div class="row" ng-cloak>
+        <div class="col-xs-12" ng-controller="LoginFormController as loginCtlr">
+            <div class="alert" ng-class="{'alert-danger': loginCtlr.errors.error == true, 'alert-success': loginCtlr.errors.error == false}" ng-show="loginCtlr.message != ''" role="alert">[[ loginCtlr.message ]]</div>            
+            <form id="login-form">                                
+                <div class="form-group">
+                    {{ login_form.email.label }}
+                    {{ login_form.email(class="form-control", ng_model="loginCtlr.formData.email", placeholder=login_form.email.description) }}
+                    <p class="text-danger">[[ loginCtlr.errors.email ]]</p>
+                </div>
+                <div class="form-group">
+                    {{ login_form.password.label }}
+                    {{ login_form.password(class="form-control", ng_model="loginCtlr.formData.password", placeholder=login_form.password.description) }}
+                    <p class="text-danger">[[ loginCtlr.errors.password ]]</p>
+                </div>        
+                <div class="form-group"> 
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="" ng-model="loginCtlr.formData.remember_me">{{ login_form.remember_me.label }}</label>
+                    </div>                  
+                </div>                                   
+            </form>            
+            <button ng-click="loginCtlr.login()" type="button" class="btn btn-primary pull-left">Login</button>
+        </div>        
+    </div>   
+
+{% endblock %}

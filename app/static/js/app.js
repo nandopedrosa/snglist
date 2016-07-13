@@ -179,8 +179,12 @@
                         profileCtlr.errors.password = response.data.password[0];                          
                     }       
 
-                     if(response.data.password2 != undefined) {
+                    if(response.data.password2 != undefined) {
                         profileCtlr.errors.password2 = response.data.password2[0];                          
+                    }               
+
+                    if(response.data.currentpassword != undefined) {
+                        profileCtlr.errors.currentpassword = response.data.currentpassword[0];
                     }               
                     
                 } else {
@@ -189,6 +193,39 @@
                 profileCtlr.message = response.data.msg;
             });
         };
+
+        this.deleteUser = function () {
+            profileCtlr.errors = {}; //Init errors              
+            $http({
+                method: 'POST',
+                url: '/delete-user'                
+            })
+            .then(function successCallback(response) {
+                profileCtlr.errors.error = false;   
+                baseURL = window.location.protocol + "//" + window.location.host;
+                window.location.href = baseURL;     
+            }, function errorCallback(response) {
+                profileCtlr.errors.error = true;   
+                profileCtlr.message = 'There as an error processing your request. Please contact the site administrator';
+            });
+        };    
     }]);
+
+//-------------------------------- Confirmation Dialog Directive ------------------------------------------
+    app.directive('confirmationNeeded', function () {
+        return {
+            priority: 1,
+            terminal: true,
+            link: function (scope, element, attr) {
+              var msg = attr.confirmationNeeded || $('meta[name="confirmation"]').attr('content');
+              var clickAction = attr.ngClick;
+              element.bind('click',function () {
+                if ( window.confirm(msg) ) {
+                  scope.$eval(clickAction)
+                }
+              });
+            }
+        };
+    });     
 
 })(); //End app

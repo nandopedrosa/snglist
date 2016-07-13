@@ -162,6 +162,18 @@ def profile():
         return jsonify(form.errors)
 
 
+@app.route('/delete-user', methods=["POST"])
+@login_required
+def delete_user():
+    """
+    Deletes a user (logical deletion)
+    :return: The home page
+    """
+    db.session.delete(current_user)
+    flash(gettext('Your account has been deleted. Thanks for using Songlist Plus!'))
+    return jsonify(dict())
+
+
 @app.route('/confirm/<token>')
 def confirm(token):
     """

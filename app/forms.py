@@ -11,6 +11,7 @@ from wtforms import StringField, TextAreaField, PasswordField, BooleanField, Val
 from wtforms.widgets import TextArea, TextInput, PasswordInput, CheckboxInput
 from wtforms.validators import InputRequired, Length, Email, EqualTo, Optional
 from flask.ext.babel import lazy_gettext
+from flask.ext.login import current_user
 from app.models import User
 
 
@@ -95,6 +96,7 @@ class SignupForm(Form):
                               description=lazy_gettext('Confirm your password'),
                               validators=[InputRequired(lazy_gettext('Please, confirm your password'))])
 
+    # noinspection PyMethodMayBeStatic
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError(lazy_gettext('Email already registered.'))
@@ -108,16 +110,31 @@ class ProfileForm(Form):
                            Length(max=128, message=lazy_gettext("Your name must have a maximum of 128 characters"))
                        ])
 
-    password = PasswordField(lazy_gettext("Password"),
+    password = PasswordField(lazy_gettext("New Password"),
                              widget=AngularJSPasswordInput(),
                              description=lazy_gettext('Enter your password (at least 6 characters)'),
                              validators=[Optional(),
-                                 Length(min=6, message=lazy_gettext("Your password must have at least 6 characters")),
-                                 EqualTo('password2', message=lazy_gettext('Passwords must match'))])
+                                         Length(min=6,
+                                                message=lazy_gettext("Your password must have at least 6 characters")),
+                                         EqualTo('password2', message=lazy_gettext('Passwords must match'))])
 
-    password2 = PasswordField(lazy_gettext("Confirm Password"),
+    password2 = PasswordField(lazy_gettext("Confirm New Password"),
                               widget=AngularJSPasswordInput(),
                               description=lazy_gettext('Confirm your password'))
+
+    currentpassword = PasswordField(lazy_gettext("Please enter your current password to confirm changes:"),
+                                    widget=AngularJSPasswordInput(),
+                                    description=lazy_gettext('Enter your current password'),
+                                    validators=[InputRequired(lazy_gettext("Please, enter your current password")),
+                                                Length(min=6,
+                                                       message=lazy_gettext(
+                                                           "Your password must have at least 6 characters"))
+                                                ])
+
+    # noinspection PyMethodMayBeStatic
+    def validate_currentpassword(self, field):
+        if not current_user.verify_password(field.data):
+            raise ValidationError(lazy_gettext('Invalid current password'))
 
 
 class LoginForm(Form):

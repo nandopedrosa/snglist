@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-12 14:54-0300\n"
+"POT-Creation-Date: 2016-07-13 12:45-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,97 +21,121 @@ msgstr ""
 msgid "Please enter your credentials to confirm this request"
 msgstr ""
 
-#: app/forms.py:51 app/forms.py:72
+#: app/forms.py:52 app/forms.py:73 app/forms.py:106
 msgid "Name"
 msgstr ""
 
-#: app/forms.py:51 app/forms.py:72
+#: app/forms.py:52 app/forms.py:73 app/forms.py:106
 msgid "Enter your name"
 msgstr ""
 
-#: app/forms.py:53 app/forms.py:74
+#: app/forms.py:54 app/forms.py:75 app/forms.py:108
 msgid "Please, enter your name"
 msgstr ""
 
-#: app/forms.py:54 app/forms.py:75
+#: app/forms.py:55 app/forms.py:76 app/forms.py:109
 msgid "Your name must have a minimum of 3 characters"
 msgstr ""
 
-#: app/forms.py:55 app/forms.py:76
+#: app/forms.py:56 app/forms.py:77 app/forms.py:110
 msgid "Your name must have a maximum of 128 characters"
 msgstr ""
 
-#: app/forms.py:58 app/forms.py:79 app/forms.py:104
+#: app/forms.py:59 app/forms.py:80 app/forms.py:141
 msgid "Enter your email"
 msgstr ""
 
-#: app/forms.py:59 app/forms.py:80 app/forms.py:105
+#: app/forms.py:60 app/forms.py:81 app/forms.py:142
 msgid "Please, enter your email"
 msgstr ""
 
-#: app/forms.py:60 app/forms.py:81 app/forms.py:106
+#: app/forms.py:61 app/forms.py:82 app/forms.py:143
 msgid "Your email must have a minimum of 6 characters"
 msgstr ""
 
-#: app/forms.py:61 app/forms.py:82 app/forms.py:107
+#: app/forms.py:62 app/forms.py:83 app/forms.py:144
 msgid "Please, inform a valid email"
 msgstr ""
 
-#: app/forms.py:64
+#: app/forms.py:65
 msgid "Message"
 msgstr ""
 
-#: app/forms.py:65
+#: app/forms.py:66
 msgid "Please, write your message"
 msgstr ""
 
-#: app/forms.py:66
+#: app/forms.py:67
 msgid "Your message must have between 3 and 4000 characters"
 msgstr ""
 
-#: app/forms.py:67
+#: app/forms.py:68
 msgid ""
 "Enter your message with suggestions, bug reports or anything else you "
 "think is important"
 msgstr ""
 
-#: app/forms.py:85 app/forms.py:110
+#: app/forms.py:86 app/forms.py:147
 msgid "Password"
 msgstr ""
 
-#: app/forms.py:87 app/forms.py:112
+#: app/forms.py:88 app/forms.py:115 app/forms.py:149
 msgid "Enter your password (at least 6 characters)"
 msgstr ""
 
-#: app/forms.py:89 app/forms.py:114
+#: app/forms.py:90 app/forms.py:151
 msgid "Please, enter your password"
 msgstr ""
 
-#: app/forms.py:90 app/forms.py:115
+#: app/forms.py:91 app/forms.py:118 app/forms.py:130 app/forms.py:152
 msgid "Your password must have at least 6 characters"
 msgstr ""
 
-#: app/forms.py:91
+#: app/forms.py:92 app/forms.py:119
 msgid "Passwords must match"
 msgstr ""
 
-#: app/forms.py:93
+#: app/forms.py:94
 msgid "Confirm Password"
 msgstr ""
 
-#: app/forms.py:95
+#: app/forms.py:96 app/forms.py:123
 msgid "Confirm your password"
 msgstr ""
 
-#: app/forms.py:96
+#: app/forms.py:97
 msgid "Please, confirm your password"
 msgstr ""
 
-#: app/forms.py:100
+#: app/forms.py:102
 msgid "Email already registered."
 msgstr ""
 
-#: app/forms.py:118
+#: app/forms.py:113
+msgid "New Password"
+msgstr ""
+
+#: app/forms.py:121
+msgid "Confirm New Password"
+msgstr ""
+
+#: app/forms.py:125
+msgid "Please enter your current password to confirm changes:"
+msgstr ""
+
+#: app/forms.py:127
+msgid "Enter your current password"
+msgstr ""
+
+#: app/forms.py:128
+msgid "Please, enter your current password"
+msgstr ""
+
+#: app/forms.py:137
+msgid "Invalid current password"
+msgstr ""
+
+#: app/forms.py:155
 msgid "Keep me logged in"
 msgstr ""
 
@@ -152,69 +176,85 @@ msgstr ""
 msgid "Signup unsuccessful. Check the errors below."
 msgstr ""
 
-#: app/views.py:143
+#: app/views.py:156
+msgid "Profile updated"
+msgstr ""
+
+#: app/views.py:160
+msgid "Your request was not successful. Please, check the errors below."
+msgstr ""
+
+#: app/views.py:173
+msgid "Your account has been deleted. Thanks for using Songlist Plus!"
+msgstr ""
+
+#: app/views.py:188
 msgid "You have confirmed your account. Thanks!"
 msgstr ""
 
-#: app/views.py:145
+#: app/views.py:190
 msgid "The confirmation link is invalid or has expired."
 msgstr ""
 
-#: app/views.py:168
+#: app/views.py:213
 msgid "Login successful"
 msgstr ""
 
-#: app/views.py:172
+#: app/views.py:217
 msgid "Invalid email or password"
 msgstr ""
 
-#: app/views.py:176
+#: app/views.py:221
 msgid "Login unsuccessful. Check the errors below"
 msgstr ""
 
-#: app/views.py:189
+#: app/views.py:234
 msgid "You have been logged out."
 msgstr ""
 
-#: app/templates/base.html:51 app/templates/base.html:64
+#: app/templates/base.html:8
+msgid "Confirm this action?"
+msgstr ""
+
+#: app/templates/base.html:52 app/templates/base.html:65
 msgid "Português"
 msgstr ""
 
-#: app/templates/base.html:54 app/templates/base.html:84
+#: app/templates/base.html:55 app/templates/base.html:85
 #: app/templates/contact.html:6
 msgid "Contact"
 msgstr ""
 
-#: app/templates/base.html:57 app/templates/base.html:87
-#: app/templates/base.html:129
+#: app/templates/base.html:58 app/templates/base.html:88
+#: app/templates/base.html:130
 msgid "About"
 msgstr ""
 
-#: app/templates/base.html:60
+#: app/templates/base.html:61
 msgid "Sign in"
 msgstr ""
 
-#: app/templates/base.html:67
+#: app/templates/base.html:68
 msgid "Bands"
 msgstr ""
 
-#: app/templates/base.html:70
+#: app/templates/base.html:71
 msgid "Songs"
 msgstr ""
 
-#: app/templates/base.html:73
+#: app/templates/base.html:74
 msgid "Shows"
 msgstr ""
 
-#: app/templates/base.html:81
+#: app/templates/base.html:82 app/templates/profile.html:6
 msgid "Profile"
 msgstr ""
 
-#: app/templates/base.html:90
+#: app/templates/base.html:91
 msgid "Sign Out"
 msgstr ""
 
-#: app/templates/base.html:137
+#: app/templates/base.html:138
 msgid "Close"
 msgstr ""
 
@@ -283,6 +323,28 @@ msgstr ""
 
 #: app/templates/info.html:29
 msgid "Lyrics and Chords"
+msgstr ""
+
+#: app/templates/profile.html:37
+msgid "Save changes"
+msgstr ""
+
+#: app/templates/profile.html:47
+msgid "Save Changes"
+msgstr ""
+
+#: app/templates/profile.html:58
+msgid "Delete Account"
+msgstr ""
+
+#: app/templates/profile.html:61
+msgid ""
+"You may delete your account at any time. However, this action is "
+"irreversible."
+msgstr ""
+
+#: app/templates/profile.html:62
+msgid "I understand, delete my account"
 msgstr ""
 
 #: app/templates/signup.html:35

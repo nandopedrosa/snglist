@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="page-header">{{ _('Profile') }}</h1>
+        </div>
+    </div>
+
+     <div class="row" ng-cloak>
+        <div class="col-xs-12" ng-controller="ProfileFormController as profileCtlr">
+            <div class="alert" ng-class="{'alert-danger': profileCtlr.errors.error == true, 'alert-success': profileCtlr.errors.error == false}" ng-show="profileCtlr.message != ''" role="alert">[[ profileCtlr.message ]]</div>        
+                      
+            <form id="profile-form">                
+                <div class="form-group">
+                    {{ profile_form.name.label }}
+                    {{ profile_form.name(class="form-control", ng_model="profileCtlr.formData.name", placeholder=profile_form.name.description) }}
+                    <p class="text-danger">[[ profileCtlr.errors.name ]]</p>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <p class="form-control-static">{{current_user.email}}</p>
+                </div>
+                <div class="form-group">
+                    {{ profile_form.password.label }}
+                    {{ profile_form.password(class="form-control", ng_model="profileCtlr.formData.password", placeholder=profile_form.password.description) }}
+                    <p class="text-danger">[[ profileCtlr.errors.password ]]</p>
+                </div>         
+                <div class="form-group">
+                    {{ profile_form.password2.label }}
+                    {{ profile_form.password2(class="form-control", ng_model="profileCtlr.formData.password2", placeholder=profile_form.password2.description) }}
+                    <p class="text-danger">[[ profileCtlr.errors.password2 ]]</p>
+                </div>                       
+            </form>            
+            <button ng-click="profileCtlr.updateProfile()" type="button" class="btn btn-primary pull-left">{{_('Save Changes')}}</button>
+        </div>        
+    </div>  
+    <br>
+     <div class="row" ng-cloak>
+        <div class="col-xs-12" ng-controller="ProfileFormController as profileCtlr">
+              <div class="panel panel-danger">
+                <div class="panel-heading"> 
+                    <h3 class="panel-title">{{_('Delete Account')}}</h3> 
+                </div> 
+                <div class="panel-body">
+                     <p>{{ _('You may delete your account at any time. However, this action is irreversible.') }}</p>
+                     <button ng-click="profileCtlr.deleteUser()" type="button" class="btn btn-danger">{{_('I understand, delete my account')}}</button>
+                </div>                
+            </div>
+        </div>    
+     </div>   
+{% endblock %}

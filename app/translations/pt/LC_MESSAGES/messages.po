@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-05-26 15:46-0300\n"
-"PO-Revision-Date: 2016-05-26 15:47-0300\n"
+"POT-Creation-Date: 2016-07-12 14:54-0300\n"
+"PO-Revision-Date: 2016-07-12 14:54-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -19,85 +19,222 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 "X-Generator: Poedit 1.8.6\n"
 
-#: app/forms.py:35
+#: app/__init__.py:107
+msgid "Please enter your credentials to confirm this request"
+msgstr ""
+"Por favor, informe seu Login (email) e Senha para confirmar esta requisição"
+
+#: app/forms.py:51 app/forms.py:72
 msgid "Name"
 msgstr "Nome"
 
-#: app/forms.py:35
+#: app/forms.py:51 app/forms.py:72
 msgid "Enter your name"
-msgstr "Digite o seu nome"
+msgstr "Digite seu nome\t"
 
-#: app/forms.py:37
+#: app/forms.py:53 app/forms.py:74
 msgid "Please, enter your name"
 msgstr "Por favor, digite o seu nome"
 
-#: app/forms.py:38
+#: app/forms.py:54 app/forms.py:75
 msgid "Your name must have a minimum of 3 characters"
 msgstr "O seu nome deve ter no mínimo 3 caracteres"
 
-#: app/forms.py:39
+#: app/forms.py:55 app/forms.py:76
 msgid "Your name must have a maximum of 128 characters"
 msgstr "O seu nome deve ter no máximo 128 caracteres"
 
-#: app/forms.py:42
+#: app/forms.py:58 app/forms.py:79 app/forms.py:104
 msgid "Enter your email"
-msgstr "Digite seu email"
+msgstr "Digite o seu email"
 
-#: app/forms.py:43
+#: app/forms.py:59 app/forms.py:80 app/forms.py:105
 msgid "Please, enter your email"
-msgstr "Por favor, digite seu email"
+msgstr "Por favor, digite o seu email"
 
-#: app/forms.py:44
+#: app/forms.py:60 app/forms.py:81 app/forms.py:106
 msgid "Your email must have a minimum of 6 characters"
 msgstr "O seu email deve ter no mínimo 6 caracteres"
 
-#: app/forms.py:45
+#: app/forms.py:61 app/forms.py:82 app/forms.py:107
 msgid "Please, inform a valid email"
 msgstr "Por favor, informe um email válido"
 
-#: app/forms.py:48
+#: app/forms.py:64
 msgid "Message"
 msgstr "Mensagem"
 
-#: app/forms.py:49
+#: app/forms.py:65
 msgid "Please, write your message"
-msgstr "Por favor, escreva sua mensagem"
+msgstr "Por favor, digite a sua mensagem"
 
-#: app/forms.py:50
+#: app/forms.py:66
 msgid "Your message must have between 3 and 4000 characters"
 msgstr "A sua mensagem deve ter entre 3 e 4000 caracteres"
 
-#: app/forms.py:51
+#: app/forms.py:67
 msgid ""
 "Enter your message with suggestions, bug reports or anything else you think "
 "is important"
 msgstr ""
-"Envie sua mensagem com sugestões, erros encontrados ou qualquer outra coisa "
-"que você julgar importante"
+"Digite a sua mensagem com sugestões, erros encontrados ou qualquer outro "
+"assunto que você julgar importante"
 
-#: app/views.py:49
+#: app/forms.py:85 app/forms.py:110
+msgid "Password"
+msgstr "Senha"
+
+#: app/forms.py:87 app/forms.py:112
+msgid "Enter your password (at least 6 characters)"
+msgstr "Digite a sua senha (no mínimo 6 caracteres)"
+
+#: app/forms.py:89 app/forms.py:114
+msgid "Please, enter your password"
+msgstr "Por favor, digite a sua senha"
+
+#: app/forms.py:90 app/forms.py:115
+msgid "Your password must have at least 6 characters"
+msgstr "A sua senha deve ter no mínimo 6 caracteres"
+
+#: app/forms.py:91
+msgid "Passwords must match"
+msgstr "A senha e a sua confirmação não conferem"
+
+#: app/forms.py:93
+msgid "Confirm Password"
+msgstr "Confirmar senha"
+
+#: app/forms.py:95
+msgid "Confirm your password"
+msgstr "Confirme a sua senha"
+
+#: app/forms.py:96
+msgid "Please, confirm your password"
+msgstr "Por favor, confirme a sua senha\t"
+
+#: app/forms.py:100
+msgid "Email already registered."
+msgstr "Esse email já foi registrado, por favor escolha outra"
+
+#: app/forms.py:118
+msgid "Keep me logged in"
+msgstr "Mantenha-me logado"
+
+#: app/util.py:19
+msgid ""
+"Welcome to Songlist Plus!\n"
+"\n"
+"To confirm your account, please click on the following link:\n"
+"\n"
+"{1}\n"
+"\n"
+"Sincerely,\n"
+"\n"
+"The Songlist Plus Team\n"
+"\n"
+"Note: this is an automatic message, there is no need to reply.\n"
+msgstr ""
+"Bem-vindo ao Songlist Plus!\n"
+"\n"
+"Para confirmar sua conta, por favor clique no link a seguir:\n"
+"\n"
+"{1}\n"
+"\n"
+"Atenciosamente,\n"
+"\n"
+"A equipe do Songlist Plus.\n"
+"\n"
+"Nota: esta é uma mensagem automática, não é necessário respondê-la.\n"
+
+#: app/views.py:81
 msgid "Message successfully sent"
 msgstr "Mensagem enviada com sucesso"
 
-#: app/views.py:55
-msgid "Your message could not be sent"
-msgstr "Sua mensagem não pode ser enviada"
+#: app/views.py:84
+msgid "Your message could not be sent. Check the errors below."
+msgstr "A sua mensagem não pôde ser enviada. Verifique os erros abaixo."
 
-#: app/templates/base.html:50
-msgid "PORTUGUÊS"
-msgstr "ENGLISH"
+#: app/views.py:120
+msgid "Welcome to Songlist Plus!"
+msgstr "Bem-vindo ao Songlist Plus!"
 
-#: app/templates/base.html:53 app/templates/contact.html:6
+#: app/views.py:122
+msgid ""
+"Signup succesful. To complete your registration, check your email and follow "
+"the instructions."
+msgstr ""
+"Registro realizado com sucesso. Para ativar sua conta, verifique o seu email "
+"e siga as instruções contidas nele."
+
+#: app/views.py:127
+msgid "Signup unsuccessful. Check the errors below."
+msgstr "Não foi possível realizar o seu registro. Verifique os erros abaixo."
+
+#: app/views.py:143
+msgid "You have confirmed your account. Thanks!"
+msgstr "Você confirmou e ativou a sua conta com sucesso. Obrigado!"
+
+#: app/views.py:145
+msgid "The confirmation link is invalid or has expired."
+msgstr "O link de confirmação é inválido ou expirou."
+
+#: app/views.py:168
+msgid "Login successful"
+msgstr "Login realizado com sucesso"
+
+#: app/views.py:172
+msgid "Invalid email or password"
+msgstr "Email ou Senha inválidos"
+
+#: app/views.py:176
+msgid "Login unsuccessful. Check the errors below"
+msgstr "Não foi possível realizar o Login. Verifique os erros abaixo."
+
+#: app/views.py:189
+msgid "You have been logged out."
+msgstr "Logout realizado com sucesso."
+
+#: app/templates/base.html:51 app/templates/base.html:64
+msgid "Português"
+msgstr "English"
+
+#: app/templates/base.html:54 app/templates/base.html:84
+#: app/templates/contact.html:6
 msgid "Contact"
 msgstr "Contato"
 
-#: app/templates/base.html:56
+#: app/templates/base.html:57 app/templates/base.html:87
+#: app/templates/base.html:129
 msgid "About"
 msgstr "Sobre"
 
-#: app/templates/base.html:59
+#: app/templates/base.html:60
 msgid "Sign in"
 msgstr "Entrar"
+
+#: app/templates/base.html:67
+msgid "Bands"
+msgstr "Bandas"
+
+#: app/templates/base.html:70
+msgid "Songs"
+msgstr "Músicas"
+
+#: app/templates/base.html:73
+msgid "Shows"
+msgstr "Shows"
+
+#: app/templates/base.html:81
+msgid "Profile"
+msgstr "Perfil"
+
+#: app/templates/base.html:90
+msgid "Sign Out"
+msgstr "Sair"
+
+#: app/templates/base.html:137
+msgid "Close"
+msgstr "Fechar"
 
 #: app/templates/contact.html:30
 msgid "Send"
@@ -118,7 +255,7 @@ msgstr ""
 "repertório com seus amigos. Sincronize tudo com seu dispositivo móvel e "
 "comece a tocar!"
 
-#: app/templates/home.html:8
+#: app/templates/home.html:8 app/templates/signup.html:6
 msgid "Create free account"
 msgstr "Criar conta gratuita"
 
@@ -145,7 +282,7 @@ msgstr "Letras e Cifras"
 msgid "Add lyrics and chords to your songs so you may never forget them"
 msgstr "Adicione letras e cifras às suas músicas para que você nunca as esqueça"
 
-#: app/templates/home.html:28
+#: app/templates/home.html:28 app/templates/info.html:52
 msgid "Sharing"
 msgstr "Compartilhe"
 
@@ -153,7 +290,7 @@ msgstr "Compartilhe"
 msgid "Share songs and setlists with your friends and bandmates"
 msgstr "Compartilhe músicas e repertórios com seus amigos e membros de banda"
 
-#: app/templates/home.html:35
+#: app/templates/home.html:35 app/templates/info.html:75
 msgid "Mobile"
 msgstr "Móvel"
 
@@ -161,5 +298,14 @@ msgstr "Móvel"
 msgid "Download the mobile app and sync it with the web-based interface"
 msgstr "Baixe o aplicativo móvel e sincronize com o site"
 
-#~ msgid "PORTUGUÃŠS"
-#~ msgstr "ENGLISH"
+#: app/templates/info.html:6
+msgid "Songs and Setlists"
+msgstr "Músicas e Setlists"
+
+#: app/templates/info.html:29
+msgid "Lyrics and Chords"
+msgstr "Letras e Cifras"
+
+#: app/templates/signup.html:35
+msgid "Register"
+msgstr "Inscrever-se"

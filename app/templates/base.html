@@ -48,7 +48,7 @@
             <ul class="nav navbar-nav navbar-right" id="sng-nav-menu">
                 {% if not current_user.is_authenticated %}
                 <li>
-                    <a href="#" ng-click="navCtlr.changeLanguage()">{{ _('PORTUGU\u00caS') }}</a>
+                    <a href="#" ng-click="navCtlr.changeLanguage()">{{ _('Portugu\u00eas') }}</a>
                 </li>
                 <li>
                     <a href="/contact">{{ _('Contact') }}</a>
@@ -61,7 +61,7 @@
                 </li>
                 {% else %}
                 <li>
-                    <a href="#" ng-click="navCtlr.changeLanguage()">{{ _('PORTUGU\u00caS') }}</a>
+                    <a href="#" ng-click="navCtlr.changeLanguage()">{{ _('Portugu\u00eas') }}</a>
                 </li>
                 <li>
                     <a href="#">{{ _('Bands') }} ()</a>
@@ -78,7 +78,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">{{ _('Profile') }}</a>
+                            <a href="/profile">{{ _('Profile') }}</a>
                         </li>                        
                         <li>
                             <a href="/contact">{{ _('Contact') }}</a>

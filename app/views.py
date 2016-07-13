@@ -13,7 +13,7 @@ from flask.ext.login import login_user, logout_user, login_required, current_use
 from flask.ext.babel import gettext, lazy_gettext
 from app import app, babel, db
 from app.config import LANGUAGES
-from app.forms import ContactForm, SignupForm, LoginForm
+from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm
 from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY
 from app.models import User
 
@@ -127,6 +127,39 @@ def signup():
         form.errors['msg'] = gettext('Signup unsuccessful. Check the errors below.')
 
     return jsonify(form.errors)
+
+
+@app.route('/profile', methods=["GET", "POST"])
+@login_required
+def profile():
+    """
+    Updates the user information
+    :return: The rendered Profile page
+    """
+
+    if request.method == 'GET':
+        form = ProfileForm()
+        form.name.data = current_user.name
+        return render_template("profile.html", profile_form=form)
+
+    else:
+        form = ProfileForm(request.form)
+
+        if form.validate():
+            form.errors['error'] = False
+
+            # Update the user
+            current_user.name = form.name.data
+            current_user.password = form.password.data
+            db.session.add(current_user)
+
+            form.errors['msg'] = gettext('Profile updated')
+
+        else:
+            form.errors['error'] = True
+            form.errors['msg'] = gettext('Your request was not successful. Please, check the errors below.')
+
+        return jsonify(form.errors)
 
 
 @app.route('/confirm/<token>')

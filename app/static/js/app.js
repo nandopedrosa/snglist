@@ -149,4 +149,46 @@
             };
         }]);
 
+//-------------------------------- Profile Form Controller ------------------------------------------
+    app.controller('ProfileFormController', ['$http', function ($http) {
+
+        var profileCtlr = this;  
+        profileCtlr.formData = {}; // Form to be serialized            
+        profileCtlr.message = ''; //Error or Success message
+
+        //Fetch Form Data from the backend (sent by WTForms)        
+        profileCtlr.formData.name = $('#name').attr('value');
+
+        //Updates the user profile
+        this.updateProfile = function () {
+            profileCtlr.errors = {}; //Init errors              
+            $http({
+                method: 'POST',
+                url: '/profile',
+                data: $.param(profileCtlr.formData)                
+            })
+            .then(function(response) {              
+                if(response.data.error) {                                                               
+                    profileCtlr.errors.error = true;                        
+                    
+                    if(response.data.name != undefined) {
+                        profileCtlr.errors.name = response.data.name[0];
+                    }
+
+                    if(response.data.password != undefined) {
+                        profileCtlr.errors.password = response.data.password[0];                          
+                    }       
+
+                     if(response.data.password2 != undefined) {
+                        profileCtlr.errors.password2 = response.data.password2[0];                          
+                    }               
+                    
+                } else {
+                    profileCtlr.errors.error = false;                       
+                }
+                profileCtlr.message = response.data.msg;
+            });
+        };
+    }]);
+
 })(); //End app

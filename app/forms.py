@@ -9,7 +9,7 @@ __email__ = "fpedrosa@gmail.com"
 from flask.ext.wtf import Form
 from wtforms import StringField, TextAreaField, PasswordField, BooleanField, ValidationError
 from wtforms.widgets import TextArea, TextInput, PasswordInput, CheckboxInput
-from wtforms.validators import InputRequired, Length, Email, EqualTo
+from wtforms.validators import InputRequired, Length, Email, EqualTo, Optional
 from flask.ext.babel import lazy_gettext
 from app.models import User
 
@@ -98,6 +98,26 @@ class SignupForm(Form):
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError(lazy_gettext('Email already registered.'))
+
+
+class ProfileForm(Form):
+    name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(), description=lazy_gettext('Enter your name'),
+                       validators=[
+                           InputRequired(lazy_gettext("Please, enter your name")),
+                           Length(min=2, message=lazy_gettext("Your name must have a minimum of 3 characters")),
+                           Length(max=128, message=lazy_gettext("Your name must have a maximum of 128 characters"))
+                       ])
+
+    password = PasswordField(lazy_gettext("Password"),
+                             widget=AngularJSPasswordInput(),
+                             description=lazy_gettext('Enter your password (at least 6 characters)'),
+                             validators=[Optional(),
+                                 Length(min=6, message=lazy_gettext("Your password must have at least 6 characters")),
+                                 EqualTo('password2', message=lazy_gettext('Passwords must match'))])
+
+    password2 = PasswordField(lazy_gettext("Confirm Password"),
+                              widget=AngularJSPasswordInput(),
+                              description=lazy_gettext('Confirm your password'))
 
 
 class LoginForm(Form):

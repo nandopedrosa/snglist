@@ -7,15 +7,14 @@ __email__ = "fpedrosa@gmail.com"
 
 """
 
-import json
 from flask import render_template, request, session, redirect, url_for, jsonify, flash
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from flask.ext.babel import gettext, lazy_gettext
 from app import app, babel, db
 from app.config import LANGUAGES
-from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm
+from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm
 from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user
-from app.models import User, Band
+from app.models import User, Band, BandMember
 
 
 @app.route('/')
@@ -222,6 +221,7 @@ def login():
 
                 form.errors['error'] = False
                 form.errors['msg'] = ''
+
         # If not, then we return an error message
         else:
             form.errors['error'] = True
@@ -251,13 +251,13 @@ def logout():
 def edit_band():
     """
     Add or Edit a band
-    :param id: the band id
     :return: The updated band info
     """
     # TODO: check if the band belongs to the current user
 
     if request.method == 'GET':
         form = BandForm()
+        member_form = BandMemberForm()
         band_id = request.args.get('id')
 
         # Edit Band
@@ -268,10 +268,11 @@ def edit_band():
                 return render_template("not-authorized.html")
 
             form.bandid.data = band.id
+            member_form.bandid.data = band.id
             form.name.data = band.name
             form.style.data = band.style
 
-        return render_template("edit-band.html", band_form=form)
+        return render_template("edit-band.html", band_form=form, member_form=member_form)
 
     else:
         form = BandForm(request.form)
@@ -297,3 +298,43 @@ def edit_band():
             form.errors['msg'] = gettext('Your request was not successful. Please, check the errors below.')
 
         return jsonify(form.errors)
+
+
+@app.route('/add-member', methods=['POST'])
+@login_required
+def add_member():
+    """
+    Adds a member to a band
+    :return: JSON with messages and possible errors
+    """
+    form = BandMemberForm()
+
+    if form.validate():
+        form.errors['error'] = False
+        member = BandMember(name=form.member_name.data, email=form.member_email.data, band_id=form.bandid.data)
+        db.session.add(member)
+        form.errors['msg'] = gettext('Band member added')
+
+    else:
+        form.errors['error'] = True
+        form.errors['msg'] = gettext('Your request was not successful. Please, check the errors below.')
+
+    return jsonify(form.errors)
+
+
+@app.route('/fetch-members/<int:band_id>', methods=['GET'])
+@login_required
+def fetch_members(band_id):
+    """
+    Fetches all the band members of a given band
+    :param band_id: The id of the band
+    :return: JSON with the band members
+    """
+    band = Band.query.get(band_id)
+    members = band.members.order_by(BandMember.name).all()
+    return_data = []
+
+    for member in members:
+        return_data.append(dict(name=member.name, email=member.email))
+
+    return jsonify(data=return_data)

@@ -185,3 +185,26 @@ class BandForm(Form):
                             Length(max=128,
                                    message=lazy_gettext("Your band/project name must have a maximum of 128 characters"))
                         ])
+
+
+class BandMemberForm(Form):
+
+    bandid = HiddenField(widget=AngularJSHiddenInput())
+
+    member_name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(),
+                              description=lazy_gettext("Enter your bandmate's name"),
+                              validators=[
+                                  InputRequired(lazy_gettext("Please, enter your bandmate's name")),
+                                  Length(max=128,
+                                         message=lazy_gettext(
+                                             "Your band/project name must have a maximum of 128 characters"))
+                              ])
+
+    member_email = StringField("Email", widget=AngularJSTextInput(),
+                               description=lazy_gettext("Enter your bandmate's email"),
+                               validators=[
+                                   InputRequired(lazy_gettext("Please, enter your bandmate's email"))
+                                   ,
+                                   Length(min=6, message=lazy_gettext("The email must have a minimum of 6 characters"))
+                                   , Email(message=lazy_gettext("Please, inform a valid email"))
+                               ])

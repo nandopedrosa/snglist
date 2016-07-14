@@ -6,7 +6,7 @@
  */
 
 (function () {
-    var app = angular.module('songlist', []);
+    var app = angular.module('songlist', ['smart-table']);
 
     app.config(['$interpolateProvider', '$httpProvider', function ($interpolateProvider, $httpProvider) {
         //Change template start and end symbol to play nice with Flask's Jinja2 Templates
@@ -215,7 +215,7 @@
 //-------------------------------- Band Form Controller ------------------------------------------
     app.controller('BandFormController', ['$http', function ($http) {
         var bandCtlr = this;             
-        bandCtlr.formData = {}; //Form to be serialized
+        bandCtlr.formData = {}; //Form to be serialized        
         bandCtlr.message = ''; //Error or Success message
 
         //Fetch Form Data from the backend (sent by WTForms)        
@@ -223,9 +223,8 @@
         bandCtlr.formData.style = $('#style').attr('value');
         bandCtlr.formData.bandid = $('#bandid').attr('value');
 
-        //Add or Update band in a new user
-        this.editBand = function () {
-            console.log(bandCtlr.formData);        
+        //Add or Update band
+        this.editBand = function () {            
             bandCtlr.errors = {}; //Init errors              
             $http({
                 method: 'POST',
@@ -252,6 +251,48 @@
                 bandCtlr.message = response.data.msg;
             });
         };
+
+        bandCtlr.memberData = {}; // Band members form    
+        bandCtlr.memberData.bandid = $('#bandid').attr('value');    
+        bandCtlr.members = []; //Members list
+
+        if (typeof bandCtlr.memberData.bandid != "undefined" && bandCtlr.memberData.bandid != '') {
+            $http.get('/fetch-members/' + bandCtlr.memberData.bandid).success(function(data){                
+                bandCtlr.members = data;
+            });  
+        }
+
+        //Add or Update a band member
+        this.addMember = function () {                      
+            bandCtlr.errors = {}; //Init errors              
+            $http({
+                method: 'POST',
+                url: '/add-member',
+                data: $.param(bandCtlr.memberData)                
+            })
+            .then(function(response) {              
+                if(response.data.error) {                                                               
+                    bandCtlr.errors.error = true;                        
+                  
+                    if(response.data.member_name != undefined) {
+                        bandCtlr.errors.member_name = response.data.member_name[0];    
+                    }
+
+                    if(response.data.member_email != undefined) {
+                        bandCtlr.errors.member_email = response.data.member_email[0];    
+                    }                                                
+                    
+                } else {
+                    //Member added
+                    bandCtlr.errors.error = false;                         
+                    bandCtlr.members.data.push({name : bandCtlr.memberData.member_name, 
+                        email : bandCtlr.memberData.member_email });
+                    bandCtlr.memberData = {}; // Band members form                    
+                }
+                bandCtlr.message = response.data.msg;
+            });
+        };        
+
     }]);    
 
 //-------------------------------- Confirmation Dialog Directive ------------------------------------------

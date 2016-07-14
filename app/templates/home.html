@@ -2,10 +2,12 @@
 {% block content %}
     <header class="jumbotron sng-top-spacer">
         <h1>Songlist Plus
-            <small class="sng-blue">{{ _('music on your figners') }}</small>
+            <small class="sng-blue">{{ _('music on your fingers') }}</small>
         </h1>
         <p >{{ _('Songlist Plus is a web-based and mobile application with all the features your band needs. Manage bands, songs, shows and share your repertoire with your friends. Sync everything with your mobile device and start rocking! ') }}</p>
+        {% if not current_user.is_authenticated %}
         <a href="/signup" class="btn btn-lg btn-danger" role="button">{{ _('Create free account') }}</a>        
+        {% endif %}
     </header>
     <hr>
 

@@ -126,8 +126,9 @@
                     url: '/login',
                     data: $.param(loginCtlr.formData)                
                 })
-                .then(function(response) {              
-                    if(response.data.error) {                                                               
+                .then(function(response) {       
+                    
+                    if(response.data.error) {                                                                                   
                         loginCtlr.errors.error = true;                        
                       
                         if(response.data.email != undefined) {
@@ -138,16 +139,16 @@
                             loginCtlr.errors.password = response.data.password[0];                          
                         }                        
                         
-                    } else {
+                    } else {                        
                         loginCtlr.errors.error = false;      
                         loginCtlr.formData = {};
                         baseURL = window.location.protocol + "//" + window.location.host;
-                        window.location.href = baseURL;
+                        window.location = baseURL;                        
                     }
                     loginCtlr.message = response.data.msg;
                 });
             };
-        }]);
+    }]);
 
 //-------------------------------- Profile Form Controller ------------------------------------------
     app.controller('ProfileFormController', ['$http', function ($http) {
@@ -210,6 +211,48 @@
             });
         };    
     }]);
+
+//-------------------------------- Band Form Controller ------------------------------------------
+    app.controller('BandFormController', ['$http', function ($http) {
+        var bandCtlr = this;             
+        bandCtlr.formData = {}; //Form to be serialized
+        bandCtlr.message = ''; //Error or Success message
+
+        //Fetch Form Data from the backend (sent by WTForms)        
+        bandCtlr.formData.name = $('#name').attr('value');
+        bandCtlr.formData.style = $('#style').attr('value');
+        bandCtlr.formData.bandid = $('#bandid').attr('value');
+
+        //Add or Update band in a new user
+        this.editBand = function () {
+            console.log(bandCtlr.formData);        
+            bandCtlr.errors = {}; //Init errors              
+            $http({
+                method: 'POST',
+                url: '/edit-band',
+                data: $.param(bandCtlr.formData)                
+            })
+            .then(function(response) {              
+                if(response.data.error) {                                                               
+                    bandCtlr.errors.error = true;                        
+                  
+                    if(response.data.name != undefined) {
+                        bandCtlr.errors.name = response.data.name[0];    
+                    }
+
+                    if(response.data.style != undefined) {
+                        bandCtlr.errors.style = response.data.style[0];    
+                    }                                                
+                    
+                } else {
+                    bandCtlr.errors.error = false;                     
+                    if (bandCtlr.formData.bandid == '') // New band, clear form
+                        bandCtlr.formData = {};
+                }
+                bandCtlr.message = response.data.msg;
+            });
+        };
+    }]);    
 
 //-------------------------------- Confirmation Dialog Directive ------------------------------------------
     app.directive('confirmationNeeded', function () {

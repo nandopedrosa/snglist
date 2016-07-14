@@ -7,8 +7,8 @@ __email__ = "fpedrosa@gmail.com"
 """
 
 from flask.ext.wtf import Form
-from wtforms import StringField, TextAreaField, PasswordField, BooleanField, ValidationError
-from wtforms.widgets import TextArea, TextInput, PasswordInput, CheckboxInput
+from wtforms import StringField, TextAreaField, PasswordField, BooleanField, HiddenField, ValidationError
+from wtforms.widgets import TextArea, TextInput, PasswordInput, CheckboxInput, HiddenInput
 from wtforms.validators import InputRequired, Length, Email, EqualTo, Optional
 from flask.ext.babel import lazy_gettext
 from flask.ext.login import current_user
@@ -22,6 +22,14 @@ class AngularJSTextInput(TextInput):
             if key.startswith('ng_'):
                 kwargs['ng-' + key[3:]] = kwargs.pop(key)
         return super(AngularJSTextInput, self).__call__(field, **kwargs)
+
+
+class AngularJSHiddenInput(HiddenInput):
+    def __call__(self, field, **kwargs):
+        for key in list(kwargs):
+            if key.startswith('ng_'):
+                kwargs['ng-' + key[3:]] = kwargs.pop(key)
+        return super(AngularJSHiddenInput, self).__call__(field, **kwargs)
 
 
 class AngularJSTextArea(TextArea):
@@ -52,7 +60,7 @@ class ContactForm(Form):
     name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(), description=lazy_gettext('Enter your name'),
                        validators=[
                            InputRequired(lazy_gettext("Please, enter your name")),
-                           Length(min=2, message=lazy_gettext("Your name must have a minimum of 3 characters")),
+                           Length(min=3, message=lazy_gettext("Your name must have a minimum of 3 characters")),
                            Length(max=128, message=lazy_gettext("Your name must have a maximum of 128 characters"))
                        ])
 
@@ -73,7 +81,7 @@ class SignupForm(Form):
     name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(), description=lazy_gettext('Enter your name'),
                        validators=[
                            InputRequired(lazy_gettext("Please, enter your name")),
-                           Length(min=2, message=lazy_gettext("Your name must have a minimum of 3 characters")),
+                           Length(min=3, message=lazy_gettext("Your name must have a minimum of 3 characters")),
                            Length(max=128, message=lazy_gettext("Your name must have a maximum of 128 characters"))
                        ])
 
@@ -106,7 +114,7 @@ class ProfileForm(Form):
     name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(), description=lazy_gettext('Enter your name'),
                        validators=[
                            InputRequired(lazy_gettext("Please, enter your name")),
-                           Length(min=2, message=lazy_gettext("Your name must have a minimum of 3 characters")),
+                           Length(min=3, message=lazy_gettext("Your name must have a minimum of 3 characters")),
                            Length(max=128, message=lazy_gettext("Your name must have a maximum of 128 characters"))
                        ])
 
@@ -154,3 +162,26 @@ class LoginForm(Form):
 
     remember_me = BooleanField(lazy_gettext('Keep me logged in'),
                                widget=AngularJSCheckboxInput())
+
+
+class BandForm(Form):
+    bandid = HiddenField(widget=AngularJSHiddenInput())
+
+    name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(),
+                       description=lazy_gettext('Enter your band/project name'),
+                       validators=[
+                           InputRequired(lazy_gettext("Please, enter your band/project name")),
+                           Length(min=3,
+                                  message=lazy_gettext("Your band/project name must have a minimum of 3 characters")),
+                           Length(max=128,
+                                  message=lazy_gettext("Your band/project name must have a maximum of 128 characters"))
+                       ])
+
+    style = StringField(lazy_gettext("Style"), widget=AngularJSTextInput(),
+                        description=lazy_gettext('Enter the musical style of your band/project'),
+                        validators=[
+                            Length(min=3,
+                                   message=lazy_gettext("Your band/project name must have a minimum of 3 characters")),
+                            Length(max=128,
+                                   message=lazy_gettext("Your band/project name must have a maximum of 128 characters"))
+                        ])

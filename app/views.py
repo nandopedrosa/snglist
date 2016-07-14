@@ -13,9 +13,9 @@ from flask.ext.login import login_user, logout_user, login_required, current_use
 from flask.ext.babel import gettext, lazy_gettext
 from app import app, babel, db
 from app.config import LANGUAGES
-from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm
-from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY
-from app.models import User
+from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm
+from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user
+from app.models import User, Band
 
 
 @app.route('/')
@@ -150,7 +150,10 @@ def profile():
 
             # Update the user
             current_user.name = form.name.data
-            current_user.password = form.password.data
+
+            if form.password.data and form.password.data != '':
+                current_user.password = form.password.data
+
             db.session.add(current_user)
 
             form.errors['msg'] = gettext('Profile updated')
@@ -175,21 +178,14 @@ def delete_user():
 
 
 @app.route('/confirm/<token>')
+@login_required
 def confirm(token):
     """
-    Confirms (activates) a user, given a valid token
+    Confirms (activates) a user, given a valid token (the real implementation is in the Login function)
     :param token: the authentication token
     :return: the main page (with a possible success message)
     """
-    if current_user.confirmed:
-        return redirect(url_for('index'))
-
-    if current_user.confirm_token(token):
-        flash(gettext('You have confirmed your account. Thanks!'))
-    else:
-        flash(gettext('The confirmation link is invalid or has expired.'))
-
-    return redirect(url_for('index'))
+    return render_template("home.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -201,6 +197,10 @@ def login():
     form = LoginForm()
 
     if request.method == 'GET':
+        if request.args.get('next') and 'confirm' in request.args.get('next'):
+            session['confirmurl'] = request.args.get('next')
+        else:
+            session['confirmurl'] = None
         return render_template("login.html", login_form=form)
 
     if form.validate():
@@ -211,6 +211,17 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             flash(gettext('Login successful'))
+
+            # Confirm token after login
+            if session['confirmurl']:
+                token = session['confirmurl'][9:]
+                if not current_user.confirmed and current_user.confirm_token(token):
+                    flash(gettext('You have confirmed your account. Thanks!'))
+                else:
+                    flash(gettext('The confirmation link is invalid or has expired.'))
+
+                form.errors['error'] = False
+                form.errors['msg'] = ''
         # If not, then we return an error message
         else:
             form.errors['error'] = True
@@ -233,3 +244,56 @@ def logout():
     logout_user()
     flash(gettext('You have been logged out.'))
     return redirect(url_for('index'))
+
+
+@app.route('/edit-band', methods=['GET', 'POST'])
+@login_required
+def edit_band():
+    """
+    Add or Edit a band
+    :param id: the band id
+    :return: The updated band info
+    """
+    # TODO: check if the band belongs to the current user
+
+    if request.method == 'GET':
+        form = BandForm()
+        band_id = request.args.get('id')
+
+        # Edit Band
+        if band_id is not None:
+            band = Band.query.get(int(band_id))
+
+            if not is_current_user(band.user_id):
+                return render_template("not-authorized.html")
+
+            form.bandid.data = band.id
+            form.name.data = band.name
+            form.style.data = band.style
+
+        return render_template("edit-band.html", band_form=form)
+
+    else:
+        form = BandForm(request.form)
+
+        if form.validate():
+            form.errors['error'] = False
+
+            if form.bandid.data == '':
+                # New Band
+                band = Band(name=form.name.data, style=form.style.data, user_id=current_user.id)
+                db.session.add(band)
+                form.errors['msg'] = gettext('You have added a new band/project!')
+            else:
+                # Edit band
+                band = Band.query.get(int(form.bandid.data))
+                band.name = form.name.data
+                band.style = form.style.data
+                db.session.add(band)
+                form.errors['msg'] = gettext('Band/Project info updated!')
+
+        else:
+            form.errors['error'] = True
+            form.errors['msg'] = gettext('Your request was not successful. Please, check the errors below.')
+
+        return jsonify(form.errors)

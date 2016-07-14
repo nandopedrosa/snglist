@@ -12,6 +12,7 @@ from flask.ext.babel import gettext
 from app import app, mail
 from app.decorators import async
 from app.config import ADMINS
+from flask.ext.login import current_user
 
 # Constants
 CONTACT_MAIL_BODY = "Name: {0} \n\nReply to: {1} \n\nMessage:\n\n{2}"
@@ -53,3 +54,15 @@ def __send_email_async(app, msg):
     """
     with app.app_context():
         mail.send(msg)
+
+
+def is_current_user(user_id):
+    """
+    Checks if a given User Id is really the Current User
+    :param user_id: a User id
+    :return: True if user_id is the Current User, False otherwise
+    """
+    if current_user.id == user_id:
+        return True
+    else:
+        return False

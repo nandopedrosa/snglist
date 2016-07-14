@@ -12,12 +12,12 @@
             <div class="alert" ng-class="{'alert-danger': loginCtlr.errors.error == true, 'alert-success': loginCtlr.errors.error == false}" ng-show="loginCtlr.message != ''" role="alert">[[ loginCtlr.message ]]</div>            
             <form id="login-form">                                
                 <div class="form-group">
-                    {{ login_form.email.label }}
+                    {{ login_form.email.label }} *
                     {{ login_form.email(class="form-control", ng_model="loginCtlr.formData.email", placeholder=login_form.email.description) }}
                     <p class="text-danger">[[ loginCtlr.errors.email ]]</p>
                 </div>
                 <div class="form-group">
-                    {{ login_form.password.label }}
+                    {{ login_form.password.label }} *
                     {{ login_form.password(class="form-control", ng_model="loginCtlr.formData.password", placeholder=login_form.password.description) }}
                     <p class="text-danger">[[ loginCtlr.errors.password ]]</p>
                 </div>        

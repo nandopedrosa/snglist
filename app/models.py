@@ -8,19 +8,22 @@ __email__ = "fpedrosa@gmail.com"
 """
 
 from app import db, login_manager
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask.ext.login import UserMixin  # Implements Login common functions (is_authenticated, is_active, etc.)
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask.ext.login import UserMixin, \
+    AnonymousUserMixin  # Implements Login common functions (is_authenticated, is_active, etc.)
+from flask.ext.login import AnonymousUserMixin
 from flask import current_app
 
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(128))
-    email = db.Column(db.String(64), unique=True, index=True)
-    password_hash = db.Column(db.String(128))
+    name = db.Column(db.String(128), nullable=False)
+    email = db.Column(db.String(64), unique=True, index=True, nullable=False)
+    password_hash = db.Column(db.String(1000), nullable=False)
     confirmed = db.Column(db.Boolean, default=False)
+    bands = db.relationship('Band', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return 'User {0} ({1})'.format(self.name, self.email)
@@ -58,3 +61,26 @@ class User(UserMixin, db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+class Band(db.Model):
+    __tablename__ = 'band'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    name = db.Column(db.String(128), nullable=False)
+    style = db.Column(db.String(128))
+    members = db.relationship('BandMember', backref='band', lazy='dynamic')
+
+    def __repr__(self):
+        return 'Band {0}'.format(self.name)
+
+
+class BandMember(db.Model):
+    __tablename__ = 'band_member'
+    id = db.Column(db.Integer, primary_key=True)
+    band_id = db.Column(db.Integer, db.ForeignKey('band.id'))
+    name = db.Column(db.String(128), nullable=False)
+    email = db.Column(db.String(64), nullable=False)
+
+    def __repr__(self):
+        return 'Band Member {0} ({1})'.format(self.name, self.email)

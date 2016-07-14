@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="page-header">{{ _('Authorization error') }}</h1>
+        </div>
+    </div>
+
+   <div class="alert alert-danger" role="alert"> 
+     {{ _('You are not authorized to view or edit this item.') }}
+   </div> 
+
+{% endblock %}

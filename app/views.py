@@ -94,6 +94,8 @@ def info():
     return render_template("info.html")
 
 
+# --------------------------------------  Users, Auth, Token, Profile ---------------------------------------
+
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     """
@@ -246,6 +248,11 @@ def logout():
     return redirect(url_for('index'))
 
 
+# --------------------------------------  End Users, Auth, Token, Profile --------------------------------
+
+
+# --------------------------------------  Bands and Band Members -----------------------------------------
+
 @app.route('/edit-band', methods=['GET', 'POST'])
 @login_required
 def edit_band():
@@ -338,3 +345,5 @@ def fetch_members(band_id):
         return_data.append(dict(name=member.name, email=member.email))
 
     return jsonify(data=return_data)
+
+# --------------------------------------  End Bands and Band Members -----------------------------------------

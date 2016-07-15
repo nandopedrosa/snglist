@@ -41,31 +41,38 @@
 
         <div class="navbar-header pull-left hidden-xs">
             <a class="navbar-brand" href="/">
-                <img alt="brand" src="../static/images/logo-scaled.png">
+                <img alt="brand" src="../static/images/logo-scaled.png">                
             </a>
+
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-info">            
             <ul class="nav navbar-nav navbar-right" id="sng-nav-menu">
                 {% if not current_user.is_authenticated %}
                 <li>
-                    <a href="#" ng-click="navCtlr.changeLanguage()">{{ _('Portugu\u00eas') }}</a>
+                    <a href="#" ng-click="navCtlr.changeLanguage()">                        
+                        <img alt="language" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">                       
+                        <img alt="language" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
+                    </a>
                 </li>
                 <li>
                     <a href="/contact">{{ _('Contact') }}</a>
                 </li>
                 <li>
-                    <a href="#" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
+                    <a href="#" id="about" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
                 </li>
                 <li>
                     <a href="/login">{{ _('Sign in') }}</a>
                 </li>
-                {% else %}
-                <li>
-                    <a href="#" ng-click="navCtlr.changeLanguage()">{{ _('Portugu\u00eas') }}</a>
+                {% else %}               
+                 <li>
+                    <a href="#" ng-click="navCtlr.changeLanguage()">                        
+                        <img alt="language" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">                       
+                        <img alt="language" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
+                    </a>
                 </li>
                 <li>
-                    <a href="#">{{ _('Bands') }} ()</a>
+                    <a href="/bands">{{ _('Bands') }} ()</a>
                 </li>
                 <li>
                     <a href="#">{{ _('Songs') }} ()</a>
@@ -80,13 +87,13 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a href="/profile">{{ _('Profile') }}</a>
-                        </li>                        
+                        </li>         
                         <li>
                             <a href="/contact">{{ _('Contact') }}</a>
                         </li>
                         <li>
                             <a href="#" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
-                        </li>                       
+                        </li>                            
                         <li>
                             <a href="/logout">{{ _('Sign Out') }}</a>
                         </li>  

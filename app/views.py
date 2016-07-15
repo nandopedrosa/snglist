@@ -43,7 +43,7 @@ def change_language():
     else:
         session['lang'] = 'pt'
 
-    return 'Changed language'
+    return session['lang']
 
 
 @babel.localeselector
@@ -221,10 +221,10 @@ def login():
                 else:
                     flash(gettext('The confirmation link is invalid or has expired.'))
 
-                form.errors['error'] = False
-                form.errors['msg'] = ''
+            form.errors['error'] = False
+            form.errors['msg'] = ''
 
-        # If not, then we return an error message
+            # If not, then we return an error message
         else:
             form.errors['error'] = True
             form.errors['msg'] = gettext('Invalid email or password')
@@ -260,7 +260,6 @@ def edit_band():
     Add or Edit a band
     :return: The updated band info
     """
-    # TODO: check if the band belongs to the current user
 
     if request.method == 'GET':
         form = BandForm()
@@ -352,10 +351,47 @@ def fetch_members(band_id):
 def delete_member():
     """
     Deletes a band member
-    :return: The home page
+    :return: Empty Dict
     """
     member = BandMember.query.get(int(request.form.get('id')))
     db.session.delete(member)
     return jsonify(dict())
+
+
+@app.route('/bands')
+@login_required
+def bands():
+    """
+    Renders the Bands Page
+    :return: The rendered Bands Page
+    """
+    return render_template("bands.html")
+
+
+@app.route('/fetch-bands/', methods=['GET'])
+@login_required
+def fetch_bands():
+    """
+    Fetch all the bands of the current user
+    :return: JSON with the bands list
+    """
+    band_list = current_user.bands.order_by(Band.name).all()
+    return_data = []
+
+    for band in band_list:
+        members = band.members.order_by(BandMember.name).all()
+        members_str = ''  # Concatenated list of members (string representation, comma separated)
+
+        for member in members:
+            members_str = members_str + member.name + ', '
+
+        members_str = members_str.strip()
+
+        if members_str.endswith(','):
+            members_str = members_str[:-1]
+
+        return_data.append(dict(id=band.id, name=band.name, style=band.style, members=members_str))
+
+    return jsonify(data=return_data)
 
 # --------------------------------------  End Bands and Band Members -----------------------------------------

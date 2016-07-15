@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-15 00:01-0300\n"
-"PO-Revision-Date: 2016-07-15 00:02-0300\n"
+"POT-Creation-Date: 2016-07-15 17:05-0300\n"
+"PO-Revision-Date: 2016-07-15 17:06-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 "X-Generator: Poedit 1.8.6\n"
 
-#: app/__init__.py:107
+#: app/__init__.py:108
 msgid "Please enter your credentials to confirm this request"
 msgstr ""
 "Por favor, informe seu Login (email) e Senha para confirmar esta requisição"
@@ -161,7 +161,7 @@ msgstr "O nome da sua banda/projeto deve ter no mínimo 3 caracteres"
 msgid "Your band/project name must have a maximum of 128 characters"
 msgstr "O nome da sua banda/projeto deve ter no máximo 128 caracteres"
 
-#: app/forms.py:180
+#: app/forms.py:180 app/templates/bands.html:34
 msgid "Style"
 msgstr "Estilo"
 
@@ -243,7 +243,7 @@ msgstr "Não foi possível realizar o seu registro. Verifique os erros abaixo."
 msgid "Profile updated"
 msgstr "Perfil atualizado"
 
-#: app/views.py:164 app/views.py:305 app/views.py:327
+#: app/views.py:164 app/views.py:304 app/views.py:326
 msgid "Your request was not successful. Please, check the errors below."
 msgstr "A sua requisição não obteve sucesso. Por favor, verifique os erros abaixo."
 
@@ -275,61 +275,81 @@ msgstr "Não foi possível realizar o Login. Verifique os erros abaixo."
 msgid "You have been logged out."
 msgstr "Logout realizado com sucesso."
 
-#: app/views.py:294
+#: app/views.py:293
 msgid "You have added a new band/project!"
 msgstr "Você adicionou uma nova banda/projeto!"
 
-#: app/views.py:301
+#: app/views.py:300
 msgid "Band/Project info updated!"
 msgstr "Banda/Projeto atualizado!"
 
-#: app/views.py:323
+#: app/views.py:322
 msgid "Band member added"
 msgstr "Membro da banda adicionado"
+
+#: app/templates/bands.html:6
+msgid "Bands and Projects"
+msgstr "Bandas e Projetos"
+
+#: app/templates/bands.html:15
+msgid "Items per page:"
+msgstr "Itens por página:"
+
+#: app/templates/bands.html:21 app/templates/edit-band.html:9
+msgid "Add Band/Project"
+msgstr "Adicionar Banda/Projeto"
+
+#: app/templates/bands.html:29
+msgid "Search..."
+msgstr "Filtrar…"
+
+#: app/templates/bands.html:33
+msgid "Band/Project"
+msgstr "Banda/Projeto"
+
+#: app/templates/bands.html:35
+msgid "Members"
+msgstr "Membros"
 
 #: app/templates/base.html:8
 msgid "Confirm this action?"
 msgstr "Confirmar esta ação ?"
 
-#: app/templates/base.html:52 app/templates/base.html:65
-msgid "Português"
-msgstr "English"
-
-#: app/templates/base.html:55 app/templates/base.html:85
+#: app/templates/base.html:59 app/templates/base.html:92
 #: app/templates/contact.html:6
 msgid "Contact"
 msgstr "Contato"
 
-#: app/templates/base.html:58 app/templates/base.html:88
-#: app/templates/base.html:130
+#: app/templates/base.html:62 app/templates/base.html:95
+#: app/templates/base.html:137
 msgid "About"
 msgstr "Sobre"
 
-#: app/templates/base.html:61
+#: app/templates/base.html:65
 msgid "Sign in"
 msgstr "Entrar"
 
-#: app/templates/base.html:68
+#: app/templates/base.html:75
 msgid "Bands"
 msgstr "Bandas"
 
-#: app/templates/base.html:71
+#: app/templates/base.html:78
 msgid "Songs"
 msgstr "Músicas"
 
-#: app/templates/base.html:74
+#: app/templates/base.html:81
 msgid "Shows"
 msgstr "Shows"
 
-#: app/templates/base.html:82 app/templates/profile.html:6
+#: app/templates/base.html:89 app/templates/profile.html:6
 msgid "Profile"
 msgstr "Perfil"
 
-#: app/templates/base.html:91
+#: app/templates/base.html:98
 msgid "Sign Out"
 msgstr "Sair"
 
-#: app/templates/base.html:138
+#: app/templates/base.html:145
 msgid "Close"
 msgstr "Fechar"
 
@@ -340,10 +360,6 @@ msgstr "Enviar"
 #: app/templates/edit-band.html:7
 msgid "Edit Band/Project"
 msgstr "Editar Banda/Projeto"
-
-#: app/templates/edit-band.html:9
-msgid "Add Band/Project"
-msgstr "Adicionar Banda/Projeto"
 
 #: app/templates/edit-band.html:32
 msgid "Back"
@@ -476,3 +492,6 @@ msgstr "Inscrever-se"
 
 #~ msgid "Go Back"
 #~ msgstr "Voltar"
+
+#~ msgid "Português"
+#~ msgstr "English"

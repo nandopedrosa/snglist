@@ -119,3 +119,12 @@ body {
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.searchbox {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.inline-margin {
+    margin-right: 20px;
+}

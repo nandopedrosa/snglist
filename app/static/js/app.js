@@ -21,6 +21,10 @@
     //-------------------------------- NavBar Controller ------------------------------------------
     app.controller('NavBarController', ['$http', function ($http) {
 
+        var navCtlr = this;
+        navCtlr.language = {};
+        navCtlr.language.code = $('#about').text() == 'Sobre' ? 'pt' : 'en';
+        
         //Changes the application language - from English to Portuguese or vice-versa
         this.changeLanguage = function () {
             $http.post('/change-language').then(function(response) {
@@ -311,6 +315,19 @@
             });
         };    
 
+    }]);    
+
+//-------------------------------- Band Report Controller -------------------------------------------------
+app.controller('BandReportController', ['$http', function ($http) {
+        var reportCtlr = this;             
+        
+        reportCtlr.options = [10,25,50,100];                
+
+        reportCtlr.bands = []; // List of bands                
+        $http.get('/fetch-bands/').success(function(data){                
+            reportCtlr.bands = data;                                    
+        });                  
+        
     }]);    
 
 //-------------------------------- Confirmation Dialog Directive ------------------------------------------

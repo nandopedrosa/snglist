@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="page-header">{{_('Bands and Projects')}}</h1>
+        </div>
+    </div>
+
+     <div class="row" ng-cloak>
+        <div class="col-xs-12" ng-controller="BandReportController as reportCtlr">           
+                    
+            <form class="form-inline" role="form">
+                <div class="form-group">    
+                    <label class="inline-margin">{{_('Items per page:')}}</label>
+                    <select class="form-control inline-margin" 
+                    ng-model="reportCtlr.itemsPerPage" ng-init="reportCtlr.itemsPerPage='10'" ng-options="x for x in reportCtlr.options">
+                    </select>
+                </div> 
+                <div class="form-group">    
+                    <a href="/edit-band" class="btn btn-primary form-control" role="button">{{ _('Add Band/Project') }}</a>
+                </div> 
+            </form>         
+
+             <table st-table="displayedCollection" st-safe-src="reportCtlr.bands.data" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="4" class="searchbox">
+                            <input st-search placeholder="{{_('Search...')}}" class="input-sm form-control" type="search"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th st-sort="name">{{_('Band/Project')}}</th>
+                        <th st-sort="style">{{_('Style')}}</th>                             
+                        <th>{{_('Members')}}</th>                             
+                        <th></th>   
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="band in displayedCollection">
+                        <td>[[ band.name ]]</td>
+                        <td>[[ band.style ]]</td>
+                        <td>[[ band.members ]]</td>
+                        <td>
+                           <button type="button" ng-click="reportCtlr.deleteBand(band.id)" class="btn btn-sm btn-danger">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </button>
+                            <a href="/edit-band?id=[[band.id]]" class="btn btn-sm btn-primary" role="button">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" class="text-left">
+                            <div st-pagination="" st-items-by-page="reportCtlr.itemsPerPage" 
+                            st-displayed-pages="5"></div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>        
+    </div>   
+
+{% endblock %}

@@ -291,7 +291,25 @@
                 }
                 bandCtlr.message = response.data.msg;
             });
-        };        
+        }; 
+
+        this.deleteMember = function(id) {
+            bandCtlr.errors = {}; //Init errors    
+            var memberToBeDeleted = {'id':id};
+            $http({
+                method: 'POST',
+                url: '/delete-member',
+                data: $.param(memberToBeDeleted)                
+            }).then(function(response){
+                bandCtlr.errors.error = false;
+                //Remove from list
+                for (var i = 0; i < bandCtlr.members.data.length; i++)
+                    if (bandCtlr.members.data[i].id == id) { 
+                        bandCtlr.members.data.splice(i, 1);
+                        break;
+                }
+            });
+        };    
 
     }]);    
 

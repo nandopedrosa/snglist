@@ -342,8 +342,20 @@ def fetch_members(band_id):
     return_data = []
 
     for member in members:
-        return_data.append(dict(name=member.name, email=member.email))
+        return_data.append(dict(name=member.name, email=member.email, id=member.id))
 
     return jsonify(data=return_data)
+
+
+@app.route('/delete-member', methods=["POST"])
+@login_required
+def delete_member():
+    """
+    Deletes a band member
+    :return: The home page
+    """
+    member = BandMember.query.get(int(request.form.get('id')))
+    db.session.delete(member)
+    return jsonify(dict())
 
 # --------------------------------------  End Bands and Band Members -----------------------------------------

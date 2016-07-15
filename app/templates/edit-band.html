@@ -29,9 +29,7 @@
                     <p class="text-danger">[[ bandCtlr.errors.style ]]</p>
                 </div>             
             </form> 
-            <a href="/bands" class="btn btn-default" role="button">                
-                <span class="glyphicon glyphicon-backward"></span> {{ _('Go Back') }}
-            </a>
+            <a href="/bands" class="btn btn-default" role="button">{{ _('Back') }}</a>
             <button ng-click="bandCtlr.editBand()" type="button" class="btn btn-primary">{{_('Submit')}}</button>
         </div>        
     </div> 
@@ -69,12 +67,18 @@
                             <tr>
                                 <th st-sort="name">{{_('Name')}}</th>
                                 <th st-sort="email">{{_('Email')}}</th>                             
+                                <th></th>   
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="member in displayedCollection">
                                 <td>[[ member.name ]]</td>
-                                <td>[[ member.email ]]</td>                                
+                                <td>[[ member.email ]]</td>
+                                <td>
+                                   <button type="button" ng-click="bandCtlr.deleteMember(member.id)" class="btn btn-sm btn-danger">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

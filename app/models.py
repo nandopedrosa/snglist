@@ -69,7 +69,10 @@ class Band(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(128), nullable=False)
     style = db.Column(db.String(128))
-    members = db.relationship('BandMember', backref='band', lazy='dynamic')
+    members = db.relationship('BandMember',
+                              backref=db.backref('band'),
+                              cascade="all, delete-orphan",
+                              lazy='dynamic')
 
     def __repr__(self):
         return 'Band {0}'.format(self.name)

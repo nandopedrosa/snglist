@@ -8,8 +8,8 @@
     </div>
 
      <div class="row" ng-cloak>
-        <div class="col-xs-12" ng-controller="BandReportController as reportCtlr">           
-                    
+        <div class="col-xs-12" ng-controller="BandReportController as reportCtlr">      
+            <div class="alert alert-success" ng-show="reportCtlr.message != ''" role="alert">[[ reportCtlr.message ]]</div>
             <form class="form-inline" role="form">
                 <div class="form-group">    
                     <label class="inline-margin">{{_('Items per page:')}}</label>
@@ -42,7 +42,7 @@
                         <td>[[ band.style ]]</td>
                         <td>[[ band.members ]]</td>
                         <td>
-                           <button type="button" ng-click="reportCtlr.deleteBand(band.id)" class="btn btn-sm btn-danger">
+                           <button type="button" ng-click="reportCtlr.deleteBand(band.id)" confirmation-needed class="btn btn-sm btn-danger">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </button>
                             <a href="/edit-band?id=[[band.id]]" class="btn btn-sm btn-primary" role="button">

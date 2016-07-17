@@ -394,4 +394,16 @@ def fetch_bands():
 
     return jsonify(data=return_data)
 
+
+@app.route('/delete-band', methods=["POST"])
+@login_required
+def delete_band():
+    """
+    Deletes a band and all its members
+    :return: Empty Dict
+    """
+    band = Band.query.get(int(request.form.get('id')))
+    db.session.delete(band)
+    return jsonify(dict(msg=gettext('Band successfully deleted.')))
+
 # --------------------------------------  End Bands and Band Members -----------------------------------------

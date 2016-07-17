@@ -257,7 +257,7 @@
         };
 
         bandCtlr.memberData = {}; // Band members form    
-        bandCtlr.memberData.bandid = $('#bandid').attr('value');    
+        bandCtlr.memberData.bandid = $('#bandid').attr('value');   
         bandCtlr.members = []; //Members list
 
         if (typeof bandCtlr.memberData.bandid != "undefined" && bandCtlr.memberData.bandid != '') {
@@ -267,7 +267,8 @@
         }
 
         //Add or Update a band member
-        this.addMember = function () {                      
+        this.addMember = function () {   
+            bandCtlr.memberData.bandid = $('#bandid').attr('value');   
             bandCtlr.errors = {}; //Init errors              
             $http({
                 method: 'POST',
@@ -322,11 +323,31 @@ app.controller('BandReportController', ['$http', function ($http) {
         var reportCtlr = this;             
         
         reportCtlr.options = [10,25,50,100];                
+        reportCtlr.message = '';
 
         reportCtlr.bands = []; // List of bands                
         $http.get('/fetch-bands/').success(function(data){                
             reportCtlr.bands = data;                                    
-        });                  
+        });      
+
+        this.deleteBand = function(id) {
+            reportCtlr.errors = {}; //Init errors    
+            var bandToBeDeleted = {'id':id};
+            $http({
+                method: 'POST',
+                url: '/delete-band',
+                data: $.param(bandToBeDeleted)                
+            }).then(function(response){
+                reportCtlr.errors.error = false;
+                //Remove from list
+                for (var i = 0; i < reportCtlr.bands.data.length; i++)
+                    if (reportCtlr.bands.data[i].id == id) { 
+                        reportCtlr.bands.data.splice(i, 1);
+                        break;
+                }
+                reportCtlr.message = response.data.msg;
+            });
+        };           
         
     }]);    
 

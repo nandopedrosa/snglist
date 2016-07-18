@@ -23,7 +23,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True, nullable=False)
     password_hash = db.Column(db.String(1000), nullable=False)
     confirmed = db.Column(db.Boolean, default=False)
-    bands = db.relationship('Band', backref='user', lazy='dynamic')
+    bands = db.relationship('Band', backref='user', lazy='dynamic', cascade="all, delete-orphan")
+    songs = db.relationship('Song', backref='user', lazy='dynamic', cascade="all, delete-orphan")
 
     def __repr__(self):
         return 'User {0} ({1})'.format(self.name, self.email)
@@ -87,3 +88,19 @@ class BandMember(db.Model):
 
     def __repr__(self):
         return 'Band Member {0} ({1})'.format(self.name, self.email)
+
+
+class Song(db.Model):
+    __tablename__ = 'song'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    title = db.Column(db.String(128), nullable=False)
+    artist = db.Column(db.String(128))
+    key = db.Column(db.String(8))
+    tempo = db.Column(db.Integer)
+    duration = db.Column(db.String(5))
+    lyrics = db.Column(db.Text)
+    notes = db.Column(db.String(4000))
+
+    def __repr__(self):
+        return self.title

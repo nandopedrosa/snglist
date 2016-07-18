@@ -7,9 +7,9 @@ __email__ = "fpedrosa@gmail.com"
 """
 
 from flask.ext.wtf import Form
-from wtforms import StringField, TextAreaField, PasswordField, BooleanField, HiddenField, ValidationError
+from wtforms import StringField, TextAreaField, PasswordField, BooleanField, HiddenField, IntegerField, ValidationError
 from wtforms.widgets import TextArea, TextInput, PasswordInput, CheckboxInput, HiddenInput
-from wtforms.validators import InputRequired, Length, Email, EqualTo, Optional
+from wtforms.validators import InputRequired, Length, Email, EqualTo, Optional, NumberRange
 from flask.ext.babel import lazy_gettext
 from flask.ext.login import current_user
 from app.models import User
@@ -188,7 +188,6 @@ class BandForm(Form):
 
 
 class BandMemberForm(Form):
-
     bandid = HiddenField(widget=AngularJSHiddenInput())
 
     member_name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(),
@@ -208,3 +207,57 @@ class BandMemberForm(Form):
                                    Length(min=6, message=lazy_gettext("The email must have a minimum of 6 characters"))
                                    , Email(message=lazy_gettext("Please, inform a valid email"))
                                ])
+
+
+class SongForm(Form):
+    songid = HiddenField(widget=AngularJSHiddenInput())
+
+    title = StringField(lazy_gettext("Title"), widget=AngularJSTextInput(),
+                        description=lazy_gettext("Enter the title of the song"),
+                        validators=[
+                            InputRequired(lazy_gettext("Please, enter the title of the song")),
+                            Length(max=128,
+                                   message=lazy_gettext(
+                                       "The title of the song name must have a maximum of 128 characters"))
+                        ])
+
+    artist = StringField(lazy_gettext("Artist"), widget=AngularJSTextInput(),
+                         description=lazy_gettext("Enter the name of the Band or Artist of the song"),
+                         validators=[
+                             Length(max=128,
+                                    message=lazy_gettext(
+                                        "The artist of the song name must have a maximum of 128 characters"))
+                         ])
+
+    key = StringField(lazy_gettext("Key"), widget=AngularJSTextInput(),
+                      description=lazy_gettext("Key of the song (e.g: Am)"),
+                      validators=[
+                          Length(max=8,
+                                 message=lazy_gettext(
+                                     "The key of the song name must have a maximum of 128 characters"))
+                      ])
+
+    tempo = IntegerField('Tempo (bpm)', widget=AngularJSTextInput(),
+                         description=lazy_gettext("Tempo of the song in beats per minute (e.g: 120)"),
+                         validators=[Optional(),
+                                     NumberRange(min=20, max=500,
+                                                 message=lazy_gettext(
+                                                     "Tempo must be between 20 and 500 bpm"))
+                                     ])
+
+    duration = StringField(lazy_gettext("Duration (mm:ss)"), widget=AngularJSTextInput(),
+                           description=lazy_gettext("mm:ss"),
+                           validators=[Optional(),
+                               Length(min=4, max=4,
+                                      message=lazy_gettext(
+                                          "You must specify minutes and seconds (with left zero-padding, if necessary)"))
+                           ])
+
+    notes = TextAreaField(lazy_gettext("Notes"), widget=AngularJSTextArea(),
+                          validators=[
+                              Length(max=4000,
+                                     message=lazy_gettext("Your note must have between 3 and 4000 characters"))],
+                          description=lazy_gettext('Enter notes witih important observations'))
+
+    lyrics = TextAreaField(lazy_gettext("Lyrics/Chords"), widget=AngularJSTextArea(),
+                           description=lazy_gettext('Enter the lyrics and/or chords of the song'))

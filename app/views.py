@@ -12,9 +12,9 @@ from flask.ext.login import login_user, logout_user, login_required, current_use
 from flask.ext.babel import gettext, lazy_gettext
 from app import app, babel, db
 from app.config import LANGUAGES
-from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm
+from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm, SongForm
 from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user
-from app.models import User, Band, BandMember
+from app.models import User, Band, BandMember, Song
 
 
 @app.route('/')
@@ -406,4 +406,107 @@ def delete_band():
     db.session.delete(band)
     return jsonify(dict(msg=gettext('Band successfully deleted.')))
 
+
 # --------------------------------------  End Bands and Band Members -----------------------------------------
+
+# --------------------------------------  Songs --------------------------------------------------------------
+
+@app.route('/edit-song', methods=['GET', 'POST'])
+@login_required
+def edit_song():
+    """
+    Add or Edit a song
+    :return: The updated song info
+    """
+
+    if request.method == 'GET':
+        form = SongForm()
+        songid = request.args.get('id')
+
+        # Edit Song
+        if songid is not None:
+            song = Song.query.get(int(songid))
+
+            if not is_current_user(song.user_id):
+                return render_template("not-authorized.html")
+
+            form.songid.data = song.id
+            form.title.data = song.title
+            form.artist.data = song.artist
+            form.key.data = song.key
+            form.tempo.data = song.tempo
+            form.duration.data = song.duration
+            form.notes.data = song.notes
+            form.lyrics.data = song.lyrics
+
+        return render_template("edit-song.html", song_form=form)
+
+    else:
+        form = SongForm(request.form)
+
+        if form.validate():
+            form.errors['error'] = False
+
+            if form.songid.data == '':
+                # New Band
+                song = Song(title=form.title.data, artist=form.artist.data, key=form.key.data, tempo=form.tempo.data,
+                            duration=form.duration.data, notes=form.notes.data, lyrics=form.lyrics.data,
+                            user_id=current_user.id)
+                db.session.add(song)
+                form.errors['msg'] = gettext('Song successfully added!')
+            else:
+                # Edit band
+                song = Song.query.get(int(form.songid.data))
+                song.title = form.title.data
+                song.artist = form.artist.data
+                song.key = form.key.data
+                song.tempo = form.tempo.data
+                song.duration = form.duration.data
+                song.notes = form.notes.data
+                song.lyrics = form.lyrics.data
+                db.session.add(song)
+                form.errors['msg'] = gettext('Song info updated!')
+
+        else:
+            form.errors['error'] = True
+            form.errors['msg'] = gettext('Your request was not successful. Please, check the errors below.')
+
+        return jsonify(form.errors)
+
+
+@app.route('/fetch-songs/', methods=['GET'])
+@login_required
+def fetch_songs():
+    """
+    Fetch all the songs of the current user
+    :return: JSON with the bands list
+    """
+    song_list = current_user.songs.order_by(Song.title).all()
+    return_data = []
+
+    for song in song_list:
+        return_data.append(dict(id=song.id, title=song.title, artist=song.artist, tempo=song.tempo, key=song.key,
+                                duration=song.duration, lyrics=song.lyrics))
+
+    return jsonify(data=return_data)
+
+
+@app.route('/songs')
+@login_required
+def songs():
+    """
+    Renders the Songs Page
+    :return: The rendered Bands Page
+    """
+    return render_template("songs.html")
+
+@app.route('/delete-song', methods=["POST"])
+@login_required
+def delete_song():
+    """
+    Deletes a song
+    :return: Empty Dict
+    """
+    song = Song.query.get(int(request.form.get('id')))
+    db.session.delete(song)
+    return jsonify(dict(msg=gettext('Song successfully deleted.')))

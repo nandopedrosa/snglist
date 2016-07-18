@@ -6,7 +6,7 @@
  */
 
 (function () {
-    var app = angular.module('songlist', ['smart-table']);
+    var app = angular.module('songlist', ['smart-table', 'ui.mask', 'ngSanitize']);
 
     app.config(['$interpolateProvider', '$httpProvider', function ($interpolateProvider, $httpProvider) {
         //Change template start and end symbol to play nice with Flask's Jinja2 Templates
@@ -69,6 +69,7 @@
                     contactCtlr.formData = {};          		
             	}
             	contactCtlr.message = response.data.msg;
+                window.scrollTo(0,0);
         	});
         };
     }]);
@@ -113,6 +114,7 @@
                     signupCtlr.formData = {};                  
                 }
                 signupCtlr.message = response.data.msg;
+                window.scrollTo(0,0);
             });
         };
     }]);
@@ -196,6 +198,7 @@
                     profileCtlr.errors.error = false;                       
                 }
                 profileCtlr.message = response.data.msg;
+                window.scrollTo(0,0);
             });
         };
 
@@ -253,6 +256,7 @@
                         bandCtlr.formData = {};
                 }
                 bandCtlr.message = response.data.msg;
+                window.scrollTo(0,0);
             });
         };
 
@@ -319,7 +323,7 @@
     }]);    
 
 //-------------------------------- Band Report Controller -------------------------------------------------
-app.controller('BandReportController', ['$http', function ($http) {
+    app.controller('BandReportController', ['$http', function ($http) {
         var reportCtlr = this;             
         
         reportCtlr.options = [10,25,50,100];                
@@ -351,6 +355,114 @@ app.controller('BandReportController', ['$http', function ($http) {
         
     }]);    
 
+//-------------------------------- Song Form Controller ------------------------------------------
+    app.controller('SongFormController', ['$http', function ($http) {
+        var songCtlr = this;             
+        songCtlr.formData = {}; //Form to be serialized        
+        songCtlr.message = ''; //Error or Success message
+
+        //Fetch Form Data from the backend (sent by WTForms)        
+        songCtlr.formData.songid = $('#songid').attr('value');
+        songCtlr.formData.title = $('#title').attr('value');
+        songCtlr.formData.artist = $('#artist').attr('value');
+        songCtlr.formData.key = $('#key').attr('value');
+        songCtlr.formData.tempo = $('#tempo').attr('value');
+        songCtlr.formData.duration = $('#duration').attr('value');
+        songCtlr.formData.notes = $('#notes').attr('value');
+        songCtlr.formData.lyrics = $('#lyrics').attr('value');
+        
+
+        //Add or Update song
+        this.editSong = function () {            
+            songCtlr.errors = {}; //Init errors              
+            $http({
+                method: 'POST',
+                url: '/edit-song',
+                data: $.param(songCtlr.formData)                
+            })
+            .then(function(response) {              
+                if(response.data.error) {                                                               
+                    songCtlr.errors.error = true;                        
+                  
+                    if(response.data.title != undefined) {
+                        songCtlr.errors.title = response.data.title[0];    
+                    }
+
+                    if(response.data.artist != undefined) {
+                        songCtlr.errors.artist = response.data.artist[0];    
+                    }                                                
+
+                    if(response.data.key != undefined) {
+                        songCtlr.errors.key = response.data.key[0];    
+                    }
+
+                    if(response.data.tempo != undefined) {
+                        songCtlr.errors.tempo = response.data.tempo[0];    
+                    }
+
+                    if(response.data.duration != undefined) {
+                        songCtlr.errors.duration = response.data.duration[0];    
+                    }
+
+                    if(response.data.notes != undefined) {
+                        songCtlr.errors.notes = response.data.notes[0];    
+                    }
+
+                    if(response.data.lyrics != undefined) {
+                        songCtlr.errors.lyrics = response.data.lyrics[0];    
+                    }
+                    
+                } else {
+                    songCtlr.errors.error = false;                     
+                    if (songCtlr.formData.songid == '') { // New band, clear form
+                        songCtlr.formData = {};
+                        //hard reset CK Editor
+                        songCtlr.formData.lyrics = '';
+                    }
+                }
+                songCtlr.message = response.data.msg;
+                window.scrollTo(0,0);
+
+            });
+        };
+    }]);    
+
+//-------------------------------- Song Report Controller -------------------------------------------------
+    app.controller('SongReportController', ['$http', function ($http) {
+        var reportCtlr = this;             
+        
+        reportCtlr.options = [10,25,50,100]; 
+        reportCtlr.lyrics = '';
+        reportCtlr.songTitle = '';               
+        reportCtlr.message = '';
+
+        reportCtlr.songs = []; // List of songs                
+        $http.get('/fetch-songs/').success(function(data){                
+            reportCtlr.songs = data;                                    
+        });      
+
+        this.deleteSong = function(id) {
+            reportCtlr.errors = {}; //Init errors    
+            var songToBeDeleted = {'id':id};
+            $http({
+                method: 'POST',
+                url: '/delete-song',
+                data: $.param(songToBeDeleted)                
+            }).then(function(response){
+                reportCtlr.errors.error = false;
+                //Remove from list
+                for (var i = 0; i < reportCtlr.songs.data.length; i++)
+                    if (reportCtlr.songs.data[i].id == id) { 
+                        reportCtlr.songs.data.splice(i, 1);
+                        break;
+                }
+                reportCtlr.message = response.data.msg;
+                window.scrollTo(0,0);
+            });
+        };           
+        
+    }]); 
+
 //-------------------------------- Confirmation Dialog Directive ------------------------------------------
     app.directive('confirmationNeeded', function () {
         return {
@@ -366,6 +478,31 @@ app.controller('BandReportController', ['$http', function ($http) {
               });
             }
         };
-    });     
+    });   
+
+  app.directive('ckEditor', function () {
+      return {
+        require: '?ngModel',
+        link: function (scope, elm, attr, ngModel) {
+          var ck = CKEDITOR.replace(elm[0]);
+          if (!ngModel) return;
+          ck.on('instanceReady', function () {
+            ck.setData(ngModel.$viewValue);
+          });
+          function updateModel() {
+            scope.$apply(function () {
+              ngModel.$setViewValue(ck.getData());
+            });
+          }
+          ck.on('change', updateModel);
+          ck.on('key', updateModel);
+          ck.on('dataReady', updateModel);
+
+          ngModel.$render = function (value) {
+            ck.setData(ngModel.$viewValue);
+          };
+        }
+      };
+    });
 
 })(); //End app

@@ -45,7 +45,7 @@
                 </div>   
                 <div class="form-group">
                     {{ song_form.lyrics.label }}
-                    <a href="#" data-toggle="modal" data-target="#import-modal"> {{_('Import...')}} </a> 
+                    <a href="#" data-toggle="modal" ng-click="songCtlr.importError = ''; songCtlr.importSuccess = ''; songCtlr.songUrl = ''" data-target="#import-modal"> {{_('Import...')}} </a> 
                     {{ song_form.lyrics(class="form-control", ng_model="songCtlr.formData.lyrics", placeholder=song_form.lyrics.description, **{'data-ck-editor':''})}}                     
                     <p class="text-danger">[[ songCtlr.errors.lyrics ]]</p>
                 </div>           
@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label>{{_('Insert page URL Address')}}</label>
                                 <input class="form-control" ng-model="songCtlr.songUrl" type="text" 
-                                placeholder="{{_('Providers: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br')}}">
+                                placeholder="LyricsFreak.com, E-Chords.com, Letras.mus.br or Cifraclub.com.br">
                                 <p class="text-danger">[[ songCtlr.importError ]]</p>
                                 <p class="text-success">[[ songCtlr.importSuccess ]]</p>
                             </div>

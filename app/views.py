@@ -13,7 +13,7 @@ from flask.ext.babel import gettext, lazy_gettext
 from app import app, babel, db
 from app.config import LANGUAGES
 from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm, SongForm
-from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user, getsoup
+from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user
 from app.models import User, Band, BandMember, Song
 
 
@@ -26,6 +26,20 @@ def index():
     """
 
     return render_template("home.html")
+
+
+# noinspection PyUnusedLocal
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template("404.html")
+
+
+# noinspection PyUnusedLocal
+@app.errorhandler(500)
+def internal_error(error):
+    contact_form = ContactForm()
+    current_year = datetime.now().year
+    return render_template("500.html")
 
 
 @app.route('/change-language', methods=['POST'])
@@ -525,16 +539,11 @@ def import_song():
     if url is None or url == '':
         return jsonify(dict(error=gettext('You must provide a URL address')))
 
-    soup = getsoup(url)
-    html = ''
-
-    if 'cifraclub' in url:
-        sections = soup.find_all('pre')
-        for s in sections:
-            html += str(s)
+    html = Song.get_lyrics_or_chords(url)
 
     if html != '':
         return jsonify(dict(html=html, success=gettext('Song successfully imported. You can now close this dialog.')))
     else:
         return jsonify(
-            dict(error=gettext('We could not find the song you requested. Are you sure you entered a supported site?')))
+            dict(error=gettext(
+                'We could not find the song you requested. Are you sure you entered a supported site URL?')))

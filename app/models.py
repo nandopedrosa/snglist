@@ -14,6 +14,7 @@ from flask.ext.login import UserMixin, \
     AnonymousUserMixin  # Implements Login common functions (is_authenticated, is_active, etc.)
 from flask.ext.login import AnonymousUserMixin
 from flask import current_app
+from app.util import getsoup
 
 
 class User(UserMixin, db.Model):
@@ -107,3 +108,46 @@ class Song(db.Model):
 
     def pretty_duration(self):
         return self.duration[:2] + ':' + self.duration[2:]
+
+    @staticmethod
+    def get_lyrics_or_chords(url):
+        """
+        Scrapes the HTML of a given song Lyrics or Chords
+        :param url: The url of the song (different Providers)
+        :return: HTML of the song's Lyrics or Chords
+        """
+        html = ''
+
+        if 'cifraclub' in url:
+            if url.startswith('https://m.'):
+                url = 'https://www.' + url[10:]  # So we don't have to deal with mobile URLs
+            url += 'imprimir.html#columns=false'  # Printer Friendly page (it's cleaner)
+            soup = getsoup(url)
+            sections = soup.find_all('pre')
+            for s in sections:
+                html += str(s)
+
+        if 'letras.mus.br' in url:
+            if url.startswith('https://m.'):
+                url = 'https://www.' + url[10:]  # So we don't have to deal with mobile URLs
+            soup = getsoup(url)
+            article = soup.find('article')
+            html = str(article)
+
+        if 'e-chords' in url:
+            soup = getsoup(url)
+            pre = soup.find('pre', id='core')
+            # Remove Tab Div, keep raw tab
+            div = pre.find('div')
+            if div is not None:
+                tab = div.find('div', class_='tab')
+                html = '<pre>' + tab.text + '</pre>'
+                div.extract()
+            html += str(pre)
+
+        if 'freak' in url:
+            soup = getsoup(url)
+            content = soup.find('div', id='content_h')
+            html = str(content)
+
+        return html

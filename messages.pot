@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-19 01:25-0300\n"
+"POT-Creation-Date: 2016-07-19 16:54-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -281,104 +281,127 @@ msgid ""
 "Note: this is an automatic message, there is no need to reply.\n"
 msgstr ""
 
-#: app/views.py:80
+#: app/views.py:94
 msgid "Message successfully sent"
 msgstr ""
 
-#: app/views.py:83
+#: app/views.py:97
 msgid "Your message could not be sent. Check the errors below."
 msgstr ""
 
-#: app/views.py:121
+#: app/views.py:135
 msgid "Welcome to Songlist Plus!"
 msgstr ""
 
-#: app/views.py:123
+#: app/views.py:137
 msgid ""
 "Signup succesful. To complete your registration, check your email and "
 "follow the instructions."
 msgstr ""
 
-#: app/views.py:128
+#: app/views.py:142
 msgid "Signup unsuccessful. Check the errors below."
 msgstr ""
 
-#: app/views.py:160
+#: app/views.py:174
 msgid "Profile updated"
 msgstr ""
 
-#: app/views.py:164 app/views.py:304 app/views.py:326 app/views.py:472
+#: app/views.py:178 app/views.py:318 app/views.py:340 app/views.py:486
 msgid "Your request was not successful. Please, check the errors below."
 msgstr ""
 
-#: app/views.py:177
+#: app/views.py:191
 msgid "Your account has been deleted. Thanks for using Songlist Plus!"
 msgstr ""
 
-#: app/views.py:214
+#: app/views.py:228
 msgid "Login successful"
 msgstr ""
 
-#: app/views.py:220
+#: app/views.py:234
 msgid "You have confirmed your account. Thanks!"
 msgstr ""
 
-#: app/views.py:222
+#: app/views.py:236
 msgid "The confirmation link is invalid or has expired."
 msgstr ""
 
-#: app/views.py:230
+#: app/views.py:244
 msgid "Invalid email or password"
 msgstr ""
 
-#: app/views.py:234
+#: app/views.py:248
 msgid "Login unsuccessful. Check the errors below"
 msgstr ""
 
-#: app/views.py:247
+#: app/views.py:261
 msgid "You have been logged out."
 msgstr ""
 
-#: app/views.py:293
+#: app/views.py:307
 msgid "You have added a new band/project!"
 msgstr ""
 
-#: app/views.py:300
+#: app/views.py:314
 msgid "Band/Project info updated!"
 msgstr ""
 
-#: app/views.py:322
+#: app/views.py:336
 msgid "Band member added"
 msgstr ""
 
-#: app/views.py:407
+#: app/views.py:421
 msgid "Band successfully deleted."
 msgstr ""
 
-#: app/views.py:456
+#: app/views.py:470
 msgid "Song successfully added!"
 msgstr ""
 
-#: app/views.py:468
+#: app/views.py:482
 msgid "Song info updated!"
 msgstr ""
 
-#: app/views.py:513
+#: app/views.py:527
 msgid "Song successfully deleted."
 msgstr ""
 
-#: app/views.py:526
+#: app/views.py:540
 msgid "You must provide a URL address"
 msgstr ""
 
-#: app/views.py:537
+#: app/views.py:545
 msgid "Song successfully imported. You can now close this dialog."
 msgstr ""
 
-#: app/views.py:540
+#: app/views.py:548
 msgid ""
 "We could not find the song you requested. Are you sure you entered a "
-"supported site?"
+"supported site URL?"
+msgstr ""
+
+#: app/templates/404.html:6
+msgid "Page not found"
+msgstr ""
+
+#: app/templates/404.html:7
+msgid "The requested page could not be found."
+msgstr ""
+
+#: app/templates/404.html:9 app/templates/500.html:9
+msgid "Back to Homepage"
+msgstr ""
+
+#: app/templates/500.html:6
+msgid "An error has occurred"
+msgstr ""
+
+#: app/templates/500.html:7
+msgid ""
+"We are sorry to inform an internal error has occurred. The site "
+"administrator has been contacted and we will try to fix this as soon as "
+"possible."
 msgstr ""
 
 #: app/templates/bands.html:6
@@ -500,10 +523,6 @@ msgstr ""
 
 #: app/templates/edit-song.html:72
 msgid "Insert page URL Address"
-msgstr ""
-
-#: app/templates/edit-song.html:74
-msgid "Providers: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"
 msgstr ""
 
 #: app/templates/edit-song.html:78

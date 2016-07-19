@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-19 01:25-0300\n"
-"PO-Revision-Date: 2016-07-19 01:27-0300\n"
+"POT-Creation-Date: 2016-07-19 16:54-0300\n"
+"PO-Revision-Date: 2016-07-19 16:57-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -227,7 +227,7 @@ msgstr "Tom da música (eg: Am)"
 
 #: app/forms.py:236
 msgid "The key of the song name must have a maximum of 128 characters"
-msgstr ""
+msgstr "O tom da música deve ter no máximo 128 caracteres"
 
 #: app/forms.py:241
 msgid "Tempo of the song in beats per minute (e.g: 120)"
@@ -296,19 +296,19 @@ msgstr ""
 "\n"
 "Nota: esta é uma mensagem automática, não é necessário respondê-la.\n"
 
-#: app/views.py:80
+#: app/views.py:94
 msgid "Message successfully sent"
 msgstr "Mensagem enviada com sucesso"
 
-#: app/views.py:83
+#: app/views.py:97
 msgid "Your message could not be sent. Check the errors below."
 msgstr "A sua mensagem não pôde ser enviada. Verifique os erros abaixo."
 
-#: app/views.py:121
+#: app/views.py:135
 msgid "Welcome to Songlist Plus!"
 msgstr "Bem-vindo ao Songlist Plus!"
 
-#: app/views.py:123
+#: app/views.py:137
 msgid ""
 "Signup succesful. To complete your registration, check your email and follow the "
 "instructions."
@@ -316,91 +316,115 @@ msgstr ""
 "Registro realizado com sucesso. Para ativar sua conta, verifique o seu email e "
 "siga as instruções contidas nele."
 
-#: app/views.py:128
+#: app/views.py:142
 msgid "Signup unsuccessful. Check the errors below."
 msgstr "Não foi possível realizar o seu registro. Verifique os erros abaixo."
 
-#: app/views.py:160
+#: app/views.py:174
 msgid "Profile updated"
 msgstr "Perfil atualizado"
 
-#: app/views.py:164 app/views.py:304 app/views.py:326 app/views.py:472
+#: app/views.py:178 app/views.py:318 app/views.py:340 app/views.py:486
 msgid "Your request was not successful. Please, check the errors below."
 msgstr "A sua requisição não obteve sucesso. Por favor, verifique os erros abaixo."
 
-#: app/views.py:177
+#: app/views.py:191
 msgid "Your account has been deleted. Thanks for using Songlist Plus!"
 msgstr "A sua conta foi excluída. Obrigado por usar o Songlist Plus!"
 
-#: app/views.py:214
+#: app/views.py:228
 msgid "Login successful"
 msgstr "Login realizado com sucesso"
 
-#: app/views.py:220
+#: app/views.py:234
 msgid "You have confirmed your account. Thanks!"
 msgstr "Você confirmou e ativou a sua conta com sucesso. Obrigado!"
 
-#: app/views.py:222
+#: app/views.py:236
 msgid "The confirmation link is invalid or has expired."
 msgstr "O link de confirmação é inválido ou expirou."
 
-#: app/views.py:230
+#: app/views.py:244
 msgid "Invalid email or password"
 msgstr "Email ou Senha inválidos"
 
-#: app/views.py:234
+#: app/views.py:248
 msgid "Login unsuccessful. Check the errors below"
 msgstr "Não foi possível realizar o Login. Verifique os erros abaixo."
 
-#: app/views.py:247
+#: app/views.py:261
 msgid "You have been logged out."
 msgstr "Logout realizado com sucesso."
 
-#: app/views.py:293
+#: app/views.py:307
 msgid "You have added a new band/project!"
 msgstr "Você adicionou uma nova banda/projeto!"
 
-#: app/views.py:300
+#: app/views.py:314
 msgid "Band/Project info updated!"
 msgstr "Banda/Projeto atualizado!"
 
-#: app/views.py:322
+#: app/views.py:336
 msgid "Band member added"
 msgstr "Membro da banda adicionado"
 
-#: app/views.py:407
+#: app/views.py:421
 msgid "Band successfully deleted."
 msgstr "Banda excluída com sucesso."
 
-#: app/views.py:456
+#: app/views.py:470
 msgid "Song successfully added!"
 msgstr "Música adicionada com sucesso!"
 
-#: app/views.py:468
+#: app/views.py:482
 msgid "Song info updated!"
 msgstr "Música atualizada com sucesso!"
 
-#: app/views.py:513
+#: app/views.py:527
 msgid "Song successfully deleted."
 msgstr "Música excluída com sucesso."
 
-#: app/views.py:526
+#: app/views.py:540
 msgid "You must provide a URL address"
 msgstr "Você deve fornecer um endereço URL"
 
-#: app/views.py:537
+#: app/views.py:545
 msgid "Song successfully imported. You can now close this dialog."
 msgstr ""
 "Música importada com sucesso. Você pode fechar essa janela e retornar à tela "
 "anterior."
 
-#: app/views.py:540
+#: app/views.py:548
 msgid ""
 "We could not find the song you requested. Are you sure you entered a supported "
-"site?"
+"site URL?"
 msgstr ""
-"Não conseguimos encontrar a música que você pediu. Você tem certeza que digitou "
-"um site suportado?"
+"Não conseguimos encontrar a música que você solicitou. Tem certeza de que você "
+"digitou uma URL suportada?"
+
+#: app/templates/404.html:6
+msgid "Page not found"
+msgstr "Página não encontrada"
+
+#: app/templates/404.html:7
+msgid "The requested page could not be found."
+msgstr "A página requisitada não foi encontrada."
+
+#: app/templates/404.html:9 app/templates/500.html:9
+msgid "Back to Homepage"
+msgstr "Voltar à página inicial"
+
+#: app/templates/500.html:6
+msgid "An error has occurred"
+msgstr "Um erro ocorreu"
+
+#: app/templates/500.html:7
+msgid ""
+"We are sorry to inform an internal error has occurred. The site administrator "
+"has been contacted and we will try to fix this as soon as possible."
+msgstr ""
+"Sentimos em informar que um erro interno ocorreu. O administrador do site foi "
+"contactado e tentaremos corrigir a situação o mais rápido possível"
 
 #: app/templates/bands.html:6
 msgid "Bands and Projects"
@@ -524,10 +548,6 @@ msgstr "Importar Letra/Cifra"
 msgid "Insert page URL Address"
 msgstr "Insira o endereço URL"
 
-#: app/templates/edit-song.html:74
-msgid "Providers: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"
-msgstr "Provedores: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"
-
 #: app/templates/edit-song.html:78
 msgid "Import"
 msgstr "Importar"
@@ -650,3 +670,13 @@ msgstr "Duração"
 
 #~ msgid "Submit"
 #~ msgstr "Submeter"
+
+#~ msgid ""
+#~ "We could not find the song you requested. Are you sure you entered a "
+#~ "supported site?"
+#~ msgstr ""
+#~ "Não conseguimos encontrar a música que você pediu. Você tem certeza que "
+#~ "digitou um site suportado?"
+
+#~ msgid "Providers: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"
+#~ msgstr "Provedores: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"

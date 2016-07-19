@@ -6,20 +6,25 @@ __email__ = "fpedrosa@gmail.com"
 
 """
 import unittest
-from app.util import getsoup
+from app.models import Song
 
 
 class ScrapingTests(unittest.TestCase):
     def test_cifraclub(self):
-        soup = getsoup('https://www.cifraclub.com.br/jethro-tull/locomotive-breath/imprimir.html#columns=false')
-        html = ''
-
-        sections = soup.find_all('pre')
-        for s in sections:
-            html += str(s)
-
+        html = Song.get_lyrics_or_chords('https://www.cifraclub.com.br/jethro-tull/locomotive-breath/')
         self.assertIsNot(html, '')
 
+    def test_letras(self):
+        html = Song.get_lyrics_or_chords('https://m.letras.mus.br/jethro-tull/19894/')
+        self.assertIsNot(html, '')
+
+    def test_echords(self):
+        html = Song.get_lyrics_or_chords('http://www.e-chords.com/chords/the-beatles/day-tripper')
+        self.assertIsNot(html, '')
+
+    def test_lyricsfreak(self):
+        html = Song.get_lyrics_or_chords('http://www.lyricsfreak.com/j/jethro+tull/locomotive+breath_20070951.html')
+        self.assertIsNot(html, '')
 
 if __name__ == '__main__':
     unittest.main()

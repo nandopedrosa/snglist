@@ -128,3 +128,8 @@ body {
 .inline-margin {
     margin-right: 20px;
 }
+
+pre {
+    border-style: none;
+    background-color: white;
+}

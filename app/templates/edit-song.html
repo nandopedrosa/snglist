@@ -44,7 +44,8 @@
                     <p class="text-danger">[[ songCtlr.errors.duration ]]</p>
                 </div>   
                 <div class="form-group">
-                    {{ song_form.lyrics.label }} 
+                    {{ song_form.lyrics.label }}
+                    <a href="#" data-toggle="modal" data-target="#import-modal"> {{_('Import...')}} </a> 
                     {{ song_form.lyrics(class="form-control", ng_model="songCtlr.formData.lyrics", placeholder=song_form.lyrics.description, **{'data-ck-editor':''})}}                     
                     <p class="text-danger">[[ songCtlr.errors.lyrics ]]</p>
                 </div>           
@@ -55,8 +56,34 @@
                 </div>                
             </form> 
             <a href="/songs" class="btn btn-default" role="button">{{ _('Back') }}</a>
-            <button ng-click="songCtlr.editSong()" type="button" class="btn btn-primary">{{_('Submit')}}</button>
+            <button ng-click="songCtlr.editSong()" type="button" class="btn btn-primary">{{_('Save')}}</button>
+            <br><br>
+            <div id="import-modal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->   
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{_('Import Lyrics/Chords')}}</h4>
+                        </div>
+                        <div class="modal-body" >
+                            <div class="form-group">
+                                <label>{{_('Insert page URL Address')}}</label>
+                                <input class="form-control" ng-model="songCtlr.songUrl" type="text" 
+                                placeholder="{{_('Providers: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br')}}">
+                                <p class="text-danger">[[ songCtlr.importError ]]</p>
+                                <p class="text-success">[[ songCtlr.importSuccess ]]</p>
+                            </div>
+                            <button ng-click="songCtlr.importSong()" type="button" class="btn btn-primary">{{_('Import')}}</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btn-close-about-modal" type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>        
-    </div> 
-    <br>  
+    </div>    
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-18 17:30-0300\n"
+"POT-Creation-Date: 2016-07-19 01:25-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,7 +266,7 @@ msgstr ""
 msgid "Enter the lyrics and/or chords of the song"
 msgstr ""
 
-#: app/util.py:20
+#: app/util.py:22
 msgid ""
 "Welcome to Songlist Plus!\n"
 "\n"
@@ -363,8 +363,22 @@ msgstr ""
 msgid "Song info updated!"
 msgstr ""
 
-#: app/views.py:512
+#: app/views.py:513
 msgid "Song successfully deleted."
+msgstr ""
+
+#: app/views.py:526
+msgid "You must provide a URL address"
+msgstr ""
+
+#: app/views.py:537
+msgid "Song successfully imported. You can now close this dialog."
+msgstr ""
+
+#: app/views.py:540
+msgid ""
+"We could not find the song you requested. Are you sure you entered a "
+"supported site?"
 msgstr ""
 
 #: app/templates/bands.html:6
@@ -429,7 +443,8 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
-#: app/templates/base.html:148 app/templates/songs.html:84
+#: app/templates/base.html:148 app/templates/edit-song.html:81
+#: app/templates/songs.html:84
 msgid "Close"
 msgstr ""
 
@@ -441,12 +456,12 @@ msgstr ""
 msgid "Edit Band/Project"
 msgstr ""
 
-#: app/templates/edit-band.html:32 app/templates/edit-song.html:57
+#: app/templates/edit-band.html:32 app/templates/edit-song.html:58
 msgid "Back"
 msgstr ""
 
-#: app/templates/edit-band.html:33 app/templates/edit-song.html:58
-msgid "Submit"
+#: app/templates/edit-band.html:33 app/templates/edit-song.html:59
+msgid "Save"
 msgstr ""
 
 #: app/templates/edit-band.html:42
@@ -473,6 +488,26 @@ msgstr ""
 
 #: app/templates/edit-song.html:9 app/templates/songs.html:21
 msgid "Add Song"
+msgstr ""
+
+#: app/templates/edit-song.html:48
+msgid "Import..."
+msgstr ""
+
+#: app/templates/edit-song.html:68
+msgid "Import Lyrics/Chords"
+msgstr ""
+
+#: app/templates/edit-song.html:72
+msgid "Insert page URL Address"
+msgstr ""
+
+#: app/templates/edit-song.html:74
+msgid "Providers: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"
+msgstr ""
+
+#: app/templates/edit-song.html:78
+msgid "Import"
 msgstr ""
 
 #: app/templates/home.html:5

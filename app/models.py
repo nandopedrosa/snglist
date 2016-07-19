@@ -96,7 +96,7 @@ class Song(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(128), nullable=False)
     artist = db.Column(db.String(128))
-    key = db.Column(db.String(8))
+    key = db.Column(db.String(128))
     tempo = db.Column(db.Integer)
     duration = db.Column(db.String(5))
     lyrics = db.Column(db.Text)
@@ -104,3 +104,6 @@ class Song(db.Model):
 
     def __repr__(self):
         return self.title
+
+    def pretty_duration(self):
+        return self.duration[:2] + ':' + self.duration[2:]

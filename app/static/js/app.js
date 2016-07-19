@@ -425,6 +425,28 @@
 
             });
         };
+
+        //Import song lyrics/chords
+        songCtlr.songUrl = '';
+        songCtlr.importError = '';
+        songCtlr.importSuccess = '';
+
+        songCtlr.importSong = function() {            
+            var urlToBeImported = {'url':songCtlr.songUrl};
+            $http({
+                method: 'POST',
+                url: '/import-song',
+                data: $.param(urlToBeImported)                
+            }).then(function(response){
+                if(response.data.error) {
+                    songCtlr.importError = response.data.error;
+                } else {
+                    songCtlr.importSuccess = response.data.success;
+                    songCtlr.formData.lyrics = response.data.html;
+                }                
+            });
+        };
+
     }]);    
 
 //-------------------------------- Song Report Controller -------------------------------------------------

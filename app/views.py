@@ -13,7 +13,7 @@ from flask.ext.babel import gettext, lazy_gettext
 from app import app, babel, db
 from app.config import LANGUAGES
 from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm, SongForm
-from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user
+from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user, getsoup
 from app.models import User, Band, BandMember, Song
 
 
@@ -486,7 +486,7 @@ def fetch_songs():
 
     for song in song_list:
         return_data.append(dict(id=song.id, title=song.title, artist=song.artist, tempo=song.tempo, key=song.key,
-                                duration=song.duration, lyrics=song.lyrics))
+                                duration=song.pretty_duration(), lyrics=song.lyrics))
 
     return jsonify(data=return_data)
 
@@ -500,6 +500,7 @@ def songs():
     """
     return render_template("songs.html")
 
+
 @app.route('/delete-song', methods=["POST"])
 @login_required
 def delete_song():
@@ -510,3 +511,30 @@ def delete_song():
     song = Song.query.get(int(request.form.get('id')))
     db.session.delete(song)
     return jsonify(dict(msg=gettext('Song successfully deleted.')))
+
+
+@app.route('/import-song', methods=["POST"])
+@login_required
+def import_song():
+    """
+    Imports a song lyrics or chords
+    :return: JSON with html content or errors
+    """
+    url = request.form.get('url')
+
+    if url is None or url == '':
+        return jsonify(dict(error=gettext('You must provide a URL address')))
+
+    soup = getsoup(url)
+    html = ''
+
+    if 'cifraclub' in url:
+        sections = soup.find_all('pre')
+        for s in sections:
+            html += str(s)
+
+    if html != '':
+        return jsonify(dict(html=html, success=gettext('Song successfully imported. You can now close this dialog.')))
+    else:
+        return jsonify(
+            dict(error=gettext('We could not find the song you requested. Are you sure you entered a supported site?')))

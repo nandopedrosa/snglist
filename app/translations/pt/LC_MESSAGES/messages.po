@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-18 17:30-0300\n"
-"PO-Revision-Date: 2016-07-18 17:36-0300\n"
+"POT-Creation-Date: 2016-07-19 01:25-0300\n"
+"PO-Revision-Date: 2016-07-19 01:27-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -270,7 +270,7 @@ msgstr "Letra/Cifra"
 msgid "Enter the lyrics and/or chords of the song"
 msgstr "Digite a letra/cifra da música"
 
-#: app/util.py:20
+#: app/util.py:22
 msgid ""
 "Welcome to Songlist Plus!\n"
 "\n"
@@ -380,9 +380,27 @@ msgstr "Música adicionada com sucesso!"
 msgid "Song info updated!"
 msgstr "Música atualizada com sucesso!"
 
-#: app/views.py:512
+#: app/views.py:513
 msgid "Song successfully deleted."
 msgstr "Música excluída com sucesso."
+
+#: app/views.py:526
+msgid "You must provide a URL address"
+msgstr "Você deve fornecer um endereço URL"
+
+#: app/views.py:537
+msgid "Song successfully imported. You can now close this dialog."
+msgstr ""
+"Música importada com sucesso. Você pode fechar essa janela e retornar à tela "
+"anterior."
+
+#: app/views.py:540
+msgid ""
+"We could not find the song you requested. Are you sure you entered a supported "
+"site?"
+msgstr ""
+"Não conseguimos encontrar a música que você pediu. Você tem certeza que digitou "
+"um site suportado?"
 
 #: app/templates/bands.html:6
 msgid "Bands and Projects"
@@ -446,7 +464,8 @@ msgstr "Perfil"
 msgid "Sign Out"
 msgstr "Sair"
 
-#: app/templates/base.html:148 app/templates/songs.html:84
+#: app/templates/base.html:148 app/templates/edit-song.html:81
+#: app/templates/songs.html:84
 msgid "Close"
 msgstr "Fechar"
 
@@ -458,13 +477,13 @@ msgstr "Enviar"
 msgid "Edit Band/Project"
 msgstr "Editar Banda/Projeto"
 
-#: app/templates/edit-band.html:32 app/templates/edit-song.html:57
+#: app/templates/edit-band.html:32 app/templates/edit-song.html:58
 msgid "Back"
 msgstr "Voltar"
 
-#: app/templates/edit-band.html:33 app/templates/edit-song.html:58
-msgid "Submit"
-msgstr "Submeter"
+#: app/templates/edit-band.html:33 app/templates/edit-song.html:59
+msgid "Save"
+msgstr "Salvar"
 
 #: app/templates/edit-band.html:42
 msgid "Band Members"
@@ -492,6 +511,26 @@ msgstr "Editar Música"
 #: app/templates/edit-song.html:9 app/templates/songs.html:21
 msgid "Add Song"
 msgstr "Adicionar Música"
+
+#: app/templates/edit-song.html:48
+msgid "Import..."
+msgstr "Importar…"
+
+#: app/templates/edit-song.html:68
+msgid "Import Lyrics/Chords"
+msgstr "Importar Letra/Cifra"
+
+#: app/templates/edit-song.html:72
+msgid "Insert page URL Address"
+msgstr "Insira o endereço URL"
+
+#: app/templates/edit-song.html:74
+msgid "Providers: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"
+msgstr "Provedores: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"
+
+#: app/templates/edit-song.html:78
+msgid "Import"
+msgstr "Importar"
 
 #: app/templates/home.html:5
 msgid "music on your fingers"
@@ -608,3 +647,6 @@ msgstr "Duração"
 
 #~ msgid "Português"
 #~ msgstr "English"
+
+#~ msgid "Submit"
+#~ msgstr "Submeter"

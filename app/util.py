@@ -6,6 +6,8 @@ __email__ = "fpedrosa@gmail.com"
 
 """
 
+import httplib2
+from bs4 import BeautifulSoup
 from flask.ext.mail import Message
 from flask import url_for
 from flask.ext.babel import gettext
@@ -66,3 +68,15 @@ def is_current_user(user_id):
         return True
     else:
         return False
+
+
+def getsoup(url):
+    """
+    Gets the Beautiful Soup object for a given page
+    :param url: the url of the page to be parsed
+    :return: the Soup object
+    """
+    http = httplib2.Http('.cache')
+    response, content = http.request(url, headers={'User-agent': 'Mozilla/5.0'})
+    soup = BeautifulSoup(content, 'lxml')
+    return soup

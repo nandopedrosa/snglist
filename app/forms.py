@@ -7,7 +7,8 @@ __email__ = "fpedrosa@gmail.com"
 """
 
 from flask.ext.wtf import Form
-from wtforms import StringField, TextAreaField, PasswordField, BooleanField, HiddenField, IntegerField, ValidationError
+from wtforms import StringField, DateTimeField, TextAreaField, PasswordField, BooleanField, HiddenField, IntegerField, \
+    ValidationError
 from wtforms.widgets import TextArea, TextInput, PasswordInput, CheckboxInput, HiddenInput
 from wtforms.validators import InputRequired, Length, Email, EqualTo, Optional, NumberRange
 from flask.ext.babel import lazy_gettext
@@ -248,10 +249,9 @@ class SongForm(Form):
     duration = StringField(lazy_gettext("Duration (mm:ss)"), widget=AngularJSTextInput(),
                            description=lazy_gettext("mm:ss"),
                            validators=[Optional(),
-                               Length(min=4, max=4,
-                                      message=lazy_gettext(
-                                          "You must specify minutes and seconds (with left zero-padding, if necessary)"))
-                           ])
+                                       Length(min=4, max=4,
+                                              message=lazy_gettext(
+                                                  "You must specify minutes and seconds (with left zero-padding, if necessary)"))])
 
     notes = TextAreaField(lazy_gettext("Notes"), widget=AngularJSTextArea(),
                           validators=[
@@ -261,3 +261,58 @@ class SongForm(Form):
 
     lyrics = TextAreaField(lazy_gettext("Lyrics/Chords"), widget=AngularJSTextArea(),
                            description=lazy_gettext('Enter the lyrics and/or chords of the song'))
+
+
+class ShowForm(Form):
+    showid = HiddenField(widget=AngularJSHiddenInput())
+
+    bandid = HiddenField(widget=AngularJSHiddenInput())
+
+    name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(),
+                       description=lazy_gettext("Enter the name of the show"),
+                       validators=[
+                           InputRequired(lazy_gettext("Please, enter the name of the show")),
+                           Length(max=128,
+                                  message=lazy_gettext(
+                                      "The name of the show name must have a maximum of 128 characters"))])
+
+    start = DateTimeField(lazy_gettext("Start (YYYY/MM/DD HH24:mm)"), widget=AngularJSTextInput(),
+                          validators=[Optional()],
+                          description=lazy_gettext("Enter the start date/time of the show"),
+                          format='%Y/%m/%d %H:%M')
+
+
+    end = DateTimeField(lazy_gettext("End (YYYY/MM/DD HH24:mm)"), widget=AngularJSTextInput(),
+                        validators=[Optional()],
+                        description=lazy_gettext("Enter the end date/time of the show"),
+                        format='%Y/%m/%d %H:%M')
+
+
+    address = StringField(lazy_gettext("Address"), widget=AngularJSTextInput(),
+                          description=lazy_gettext("Enter the address of the show"),
+                          validators=[Length(max=128,
+                                             message=lazy_gettext(
+                                                 "The address of the show name must have a maximum of 128 characters"))])
+
+    contact = TextAreaField(lazy_gettext("Contact Info"), widget=AngularJSTextArea(),
+                            validators=[
+                                Length(max=4000,
+                                       message=lazy_gettext(
+                                           "Your contact information must have between 3 and 4000 characters"))],
+                            description=lazy_gettext('Enter important contact info (name, email, phone, etc.)'))
+
+    pay = StringField(lazy_gettext("Pay"), widget=AngularJSTextInput(),
+                      description=lazy_gettext("Enter how much you are going to get paid (hopefully)"),
+                      validators=[Length(max=128,
+                                         message=lazy_gettext(
+                                             "The payment amount name must have a maximum of 128 characters"))])
+
+    notes = TextAreaField(lazy_gettext("Notes"), widget=AngularJSTextArea(),
+                          validators=[
+                              Length(max=4000,
+                                     message=lazy_gettext("Your note must have between 3 and 4000 characters"))],
+                          description=lazy_gettext('Enter notes witih important observations'))
+
+    date_time_placeholder = lazy_gettext('YYYY/MM/DD HH24:mm')
+
+

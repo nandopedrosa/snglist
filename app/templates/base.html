@@ -17,6 +17,12 @@
     <!-- Bootstrap Core CSS -->
     <link href="../static/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!--  Select2 -->
+    <link href="../static/css/select2/select2.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="../static/css/fa/css/font-awesome.min.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="../static/css/custom.css" rel="stylesheet">
 
@@ -95,7 +101,7 @@
                             <a href="/contact">{{ _('Contact') }}</a>
                         </li>
                         <li>
-                            <a href="#" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
+                            <a href="#" id="about" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
                         </li>                            
                         <li>
                             <a href="/logout">{{ _('Sign Out') }}</a>
@@ -151,6 +157,9 @@
     </div>
 </div>
 
+<!-- jQuery -->
+<script src="../static/js/jquery/jquery.min.js"></script>
+
 <!-- Angular -->
 <script src="../static/js/angular/angular.min.js"></script>
 
@@ -160,17 +169,22 @@
 <!-- Angular UI-->
 <script src="../static/js/angular-ui/mask.min.js"></script>
 
-<!-- jQuery -->
-<script src="../static/js/jquery/jquery.min.js"></script>
+<!-- Angular Select2-->
+<script src="../static/js/angular-select2/angular-select2.min.js"></script>
+
+<!-- Smart Tables -->
+<script src="../static/js/smart-table/smart-table.min.js"></script>
 
 <!-- Bootstrap JavaScript -->
 <script src="../static/css/bootstrap/js/bootstrap.min.js"></script>
 
+<!-- Select2 -->
+<script src="../static/js/select2/select2.min.js"></script>
+
 <!-- SongList custom JavaScript -->
 <script src="../static/js/app.js"></script>
 
-<!-- Smart Tables -->
-<script src="../static/js/smart-table/smart-table.min.js"></script>
+
 
 </body>
 

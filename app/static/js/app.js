@@ -6,7 +6,7 @@
  */
 
 (function () {
-    var app = angular.module('songlist', ['smart-table', 'ui.mask', 'ngSanitize']);
+    var app = angular.module('songlist', ['smart-table', 'ui.mask', 'ngSanitize', 'rt.select2']);
 
     app.config(['$interpolateProvider', '$httpProvider', function ($interpolateProvider, $httpProvider) {
         //Change template start and end symbol to play nice with Flask's Jinja2 Templates
@@ -16,8 +16,9 @@
         //Setup default AJAX post request headers (gets token from HTML meta header)
         $httpProvider.defaults.headers.post = {'Content-Type': 'application/x-www-form-urlencoded', 
                                                 'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')};        
-    }]);    
+    }]);   
 
+    
     //-------------------------------- NavBar Controller ------------------------------------------
     app.controller('NavBarController', ['$http', function ($http) {
 
@@ -368,7 +369,7 @@
         songCtlr.formData.key = $('#key').attr('value');
         songCtlr.formData.tempo = $('#tempo').attr('value');
         songCtlr.formData.duration = $('#duration').attr('value');
-        songCtlr.formData.notes = $('#notes').attr('value');
+        songCtlr.formData.notes = $('#notes').text();
         songCtlr.formData.lyrics = $('#lyrics').attr('value');
         
 
@@ -485,6 +486,189 @@
         
     }]); 
 
+//-------------------------------- Show Form Controller ------------------------------------------
+    app.controller('ShowFormController', ['$http', function ($http) {
+        var showCtlr = this;             
+        showCtlr.formData = {}; //Form to be serialized        
+        showCtlr.message = ''; //Error or Success message
+
+        //Fetch Form Data from the backend (sent by WTForms)        
+        showCtlr.formData.showid = $('#showid').attr('value');
+        showCtlr.formData.bandid = $('#bandid').attr('value');
+        showCtlr.formData.name = $('#name').attr('value');
+        showCtlr.formData.start = $('#start').attr('value');
+        showCtlr.formData.end = $('#end').attr('value');
+        showCtlr.formData.address = $('#address').attr('value');
+        showCtlr.formData.pay = $('#pay').attr('value');
+        showCtlr.formData.contact = $('#contact').text();
+        showCtlr.formData.notes = $('#notes').text();
+        
+
+        showCtlr.bands = []; // List of bands                
+        showCtlr.selectedband = {}; //Selected band
+        $http.get('/fetch-bands/').success(function(data){                
+                showCtlr.bands = data;                                    
+        });     
+
+
+        //Add or Update show
+        this.editShow = function () {
+            showCtlr.formData.bandid =  showCtlr.selectedband.id;           
+            showCtlr.errors = {}; //Init errors              
+            $http({
+                method: 'POST',
+                url: '/edit-show',
+                data: $.param(showCtlr.formData)                
+            })
+            .then(function(response) {              
+                if(response.data.error) {                                                               
+                    showCtlr.errors.error = true;                        
+                  
+                    if(response.data.name != undefined) {
+                        showCtlr.errors.name = response.data.name[0];    
+                    }
+
+                    if(response.data.start != undefined) {
+                        showCtlr.errors.start = response.data.start[0];    
+                    }                                                
+
+                    if(response.data.end != undefined) {
+                        showCtlr.errors.end = response.data.end[0];    
+                    }
+
+                    if(response.data.address != undefined) {
+                        showCtlr.errors.address = response.data.address[0];    
+                    }
+
+                    if(response.data.contact != undefined) {
+                        showCtlr.errors.contact = response.data.contact[0];    
+                    }
+
+                    if(response.data.pay != undefined) {
+                        showCtlr.errors.pay = response.data.pay[0];    
+                    }                    
+                    
+                } else {
+                    showCtlr.errors.error = false;
+
+                    if(!showCtlr.formData.showid)
+                        showCtlr.formData.showid = response.data.addedid; //The show just added      
+                }
+                showCtlr.message = response.data.msg;
+                window.scrollTo(0,0);
+
+            });
+        };
+
+        //Quick Add
+        showCtlr.quickList = []; // List of songs for the quick search                           
+        $http.get('/fetch-available-songs/' + showCtlr.formData.showid).success(function(data){                
+                showCtlr.quickList = data;                                  
+        });             
+
+        //Setlist
+        showCtlr.setlist = []; 
+        $http.get('/fetch-setlist/' + showCtlr.formData.showid).success(function(data){                
+                showCtlr.setlist = data;                                  
+        });             
+
+
+        showCtlr.songid = '';  
+        this.addSong = function() {
+            
+            if(showCtlr.songid == '')
+                return;
+
+            showCtlr.errors = {}; //Init errors    
+            var songToBeAdded = {'songid' : showCtlr.songid, 'showid' : showCtlr.formData.showid};
+            $http({
+                method: 'POST',
+                url: '/add-song',
+                data: $.param(songToBeAdded)                
+            }).then(function(response){
+                showCtlr.errors.error = false;
+
+                //Push to setlist
+                var songJustAdded = {'id' : response.data.id, 'title' : response.data.title, 'artist' : response.data.artist};
+                showCtlr.setlist.data.push(songJustAdded);
+
+                //Remove from quick list (don't allow duplicates)
+                for (var i = 0; i < showCtlr.quickList.data.length; i++)
+                    if (showCtlr.quickList.data[i].id == showCtlr.songid) { 
+                        showCtlr.quickList.data.splice(i, 1);
+                        break;
+                }
+                showCtlr.songid = '';
+            });
+        }; 
+
+
+        this.removeFromSetlist = function(id) {
+            showCtlr.errors = {}; //Init errors    
+            var dataRemoveFromSetlist = {'songid' : id, 'showid' : showCtlr.formData.showid};
+            $http({
+                method: 'POST',
+                url: '/remove-from-setlist',
+                data: $.param(dataRemoveFromSetlist)                
+            }).then(function(response){
+                showCtlr.errors.error = false;
+
+                //Back to the Quicklist
+                 var songJustRemoved = {'id' : response.data.id, 'title' : response.data.title};
+                 showCtlr.quickList.data.push(songJustRemoved);
+                 //Sort alphabetical
+                 showCtlr.quickList.data.sort(function(a, b) {
+                     var songA = a.title.toUpperCase();
+                     var songB = b.title.toUpperCase();
+                    return (songA < songB) ? -1 : (songA > songB) ? 1 : 0;
+                 });
+
+                //Remove from the setlist
+                for (var i = 0; i < showCtlr.setlist.data.length; i++)
+                    if (showCtlr.setlist.data[i].id == id) { 
+                        showCtlr.setlist.data.splice(i, 1);
+                        break;
+                }                               
+            });
+        };
+
+
+    }]);  
+
+//-------------------------------- Song Report Controller -------------------------------------------------
+    app.controller('ShowReportController', ['$http', function ($http) {
+        var reportCtlr = this;             
+        
+        reportCtlr.options = [10,25,50,100];         
+        reportCtlr.message = '';
+
+        reportCtlr.shows = []; // List of songs                
+        $http.get('/fetch-shows/').success(function(data){                
+            reportCtlr.shows = data;                                    
+        });      
+
+        this.deleteShow = function(id) {
+            reportCtlr.errors = {}; //Init errors    
+            var showToBeDeleted = {'id':id};
+            $http({
+                method: 'POST',
+                url: '/delete-show',
+                data: $.param(showToBeDeleted)                
+            }).then(function(response){
+                reportCtlr.errors.error = false;
+                //Remove from list
+                for (var i = 0; i < reportCtlr.songs.data.length; i++)
+                    if (reportCtlr.shows.data[i].id == id) { 
+                        reportCtlr.shows.data.splice(i, 1);
+                        break;
+                }
+                reportCtlr.message = response.data.msg;
+                window.scrollTo(0,0);
+            });
+        };           
+        
+    }]); 
+
 //-------------------------------- Confirmation Dialog Directive ------------------------------------------
     app.directive('confirmationNeeded', function () {
         return {
@@ -502,6 +686,7 @@
         };
     });   
 
+//-------------------------------- CK Editor Directive ------------------------------------------
   app.directive('ckEditor', function () {
       return {
         require: '?ngModel',
@@ -526,5 +711,7 @@
         }
       };
     });
+
+
 
 })(); //End app

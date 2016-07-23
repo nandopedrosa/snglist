@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-19 16:54-0300\n"
-"PO-Revision-Date: 2016-07-19 16:57-0300\n"
+"POT-Creation-Date: 2016-07-21 23:38-0300\n"
+"PO-Revision-Date: 2016-07-21 23:39-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -24,56 +24,57 @@ msgid "Please enter your credentials to confirm this request"
 msgstr ""
 "Por favor, informe seu Login (email) e Senha para confirmar esta requisição"
 
-#: app/forms.py:60 app/forms.py:81 app/forms.py:114 app/forms.py:170
-#: app/forms.py:193 app/templates/edit-band.html:68
+#: app/forms.py:61 app/forms.py:82 app/forms.py:115 app/forms.py:171
+#: app/forms.py:194 app/forms.py:271 app/templates/edit-band.html:68
+#: app/templates/edit-show.html:86 app/templates/shows.html:33
 msgid "Name"
 msgstr "Nome"
 
-#: app/forms.py:60 app/forms.py:81 app/forms.py:114
+#: app/forms.py:61 app/forms.py:82 app/forms.py:115
 msgid "Enter your name"
 msgstr "Digite seu nome\t"
 
-#: app/forms.py:62 app/forms.py:83 app/forms.py:116
+#: app/forms.py:63 app/forms.py:84 app/forms.py:117
 msgid "Please, enter your name"
 msgstr "Por favor, digite o seu nome"
 
-#: app/forms.py:63 app/forms.py:84 app/forms.py:117
+#: app/forms.py:64 app/forms.py:85 app/forms.py:118
 msgid "Your name must have a minimum of 3 characters"
 msgstr "O seu nome deve ter no mínimo 3 caracteres"
 
-#: app/forms.py:64 app/forms.py:85 app/forms.py:118
+#: app/forms.py:65 app/forms.py:86 app/forms.py:119
 msgid "Your name must have a maximum of 128 characters"
 msgstr "O seu nome deve ter no máximo 128 caracteres"
 
-#: app/forms.py:67 app/forms.py:88 app/forms.py:149
+#: app/forms.py:68 app/forms.py:89 app/forms.py:150
 msgid "Enter your email"
 msgstr "Digite o seu email"
 
-#: app/forms.py:68 app/forms.py:89 app/forms.py:150
+#: app/forms.py:69 app/forms.py:90 app/forms.py:151
 msgid "Please, enter your email"
 msgstr "Por favor, digite o seu email"
 
-#: app/forms.py:69 app/forms.py:90 app/forms.py:151
+#: app/forms.py:70 app/forms.py:91 app/forms.py:152
 msgid "Your email must have a minimum of 6 characters"
 msgstr "O seu email deve ter no mínimo 6 caracteres"
 
-#: app/forms.py:70 app/forms.py:91 app/forms.py:152 app/forms.py:208
+#: app/forms.py:71 app/forms.py:92 app/forms.py:153 app/forms.py:209
 msgid "Please, inform a valid email"
 msgstr "Por favor, informe um email válido"
 
-#: app/forms.py:73
+#: app/forms.py:74
 msgid "Message"
 msgstr "Mensagem"
 
-#: app/forms.py:74
+#: app/forms.py:75
 msgid "Please, write your message"
 msgstr "Por favor, digite a sua mensagem"
 
-#: app/forms.py:75
+#: app/forms.py:76
 msgid "Your message must have between 3 and 4000 characters"
 msgstr "A sua mensagem deve ter entre 3 e 4000 caracteres"
 
-#: app/forms.py:76
+#: app/forms.py:77
 msgid ""
 "Enter your message with suggestions, bug reports or anything else you think is "
 "important"
@@ -81,184 +82,184 @@ msgstr ""
 "Digite a sua mensagem com sugestões, erros encontrados ou qualquer outro assunto "
 "que você julgar importante"
 
-#: app/forms.py:94 app/forms.py:155
+#: app/forms.py:95 app/forms.py:156
 msgid "Password"
 msgstr "Senha"
 
-#: app/forms.py:96 app/forms.py:123 app/forms.py:157
+#: app/forms.py:97 app/forms.py:124 app/forms.py:158
 msgid "Enter your password (at least 6 characters)"
 msgstr "Digite a sua senha (no mínimo 6 caracteres)"
 
-#: app/forms.py:98 app/forms.py:159
+#: app/forms.py:99 app/forms.py:160
 msgid "Please, enter your password"
 msgstr "Por favor, digite a sua senha"
 
-#: app/forms.py:99 app/forms.py:126 app/forms.py:138 app/forms.py:160
+#: app/forms.py:100 app/forms.py:127 app/forms.py:139 app/forms.py:161
 msgid "Your password must have at least 6 characters"
 msgstr "A sua senha deve ter no mínimo 6 caracteres"
 
-#: app/forms.py:100 app/forms.py:127
+#: app/forms.py:101 app/forms.py:128
 msgid "Passwords must match"
 msgstr "A senha e a sua confirmação não conferem"
 
-#: app/forms.py:102
+#: app/forms.py:103
 msgid "Confirm Password"
 msgstr "Confirmar senha"
 
-#: app/forms.py:104 app/forms.py:131
+#: app/forms.py:105 app/forms.py:132
 msgid "Confirm your password"
 msgstr "Confirme a sua senha"
 
-#: app/forms.py:105
+#: app/forms.py:106
 msgid "Please, confirm your password"
 msgstr "Por favor, confirme a sua senha\t"
 
-#: app/forms.py:110
+#: app/forms.py:111
 msgid "Email already registered."
 msgstr "Esse email já foi registrado, por favor escolha outra"
 
-#: app/forms.py:121
+#: app/forms.py:122
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: app/forms.py:129
+#: app/forms.py:130
 msgid "Confirm New Password"
 msgstr "Confirme a Nova Senha"
 
-#: app/forms.py:133
+#: app/forms.py:134
 msgid "Please enter your current password to confirm changes:"
 msgstr "Por favor digite a sua senha atual para confirmar as mudanças"
 
-#: app/forms.py:135
+#: app/forms.py:136
 msgid "Enter your current password"
 msgstr "Digite a sua senha atual"
 
-#: app/forms.py:136
+#: app/forms.py:137
 msgid "Please, enter your current password"
 msgstr "Por favor, digite a sua senha atual"
 
-#: app/forms.py:145
+#: app/forms.py:146
 msgid "Invalid current password"
 msgstr "Senha atual inválida"
 
-#: app/forms.py:163
+#: app/forms.py:164
 msgid "Keep me logged in"
 msgstr "Mantenha-me logado"
 
-#: app/forms.py:171
+#: app/forms.py:172
 msgid "Enter your band/project name"
 msgstr "Digite o nome da sua banda/projeto"
 
-#: app/forms.py:173
+#: app/forms.py:174
 msgid "Please, enter your band/project name"
 msgstr "Por favor, digite o nome da sua banda/projeto"
 
-#: app/forms.py:175 app/forms.py:184
+#: app/forms.py:176 app/forms.py:185
 msgid "Your band/project name must have a minimum of 3 characters"
 msgstr "O nome da sua banda/projeto deve ter no mínimo 3 caracteres"
 
-#: app/forms.py:177 app/forms.py:186 app/forms.py:198
+#: app/forms.py:178 app/forms.py:187 app/forms.py:199
 msgid "Your band/project name must have a maximum of 128 characters"
 msgstr "O nome da sua banda/projeto deve ter no máximo 128 caracteres"
 
-#: app/forms.py:180 app/templates/bands.html:34
+#: app/forms.py:181 app/templates/bands.html:34
 msgid "Style"
 msgstr "Estilo"
 
-#: app/forms.py:181
+#: app/forms.py:182
 msgid "Enter the musical style of your band/project"
 msgstr "Digite o estilo musical da sua banda/projeto"
 
-#: app/forms.py:194
+#: app/forms.py:195
 msgid "Enter your bandmate's name"
 msgstr "Digite o nome do seu companheiro de banda"
 
-#: app/forms.py:196
+#: app/forms.py:197
 msgid "Please, enter your bandmate's name"
 msgstr "Por favor, digite o nome do seu companheiro de banda"
 
-#: app/forms.py:203
+#: app/forms.py:204
 msgid "Enter your bandmate's email"
 msgstr "Digite o email do seu companheiro de banda"
 
-#: app/forms.py:205
+#: app/forms.py:206
 msgid "Please, enter your bandmate's email"
 msgstr "Por favor, digite o email do seu companheiro de banda"
 
-#: app/forms.py:207
+#: app/forms.py:208
 msgid "The email must have a minimum of 6 characters"
 msgstr "O email deve ter no mínimo 6 caracteres"
 
-#: app/forms.py:215 app/templates/songs.html:33
+#: app/forms.py:216 app/templates/songs.html:33
 msgid "Title"
 msgstr "Título"
 
-#: app/forms.py:216
+#: app/forms.py:217
 msgid "Enter the title of the song"
 msgstr "Digite o título da música"
 
-#: app/forms.py:218
+#: app/forms.py:219
 msgid "Please, enter the title of the song"
 msgstr "Por favor, digite o título da música"
 
-#: app/forms.py:220
+#: app/forms.py:221
 msgid "The title of the song name must have a maximum of 128 characters"
 msgstr "O título da música deve ter no máximo 128 caracteres"
 
-#: app/forms.py:224 app/templates/songs.html:34
+#: app/forms.py:225 app/templates/songs.html:34
 msgid "Artist"
 msgstr "Artista"
 
-#: app/forms.py:225
+#: app/forms.py:226
 msgid "Enter the name of the Band or Artist of the song"
 msgstr "Digite o nome da banda ou artista da música"
 
-#: app/forms.py:228
+#: app/forms.py:229
 msgid "The artist of the song name must have a maximum of 128 characters"
 msgstr "O nome do artista deve ter no máximo 128 caracteres"
 
-#: app/forms.py:232 app/templates/songs.html:36
+#: app/forms.py:233 app/templates/songs.html:36
 msgid "Key"
 msgstr "Tom"
 
-#: app/forms.py:233
+#: app/forms.py:234
 msgid "Key of the song (e.g: Am)"
 msgstr "Tom da música (eg: Am)"
 
-#: app/forms.py:236
+#: app/forms.py:237
 msgid "The key of the song name must have a maximum of 128 characters"
 msgstr "O tom da música deve ter no máximo 128 caracteres"
 
-#: app/forms.py:241
+#: app/forms.py:242
 msgid "Tempo of the song in beats per minute (e.g: 120)"
 msgstr "O tempo da música em batimentos por minuto (ex: 120)"
 
-#: app/forms.py:244
+#: app/forms.py:245
 msgid "Tempo must be between 20 and 500 bpm"
 msgstr "O tempo da música deve ficar entre 20 bpm e 500 bpm"
 
-#: app/forms.py:248
+#: app/forms.py:249
 msgid "Duration (mm:ss)"
 msgstr "Duração (mm:ss)"
 
-#: app/forms.py:249
+#: app/forms.py:250
 msgid "mm:ss"
 msgstr "mm:ss"
 
-#: app/forms.py:252
+#: app/forms.py:253
 msgid "You must specify minutes and seconds (with left zero-padding, if necessary)"
 msgstr ""
 "Você deve especificar minutos e segundos (com zeros à esquerda, se necessário)"
 
-#: app/forms.py:256
+#: app/forms.py:256 app/forms.py:310
 msgid "Notes"
 msgstr "Observações"
 
-#: app/forms.py:259
+#: app/forms.py:259 app/forms.py:313
 msgid "Your note must have between 3 and 4000 characters"
 msgstr "A sua observação deve ter entre 3 e 4000 caracteres"
 
-#: app/forms.py:260
+#: app/forms.py:260 app/forms.py:314
 msgid "Enter notes witih important observations"
 msgstr "Digite observações que você julgar importantes"
 
@@ -269,6 +270,74 @@ msgstr "Letra/Cifra"
 #: app/forms.py:263
 msgid "Enter the lyrics and/or chords of the song"
 msgstr "Digite a letra/cifra da música"
+
+#: app/forms.py:272
+msgid "Enter the name of the show"
+msgstr "Digite o nome ou descrição do show"
+
+#: app/forms.py:274
+msgid "Please, enter the name of the show"
+msgstr "Por favor, digite o nome ou descrição do show"
+
+#: app/forms.py:276
+msgid "The name of the show name must have a maximum of 128 characters"
+msgstr "O nome do show deve ter no máximo 128 caracteres"
+
+#: app/forms.py:279
+msgid "Start (YYYY/MM/DD HH24:mm)"
+msgstr "Início (AAAA/MM/DD HH24:mm)"
+
+#: app/forms.py:281
+msgid "Enter the start date/time of the show"
+msgstr "Digite a data/hora de início do show"
+
+#: app/forms.py:285
+msgid "End (YYYY/MM/DD HH24:mm)"
+msgstr "Término (AAAA/MM/DD HH24:mm)"
+
+#: app/forms.py:287
+msgid "Enter the end date/time of the show"
+msgstr "Digite a data/hora de término do show"
+
+#: app/forms.py:291
+msgid "Address"
+msgstr "Endereço"
+
+#: app/forms.py:292
+msgid "Enter the address of the show"
+msgstr "Digite o endereço do show"
+
+#: app/forms.py:294
+msgid "The address of the show name must have a maximum of 128 characters"
+msgstr "O endereço do show deve ter no máximo 128 caracteres"
+
+#: app/forms.py:297
+msgid "Contact Info"
+msgstr "Informações de Contato"
+
+#: app/forms.py:300
+msgid "Your contact information must have between 3 and 4000 characters"
+msgstr "O contato deve ter entre 3 e 4000 caracteres"
+
+#: app/forms.py:302
+msgid "Enter important contact info (name, email, phone, etc.)"
+msgstr "Digite as informações do contato (nome, email, telefone, etc.)"
+
+#: app/forms.py:304
+msgid "Pay"
+msgstr "Pagamento"
+
+#: app/forms.py:305
+msgid "Enter how much you are going to get paid (hopefully)"
+msgstr "Digite o quanto você vai ser pago"
+
+#: app/forms.py:307
+msgid "The payment amount name must have a maximum of 128 characters"
+msgstr "O pagamento deve ter no máximo 128 caracteres"
+
+#: app/forms.py:316
+msgid "YYYY/MM/DD HH24:mm"
+msgstr "AAAA/MM/DD HH24:mm"
 
 #: app/util.py:22
 msgid ""
@@ -296,19 +365,19 @@ msgstr ""
 "\n"
 "Nota: esta é uma mensagem automática, não é necessário respondê-la.\n"
 
-#: app/views.py:94
+#: app/views.py:95
 msgid "Message successfully sent"
 msgstr "Mensagem enviada com sucesso"
 
-#: app/views.py:97
+#: app/views.py:98
 msgid "Your message could not be sent. Check the errors below."
 msgstr "A sua mensagem não pôde ser enviada. Verifique os erros abaixo."
 
-#: app/views.py:135
+#: app/views.py:136
 msgid "Welcome to Songlist Plus!"
 msgstr "Bem-vindo ao Songlist Plus!"
 
-#: app/views.py:137
+#: app/views.py:138
 msgid ""
 "Signup succesful. To complete your registration, check your email and follow the "
 "instructions."
@@ -316,91 +385,103 @@ msgstr ""
 "Registro realizado com sucesso. Para ativar sua conta, verifique o seu email e "
 "siga as instruções contidas nele."
 
-#: app/views.py:142
+#: app/views.py:143
 msgid "Signup unsuccessful. Check the errors below."
 msgstr "Não foi possível realizar o seu registro. Verifique os erros abaixo."
 
-#: app/views.py:174
+#: app/views.py:175
 msgid "Profile updated"
 msgstr "Perfil atualizado"
 
-#: app/views.py:178 app/views.py:318 app/views.py:340 app/views.py:486
+#: app/views.py:179 app/views.py:319 app/views.py:341 app/views.py:487
+#: app/views.py:618
 msgid "Your request was not successful. Please, check the errors below."
 msgstr "A sua requisição não obteve sucesso. Por favor, verifique os erros abaixo."
 
-#: app/views.py:191
+#: app/views.py:192
 msgid "Your account has been deleted. Thanks for using Songlist Plus!"
 msgstr "A sua conta foi excluída. Obrigado por usar o Songlist Plus!"
 
-#: app/views.py:228
+#: app/views.py:229
 msgid "Login successful"
 msgstr "Login realizado com sucesso"
 
-#: app/views.py:234
+#: app/views.py:235
 msgid "You have confirmed your account. Thanks!"
 msgstr "Você confirmou e ativou a sua conta com sucesso. Obrigado!"
 
-#: app/views.py:236
+#: app/views.py:237
 msgid "The confirmation link is invalid or has expired."
 msgstr "O link de confirmação é inválido ou expirou."
 
-#: app/views.py:244
+#: app/views.py:245
 msgid "Invalid email or password"
 msgstr "Email ou Senha inválidos"
 
-#: app/views.py:248
+#: app/views.py:249
 msgid "Login unsuccessful. Check the errors below"
 msgstr "Não foi possível realizar o Login. Verifique os erros abaixo."
 
-#: app/views.py:261
+#: app/views.py:262
 msgid "You have been logged out."
 msgstr "Logout realizado com sucesso."
 
-#: app/views.py:307
+#: app/views.py:308
 msgid "You have added a new band/project!"
 msgstr "Você adicionou uma nova banda/projeto!"
 
-#: app/views.py:314
+#: app/views.py:315
 msgid "Band/Project info updated!"
 msgstr "Banda/Projeto atualizado!"
 
-#: app/views.py:336
+#: app/views.py:337
 msgid "Band member added"
 msgstr "Membro da banda adicionado"
 
-#: app/views.py:421
+#: app/views.py:422
 msgid "Band successfully deleted."
 msgstr "Banda excluída com sucesso."
 
-#: app/views.py:470
+#: app/views.py:471
 msgid "Song successfully added!"
 msgstr "Música adicionada com sucesso!"
 
-#: app/views.py:482
+#: app/views.py:483
 msgid "Song info updated!"
 msgstr "Música atualizada com sucesso!"
 
-#: app/views.py:527
+#: app/views.py:528
 msgid "Song successfully deleted."
 msgstr "Música excluída com sucesso."
 
-#: app/views.py:540
+#: app/views.py:541
 msgid "You must provide a URL address"
 msgstr "Você deve fornecer um endereço URL"
 
-#: app/views.py:545
+#: app/views.py:546
 msgid "Song successfully imported. You can now close this dialog."
 msgstr ""
 "Música importada com sucesso. Você pode fechar essa janela e retornar à tela "
 "anterior."
 
-#: app/views.py:548
+#: app/views.py:549
 msgid ""
 "We could not find the song you requested. Are you sure you entered a supported "
 "site URL?"
 msgstr ""
 "Não conseguimos encontrar a música que você solicitou. Tem certeza de que você "
 "digitou uma URL suportada?"
+
+#: app/views.py:599
+msgid ""
+"Show successfully added! Now you can start building your setlist (see below)."
+msgstr ""
+"Show adicionado com sucesso! Agora você pode começar a construir o seu "
+"repertório (ver abaixo)."
+
+#: app/views.py:614
+msgid "Show info updated!"
+msgstr "Show atualizado com sucesso!"
 
 #: app/templates/404.html:6
 msgid "Page not found"
@@ -430,7 +511,8 @@ msgstr ""
 msgid "Bands and Projects"
 msgstr "Bandas e Projetos"
 
-#: app/templates/bands.html:15 app/templates/songs.html:15
+#: app/templates/bands.html:15 app/templates/shows.html:15
+#: app/templates/songs.html:15
 msgid "Items per page:"
 msgstr "Itens por página:"
 
@@ -438,11 +520,12 @@ msgstr "Itens por página:"
 msgid "Add Band/Project"
 msgstr "Adicionar Banda/Projeto"
 
-#: app/templates/bands.html:29 app/templates/songs.html:29
+#: app/templates/bands.html:29 app/templates/edit-show.html:81
+#: app/templates/shows.html:29 app/templates/songs.html:29
 msgid "Search..."
-msgstr "Filtrar…"
+msgstr "Pesquisar…"
 
-#: app/templates/bands.html:33
+#: app/templates/bands.html:33 app/templates/shows.html:35
 msgid "Band/Project"
 msgstr "Banda/Projeto"
 
@@ -454,41 +537,41 @@ msgstr "Membros"
 msgid "Confirm this action?"
 msgstr "Confirmar esta ação ?"
 
-#: app/templates/base.html:62 app/templates/base.html:95
+#: app/templates/base.html:65 app/templates/base.html:98
 #: app/templates/contact.html:6
 msgid "Contact"
 msgstr "Contato"
 
-#: app/templates/base.html:65 app/templates/base.html:98
-#: app/templates/base.html:140
+#: app/templates/base.html:68 app/templates/base.html:101
+#: app/templates/base.html:143
 msgid "About"
 msgstr "Sobre"
 
-#: app/templates/base.html:68
+#: app/templates/base.html:71
 msgid "Sign in"
 msgstr "Entrar"
 
-#: app/templates/base.html:78
+#: app/templates/base.html:81
 msgid "Bands"
 msgstr "Bandas"
 
-#: app/templates/base.html:81 app/templates/songs.html:6
+#: app/templates/base.html:84 app/templates/songs.html:6
 msgid "Songs"
 msgstr "Músicas"
 
-#: app/templates/base.html:84
+#: app/templates/base.html:87 app/templates/shows.html:6
 msgid "Shows"
 msgstr "Shows"
 
-#: app/templates/base.html:92 app/templates/profile.html:6
+#: app/templates/base.html:95 app/templates/profile.html:6
 msgid "Profile"
 msgstr "Perfil"
 
-#: app/templates/base.html:101
+#: app/templates/base.html:104
 msgid "Sign Out"
 msgstr "Sair"
 
-#: app/templates/base.html:148 app/templates/edit-song.html:81
+#: app/templates/base.html:151 app/templates/edit-song.html:81
 #: app/templates/songs.html:84
 msgid "Close"
 msgstr "Fechar"
@@ -501,11 +584,13 @@ msgstr "Enviar"
 msgid "Edit Band/Project"
 msgstr "Editar Banda/Projeto"
 
-#: app/templates/edit-band.html:32 app/templates/edit-song.html:58
+#: app/templates/edit-band.html:32 app/templates/edit-show.html:66
+#: app/templates/edit-song.html:58
 msgid "Back"
 msgstr "Voltar"
 
-#: app/templates/edit-band.html:33 app/templates/edit-song.html:59
+#: app/templates/edit-band.html:33 app/templates/edit-show.html:67
+#: app/templates/edit-song.html:59
 msgid "Save"
 msgstr "Salvar"
 
@@ -524,17 +609,38 @@ msgstr ""
 msgid "Add Member"
 msgstr "Adicionar Membro"
 
-#: app/templates/edit-band.html:69
+#: app/templates/edit-band.html:69 app/templates/edit-show.html:87
 msgid "Email"
 msgstr "Email"
+
+#: app/templates/edit-show.html:7
+msgid "Edit Show"
+msgstr "Editar Show"
+
+#: app/templates/edit-show.html:9 app/templates/shows.html:21
+msgid "Add Show"
+msgstr "Adicionar Show"
+
+#: app/templates/edit-show.html:30
+msgid "Band/Project:"
+msgstr "Banda/Projeto"
+
+#: app/templates/edit-show.html:71
+msgid "Setlist"
+msgstr "Repertório"
+
+#: app/templates/edit-show.html:76
+msgid "Quick Add"
+msgstr "Adicionar rapidamente"
+
+#: app/templates/edit-show.html:80 app/templates/edit-song.html:9
+#: app/templates/songs.html:21
+msgid "Add Song"
+msgstr "Adicionar Música"
 
 #: app/templates/edit-song.html:7
 msgid "Edit Song"
 msgstr "Editar Música"
-
-#: app/templates/edit-song.html:9 app/templates/songs.html:21
-msgid "Add Song"
-msgstr "Adicionar Música"
 
 #: app/templates/edit-song.html:48
 msgid "Import..."
@@ -647,6 +753,10 @@ msgstr ""
 msgid "I understand, delete my account"
 msgstr "Eu entendo, exclua a minha conta"
 
+#: app/templates/shows.html:34
+msgid "When"
+msgstr "Quando"
+
 #: app/templates/signup.html:35
 msgid "Register"
 msgstr "Inscrever-se"
@@ -671,12 +781,14 @@ msgstr "Duração"
 #~ msgid "Submit"
 #~ msgstr "Submeter"
 
-#~ msgid ""
-#~ "We could not find the song you requested. Are you sure you entered a "
-#~ "supported site?"
-#~ msgstr ""
-#~ "Não conseguimos encontrar a música que você pediu. Você tem certeza que "
-#~ "digitou um site suportado?"
-
 #~ msgid "Providers: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"
 #~ msgstr "Provedores: LyricsFreak.com, Letras.mus.br or Cifraclub.com.br"
+
+#~ msgid "MM/DD/YYYY HH24:mm"
+#~ msgstr "DD/MM/YYYY HH24:mm"
+
+#~ msgid "Start"
+#~ msgstr "Início"
+
+#~ msgid "End"
+#~ msgstr "Término"

@@ -40,7 +40,7 @@
                 </div>   
                  <div class="form-group">
                     {{ song_form.duration.label }} 
-                    {{ song_form.duration(class="form-control", ng_model="songCtlr.formData.duration", **{'ui-mask':'99:99'})}}                     
+                    {{ song_form.duration(class="form-control", placeholder="mm:ss", ng_model="songCtlr.formData.duration", **{'ui-mask':'99:99', 'ui-mask-placeholder':''})}}                     
                     <p class="text-danger">[[ songCtlr.errors.duration ]]</p>
                 </div>   
                 <div class="form-group">

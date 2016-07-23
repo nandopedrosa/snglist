@@ -9,12 +9,13 @@ __email__ = "fpedrosa@gmail.com"
 
 from flask import render_template, request, session, redirect, url_for, jsonify, flash
 from flask.ext.login import login_user, logout_user, login_required, current_user
-from flask.ext.babel import gettext, lazy_gettext
+from flask.ext.babel import gettext, lazy_gettext, format_datetime
 from app import app, babel, db
 from app.config import LANGUAGES
-from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm, SongForm
-from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user
-from app.models import User, Band, BandMember, Song
+from sqlalchemy import desc
+from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm, SongForm, ShowForm
+from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user, get_date_format
+from app.models import User, Band, BandMember, Song, Show
 
 
 @app.route('/')
@@ -493,7 +494,7 @@ def edit_song():
 def fetch_songs():
     """
     Fetch all the songs of the current user
-    :return: JSON with the bands list
+    :return: JSON with the songs list
     """
     song_list = current_user.songs.order_by(Song.title).all()
     return_data = []
@@ -520,7 +521,7 @@ def songs():
 def delete_song():
     """
     Deletes a song
-    :return: Empty Dict
+    :return: Info message
     """
     song = Song.query.get(int(request.form.get('id')))
     db.session.delete(song)
@@ -547,3 +548,173 @@ def import_song():
         return jsonify(
             dict(error=gettext(
                 'We could not find the song you requested. Are you sure you entered a supported site URL?')))
+
+
+# --------------------------------------  Shows --------------------------------------------------------------
+
+@app.route('/edit-show', methods=['GET', 'POST'])
+@login_required
+def edit_show():
+    """
+    Add or Edit a show
+    :return: The updated song info
+    """
+
+    if request.method == 'GET':
+        form = ShowForm()
+        showid = request.args.get('id')
+
+        # Edit Song
+        if showid is not None:
+            show = Show.query.get(int(showid))
+
+            if not is_current_user(show.user_id):
+                return render_template("not-authorized.html")
+
+            form.showid.data = show.id
+            form.bandid.data = show.band_id
+            form.name.data = show.name
+            form.start.data = show.start
+            form.end.data = show.end
+            form.address.data = show.address
+            form.contact.data = show.contact
+            form.pay.data = show.pay
+            form.notes.data = show.notes
+
+        return render_template("edit-show.html", show_form=form)
+
+    else:
+        form = ShowForm(request.form)
+        form.start.format = '%d/%m/%Y %H:%M'
+
+        if form.validate():
+            form.errors['error'] = False
+
+            if form.showid.data == '':
+                # New Show
+                show = Show(name=form.name.data, start=form.start.data, end=form.end.data, contact=form.contact.data,
+                            pay=form.pay.data, notes=form.notes.data, address=form.address.data,
+                            band_id=form.bandid.data, user_id=current_user.id)
+                db.session.add(show)
+                db.session.commit()
+                form.errors['msg'] = gettext(
+                    'Show successfully added! Now you can start building your setlist (see below).')
+                form.errors['addedid'] = show.id
+            else:
+                # Edit Show
+                show = Show.query.get(int(form.showid.data))
+                show.band_id = form.bandid.data
+                show.name = form.name.data
+                show.start = form.start.data
+                show.end = form.end.data
+                show.address = form.address.data
+                show.contact = form.contact.data
+                show.pay = form.pay.data
+                show.notes = form.notes.data
+                db.session.add(show)
+                form.errors['msg'] = gettext('Show info updated!')
+
+        else:
+            form.errors['error'] = True
+            form.errors['msg'] = gettext('Your request was not successful. Please, check the errors below.')
+
+        return jsonify(form.errors)
+
+
+@app.route('/fetch-shows/', methods=['GET'])
+@login_required
+def fetch_shows():
+    """
+    Fetch all the shows of the current user (from new to old)
+    :return: JSON with the shows list
+    """
+    show_list = current_user.shows.order_by(desc(Show.start)).all()
+    return_data = []
+
+    for show in show_list:
+        band = Band.query.get(int(show.band_id))
+        start = format_datetime(show.start, get_date_format())
+        return_data.append(dict(id=show.id, name=show.name, start=start, band=band.name))
+
+    return jsonify(data=return_data)
+
+
+@app.route('/shows')
+@login_required
+def shows():
+    """
+    Renders the Shows Page
+    :return: The rendered Shows Page
+    """
+    return render_template("shows.html")
+
+
+@app.route('/fetch-available-songs/<int:show_id>', methods=['GET'])
+@login_required
+def fetch_available_songs(show_id):
+    """
+    Fetch all the available songs of the current user from his or her Song Catalogue
+    not yet added to a given show's setlist
+    :return: JSON with the songs list
+    """
+    available_songs = current_user.songs.order_by(Song.title).all()
+
+    show = Show.query.get(show_id)
+    show_songs = show.songs
+
+    # Remove already added songs to the setlists. Return only leftovers songs
+    for show_song in show_songs:
+        for available_song in available_songs:
+            if show_song.id == available_song.id:
+                available_songs.remove(available_song)
+
+    return_data = []
+    for song in available_songs:
+        return_data.append(dict(id=song.id, title=song.title + ' (' + song.artist + ')'))
+
+    return jsonify(data=return_data)
+
+
+@app.route('/fetch-setlist/<int:show_id>', methods=['GET'])
+@login_required
+def fetch_setlist(show_id):
+    """
+    Fetch a show's setlist (added songs)
+    :return: JSON with the songs list
+    """
+    show = Show.query.get(show_id)
+    setlist = show.songs
+
+    return_data = []
+    for song in setlist:
+        return_data.append(dict(id=song.id, title=song.title, artist=song.artist))
+
+    return jsonify(data=return_data)
+
+
+@app.route('/add-song', methods=["POST"])
+@login_required
+def add_song():
+    """
+    Adds a song to a show setlist
+    :return: empty dict
+    """
+    show = Show.query.get(int(request.form.get('showid')))
+    song = Song.query.get(int(request.form.get('songid')))
+    show.add_song(song)
+    db.session.add(show)
+    return jsonify(dict(id=song.id, title=song.title, artist=song.artist))
+
+
+@app.route('/remove-from-setlist', methods=["POST"])
+@login_required
+def remove_from_setlist():
+    """
+    Removes a song from a show's setlist
+    :return: empty dict
+    """
+    show = Show.query.get(int(request.form.get('showid')))
+    song = Song.query.get(int(request.form.get('songid')))
+    show.remove_song(song)
+    db.session.add(show)
+    return jsonify(dict(id=song.id, title=song.title + ' (' + song.artist + ')'))

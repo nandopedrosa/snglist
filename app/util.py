@@ -9,7 +9,7 @@ __email__ = "fpedrosa@gmail.com"
 import httplib2
 from bs4 import BeautifulSoup
 from flask.ext.mail import Message
-from flask import url_for
+from flask import url_for, session
 from flask.ext.babel import gettext
 from app import app, mail
 from app.decorators import async
@@ -80,3 +80,14 @@ def getsoup(url):
     response, content = http.request(url, headers={'User-agent': 'Mozilla/5.0'})
     soup = BeautifulSoup(content, 'lxml')
     return soup
+
+
+def get_date_format():
+    """
+    Returns the correct date format (DD/MM/YYYY or MM/DD/YYYY) depending on the current language
+    :return: the date format
+    """
+    if session['lang'] == 'pt':
+        return "EEEE, dd 'de' MMMM 'de' yyyy, HH:mm"
+    else:
+        return "EEEE, MMMM dd yyyy, HH:mm"

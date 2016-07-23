@@ -3,12 +3,12 @@
  
     <div class="row">
         <div class="col-xs-12">
-            <h1 class="page-header">{{_('Bands and Projects')}}</h1>
+            <h1 class="page-header">{{_('Shows')}}</h1>
         </div>
     </div>
 
      <div class="row" ng-cloak>
-        <div class="col-xs-12" ng-controller="BandReportController as reportCtlr">      
+        <div class="col-xs-12" ng-controller="ShowReportController as reportCtlr">      
             <div class="alert alert-success" ng-show="reportCtlr.message != ''" role="alert">[[ reportCtlr.message ]]</div>
             <form class="form-inline" role="form">
                 <div class="form-group">    
@@ -18,11 +18,11 @@
                     </select>
                 </div> 
                 <div class="form-group">    
-                    <a href="/edit-band" class="btn btn-primary form-control" role="button">{{ _('Add Band/Project') }}</a>
+                    <a href="/edit-show" class="btn btn-primary form-control" role="button">{{ _('Add Show') }}</a>
                 </div> 
             </form>         
 
-             <table st-table="displayedCollection" st-safe-src="reportCtlr.bands.data" class="table table-striped">
+             <table st-table="displayedCollection" st-safe-src="reportCtlr.shows.data" class="table table-striped">
                 <thead>
                     <tr>
                         <th colspan="4" class="searchbox">
@@ -30,22 +30,22 @@
                         </th>
                     </tr>
                     <tr>
-                        <th st-sort="name">{{_('Band/Project')}}<i class="fa fa-fw fa-sort"></th>
-                        <th st-sort="style">{{_('Style')}}<i class="fa fa-fw fa-sort"></th>                             
-                        <th>{{_('Members')}}</th>                             
+                        <th st-sort="name">{{_('Name')}}<i class="fa fa-fw fa-sort"></i></th>
+                        <th>{{_('When')}}</th>
+                        <th st-sort="band">{{_('Band/Project')}}<i class="fa fa-fw fa-sort"></th>                                                                      
                         <th></th>   
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="band in displayedCollection">
-                        <td>[[ band.name ]]</td>
-                        <td>[[ band.style ]]</td>
-                        <td>[[ band.members ]]</td>
+                    <tr ng-repeat="show in displayedCollection">
+                        <td>[[ show.name ]]</td>
+                        <td>[[ show.start ]]</td>
+                        <td>[[ show.band ]]</td>
                         <td>
-                           <button type="button" ng-click="reportCtlr.deleteBand(band.id)" confirmation-needed class="btn btn-sm btn-danger">
+                           <button type="button" ng-click="reportCtlr.deleteShow(show.id)" confirmation-needed class="btn btn-sm btn-danger">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </button>
-                            <a href="/edit-band?id=[[band.id]]" class="btn btn-sm btn-primary" role="button">
+                            <a href="/edit-show?id=[[show.id]]" class="btn btn-sm btn-primary" role="button">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </a>
                         </td>

@@ -16,6 +16,13 @@ from flask.ext.login import AnonymousUserMixin
 from flask import current_app
 from app.util import getsoup
 
+# Many-to-Many auxiliary table
+show_song = db.Table(
+    'show_song',
+    db.Column('show_id', db.Integer, db.ForeignKey('show.id')),
+    db.Column('song_id', db.Integer, db.ForeignKey('song.id'))
+)
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
@@ -26,6 +33,7 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, default=False)
     bands = db.relationship('Band', backref='user', lazy='dynamic', cascade="all, delete-orphan")
     songs = db.relationship('Song', backref='user', lazy='dynamic', cascade="all, delete-orphan")
+    shows = db.relationship('Show', backref='user', lazy='dynamic', cascade="all, delete-orphan")
 
     def __repr__(self):
         return 'User {0} ({1})'.format(self.name, self.email)
@@ -151,3 +159,29 @@ class Song(db.Model):
             html = str(content)
 
         return html
+
+
+class Show(db.Model):
+    __tablename__ = 'show'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    band_id = db.Column(db.Integer, db.ForeignKey('band.id'))
+    name = db.Column(db.String(128), nullable=False)
+    start = db.Column(db.DateTime)
+    end = db.Column(db.DateTime)
+    address = db.Column(db.String(4000))
+    contact = db.Column(db.String(4000))
+    pay = db.Column(db.String(128))
+    notes = db.Column(db.String(4000))
+    songs = db.relationship('Song',
+                            secondary=show_song,
+                            primaryjoin=(show_song.c.show_id == id),
+                            secondaryjoin=(show_song.c.song_id == Song.id),
+                            backref=db.backref('shows', lazy='dynamic'),
+                            lazy='dynamic')
+
+    def add_song(self, song):
+        self.songs.append(song)
+
+    def remove_song(self, song):
+        self.songs.remove(song)

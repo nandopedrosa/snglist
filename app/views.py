@@ -703,6 +703,8 @@ def add_song():
     song = Song.query.get(int(request.form.get('songid')))
     show.add_song(song)
     db.session.add(show)
+    db.session.commit()
+    show.assign_position(song)
     return jsonify(dict(id=song.id, title=song.title, artist=song.artist))
 
 
@@ -718,3 +720,16 @@ def remove_from_setlist():
     show.remove_song(song)
     db.session.add(show)
     return jsonify(dict(id=song.id, title=song.title + ' (' + song.artist + ')'))
+
+
+@app.route('/move-down', methods=["POST"])
+@login_required
+def move_down():
+    """
+    Moves a song down (increment order) in the show's setlist
+    :return: empty dict
+    """
+    show = Show.query.get(int(request.form.get('showid')))
+    song = Song.query.get(int(request.form.get('songid')))
+    show.move_down(song)
+    return jsonify(dict())

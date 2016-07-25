@@ -15,12 +15,14 @@ from flask.ext.login import UserMixin, \
 from flask.ext.login import AnonymousUserMixin
 from flask import current_app
 from app.util import getsoup
+from sqlalchemy.sql import text
 
 # Many-to-Many auxiliary table
-show_song = db.Table(
-    'show_song',
+setlist = db.Table(
+    'setlist',
     db.Column('show_id', db.Integer, db.ForeignKey('show.id')),
-    db.Column('song_id', db.Integer, db.ForeignKey('song.id'))
+    db.Column('song_id', db.Integer, db.ForeignKey('song.id')),
+    db.Column('song_position', db.Integer)
 )
 
 
@@ -161,6 +163,7 @@ class Song(db.Model):
         return html
 
 
+# noinspection SqlDialectInspection
 class Show(db.Model):
     __tablename__ = 'show'
     id = db.Column(db.Integer, primary_key=True)
@@ -174,14 +177,53 @@ class Show(db.Model):
     pay = db.Column(db.String(128))
     notes = db.Column(db.String(4000))
     songs = db.relationship('Song',
-                            secondary=show_song,
-                            primaryjoin=(show_song.c.show_id == id),
-                            secondaryjoin=(show_song.c.song_id == Song.id),
+                            secondary=setlist,
+                            order_by=setlist.c.song_position,
+                            primaryjoin=(setlist.c.show_id == id),
+                            secondaryjoin=(setlist.c.song_id == Song.id),
                             backref=db.backref('shows', lazy='dynamic'),
                             lazy='dynamic')
 
     def add_song(self, song):
+        """
+        Adds a song to the show's setlist
+        :param song: The song object to be added
+        :return: None
+        """
         self.songs.append(song)
 
     def remove_song(self, song):
         self.songs.remove(song)
+
+    def assign_position(self, song):
+        """
+        Assigns the correct order position for an added song
+        :param song: the song to be ordered
+        :return: None
+        """
+        # First we find the next position
+        query = text('select max(song_position) as "max_position" from setlist where show_id = :id')
+        query = query.bindparams(id=self.id)
+
+        result = db.engine.execute(query)
+
+        for row in result:
+            max_order = row['max_position']
+            if max_order is None:
+                max_order = 0
+
+        # Now we assign the new song the next position
+        next_order = max_order + 1
+
+        update = text(
+            "update setlist set song_position = :order where show_id = :show_id and song_id = :song_id")
+        update = update.bindparams(order=next_order, show_id=self.id, song_id=song.id)
+
+        db.engine.execute(update.execution_options(autocommit=True))
+
+    def move_down(self, song):
+        """
+        Moves a song down (increment order) one position
+        :param song: the song to be moved
+        :return: None
+        """

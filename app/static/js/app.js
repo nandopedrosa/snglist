@@ -613,10 +613,9 @@
             }).then(function(response){
                 showCtlr.errors.error = false;
 
-                //Back to the Quicklist
+                //Back to the Quicklist, sorted Alphabetically
                  var songJustRemoved = {'id' : response.data.id, 'title' : response.data.title};
-                 showCtlr.quickList.data.push(songJustRemoved);
-                 //Sort alphabetical
+                 showCtlr.quickList.data.push(songJustRemoved);                 
                  showCtlr.quickList.data.sort(function(a, b) {
                      var songA = a.title.toUpperCase();
                      var songB = b.title.toUpperCase();
@@ -631,6 +630,39 @@
                 }                               
             });
         };
+
+
+        this.moveUp = function(songid) {
+            showCtlr.errors = {}; //Init errors    
+            var songToBeMoved = {'songid' : songid};
+            $http({
+                method: 'POST',
+                url: '/move-up',
+                data: $.param(songToBeMoved)                
+            }).then(function(response){
+                showCtlr.errors.error = false;
+                $http.get('/fetch-setlist/' + showCtlr.formData.showid).success(function(data){                
+                    showCtlr.setlist = data;                                  
+                });                       
+            });
+        };
+
+
+        this.moveDown = function(songid) {
+            showCtlr.errors = {}; //Init errors    
+            var songToBeMoved = {'songid' : songid};
+            $http({
+                method: 'POST',
+                url: '/move-down',
+                data: $.param(songToBeMoved)                
+            }).then(function(response){
+                showCtlr.errors.error = false;
+                $http.get('/fetch-setlist/' + showCtlr.formData.showid).success(function(data){                
+                    showCtlr.setlist = data;                                  
+                });                       
+            });
+        };
+
 
 
     }]);  

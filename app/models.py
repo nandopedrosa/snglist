@@ -197,23 +197,11 @@ class Show(db.Model):
 
     def assign_position(self, song):
         """
-        Assigns the correct order position for an added song
+        Assigns the correct order position for a new song added to the setlist
         :param song: the song to be ordered
         :return: None
         """
-        # First we find the next position
-        query = text('select max(song_position) as "max_position" from setlist where show_id = :id')
-        query = query.bindparams(id=self.id)
-
-        result = db.engine.execute(query)
-
-        for row in result:
-            max_order = row['max_position']
-            if max_order is None:
-                max_order = 0
-
-        # Now we assign the new song the next position
-        next_order = max_order + 1
+        next_order = self.__get_max_pos() + 1
 
         update = text(
             "update setlist set song_position = :order where show_id = :show_id and song_id = :song_id")
@@ -227,3 +215,120 @@ class Show(db.Model):
         :param song: the song to be moved
         :return: None
         """
+        # First we find out the current position of the song
+        cur_pos = self.__get_cur_pos(song)
+
+        # Then we check if the song already is at last (then we do nothing)
+        if cur_pos == self.__get_max_pos():
+            return
+
+        with db.engine.connect() as connection:
+
+            # If it isn't the last, then we must find the position immediately after to assign (swap)
+            query = text('select song_id from setlist where song_position > :pos order by song_position asc')
+            query = query.bindparams(pos=cur_pos)
+            result = connection.execute(query)
+
+            for row in result:
+                song_id = row['song_id']
+                break
+
+            result.close()
+
+            # Now we decrement the adjacent song
+            decrement = text('update setlist set song_position = :pos where song_id = :song_id and show_id = :show_id')
+            decrement = decrement.bindparams(pos=cur_pos, song_id=song_id, show_id=self.id)
+            connection.execute(decrement.execution_options(autocommit=True))
+
+            # And increment the song passed as parameter
+            increment = text('update setlist set song_position = :pos where song_id = :song_id and show_id = :show_id')
+            increment = increment.bindparams(pos=cur_pos + 1, song_id=song.id, show_id=self.id)
+            connection.execute(increment.execution_options(autocommit=True))
+
+    def move_up(self, song):
+        """
+        Moves a song up (decrement order) one position
+        :param song: the song to be moved
+        :return: None
+        """
+        # First we find out the current position of the song
+        cur_pos = self.__get_cur_pos(song)
+
+        # Then we check if the song already is at first (then we do nothing)
+        if cur_pos == self.__get_min_pos():
+            return
+
+        with db.engine.connect() as connection:
+
+            # If it isn't the first, then we must find the position immediately before to assign (swap)
+            query = text('select song_id from setlist where song_position < :pos order by song_position desc')
+            query = query.bindparams(pos=cur_pos)
+            result = connection.execute(query)
+
+            for row in result:
+                song_id = row['song_id']
+                break
+
+            result.close()
+
+            # Now we increment the adjacent song
+            increment = text('update setlist set song_position = :pos where song_id = :song_id and show_id = :show_id')
+            increment = increment.bindparams(pos=cur_pos, song_id=song_id, show_id=self.id)
+            connection.execute(increment.execution_options(autocommit=True))
+
+            # And increment the song passed as parameter
+            decrement = text('update setlist set song_position = :pos where song_id = :song_id and show_id = :show_id')
+            decrement = decrement.bindparams(pos=cur_pos - 1, song_id=song.id, show_id=self.id)
+            connection.execute(decrement.execution_options(autocommit=True))
+
+    def __get_cur_pos(self, song):
+        """
+        Gets the current position of a song in the setlist
+        :param song: the song to be search
+        :return: The position order of the song
+        """
+        query = text('select song_position as "position" from setlist where show_id = :show_id and song_id = :song_id')
+        query = query.bindparams(show_id=self.id, song_id=song.id)
+
+        result = db.engine.execute(query)
+
+        for row in result:
+            position = row['position']
+
+        return position
+
+    def __get_max_pos(self):
+        """
+        Gets the position of the last song in the setlist
+        :return: the position of the last song
+        """
+        query = text('select max(song_position) as "max_position" from setlist where show_id = :id')
+        query = query.bindparams(id=self.id)
+
+        result = db.engine.execute(query)
+
+        for row in result:
+            max_position = row['max_position']
+            if max_position is None:
+                max_position = 0
+
+        result.close()
+
+        return max_position
+
+    def __get_min_pos(self):
+        """
+        Gets the position of the first song in the setlist
+        :return: the posiiton of the first song
+        """
+        query = text('select min(song_position) as "min_position" from setlist where show_id = :id')
+        query = query.bindparams(id=self.id)
+
+        result = db.engine.execute(query)
+
+        for row in result:
+            min_position = row['min_position']
+
+        result.close()
+
+        return min_position

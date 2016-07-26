@@ -733,3 +733,16 @@ def move_down():
     song = Song.query.get(int(request.form.get('songid')))
     show.move_down(song)
     return jsonify(dict())
+
+
+@app.route('/move-up', methods=["POST"])
+@login_required
+def move_up():
+    """
+    Moves a song up (decrement order) in the show's setlist
+    :return: empty dict
+    """
+    show = Show.query.get(int(request.form.get('showid')))
+    song = Song.query.get(int(request.form.get('songid')))
+    show.move_up(song)
+    return jsonify(dict())

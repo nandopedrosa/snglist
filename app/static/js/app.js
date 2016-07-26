@@ -576,7 +576,7 @@
         showCtlr.songid = '';  
         this.addSong = function() {
             
-            if(showCtlr.songid == '')
+            if(showCtlr.songid == '' || showCtlr.songid == null)
                 return;
 
             showCtlr.errors = {}; //Init errors    
@@ -633,8 +633,8 @@
 
 
         this.moveUp = function(songid) {
-            showCtlr.errors = {}; //Init errors    
-            var songToBeMoved = {'songid' : songid};
+            showCtlr.errors = {}; //Init errors  
+            var songToBeMoved = {'songid' : songid, 'showid' : showCtlr.formData.showid};              
             $http({
                 method: 'POST',
                 url: '/move-up',
@@ -649,8 +649,8 @@
 
 
         this.moveDown = function(songid) {
-            showCtlr.errors = {}; //Init errors    
-            var songToBeMoved = {'songid' : songid};
+            showCtlr.errors = {}; //Init errors  
+            var songToBeMoved = {'songid' : songid, 'showid' : showCtlr.formData.showid};              
             $http({
                 method: 'POST',
                 url: '/move-down',

@@ -7,26 +7,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-21 23:38-0300\n"
+"POT-Creation-Date: 2016-07-26 00:23-0300\n"
 "PO-Revision-Date: 2016-07-21 23:39-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-"X-Generator: Poedit 1.8.6\n"
 
 #: app/__init__.py:108
 msgid "Please enter your credentials to confirm this request"
 msgstr ""
-"Por favor, informe seu Login (email) e Senha para confirmar esta requisição"
+"Por favor, informe seu Login (email) e Senha para confirmar esta "
+"requisição"
 
 #: app/forms.py:61 app/forms.py:82 app/forms.py:115 app/forms.py:171
 #: app/forms.py:194 app/forms.py:271 app/templates/edit-band.html:68
-#: app/templates/edit-show.html:86 app/templates/shows.html:33
+#: app/templates/shows.html:33
 msgid "Name"
 msgstr "Nome"
 
@@ -76,11 +76,11 @@ msgstr "A sua mensagem deve ter entre 3 e 4000 caracteres"
 
 #: app/forms.py:77
 msgid ""
-"Enter your message with suggestions, bug reports or anything else you think is "
-"important"
+"Enter your message with suggestions, bug reports or anything else you "
+"think is important"
 msgstr ""
-"Digite a sua mensagem com sugestões, erros encontrados ou qualquer outro assunto "
-"que você julgar importante"
+"Digite a sua mensagem com sugestões, erros encontrados ou qualquer outro "
+"assunto que você julgar importante"
 
 #: app/forms.py:95 app/forms.py:156
 msgid "Password"
@@ -190,7 +190,7 @@ msgstr "Por favor, digite o email do seu companheiro de banda"
 msgid "The email must have a minimum of 6 characters"
 msgstr "O email deve ter no mínimo 6 caracteres"
 
-#: app/forms.py:216 app/templates/songs.html:33
+#: app/forms.py:216 app/templates/edit-show.html:85 app/templates/songs.html:33
 msgid "Title"
 msgstr "Título"
 
@@ -206,7 +206,7 @@ msgstr "Por favor, digite o título da música"
 msgid "The title of the song name must have a maximum of 128 characters"
 msgstr "O título da música deve ter no máximo 128 caracteres"
 
-#: app/forms.py:225 app/templates/songs.html:34
+#: app/forms.py:225 app/templates/edit-show.html:86 app/templates/songs.html:34
 msgid "Artist"
 msgstr "Artista"
 
@@ -247,9 +247,12 @@ msgid "mm:ss"
 msgstr "mm:ss"
 
 #: app/forms.py:253
-msgid "You must specify minutes and seconds (with left zero-padding, if necessary)"
+msgid ""
+"You must specify minutes and seconds (with left zero-padding, if "
+"necessary)"
 msgstr ""
-"Você deve especificar minutos e segundos (com zeros à esquerda, se necessário)"
+"Você deve especificar minutos e segundos (com zeros à esquerda, se "
+"necessário)"
 
 #: app/forms.py:256 app/forms.py:310
 msgid "Notes"
@@ -379,11 +382,11 @@ msgstr "Bem-vindo ao Songlist Plus!"
 
 #: app/views.py:138
 msgid ""
-"Signup succesful. To complete your registration, check your email and follow the "
-"instructions."
+"Signup succesful. To complete your registration, check your email and "
+"follow the instructions."
 msgstr ""
-"Registro realizado com sucesso. Para ativar sua conta, verifique o seu email e "
-"siga as instruções contidas nele."
+"Registro realizado com sucesso. Para ativar sua conta, verifique o seu "
+"email e siga as instruções contidas nele."
 
 #: app/views.py:143
 msgid "Signup unsuccessful. Check the errors below."
@@ -394,7 +397,7 @@ msgid "Profile updated"
 msgstr "Perfil atualizado"
 
 #: app/views.py:179 app/views.py:319 app/views.py:341 app/views.py:487
-#: app/views.py:618
+#: app/views.py:619
 msgid "Your request was not successful. Please, check the errors below."
 msgstr "A sua requisição não obteve sucesso. Por favor, verifique os erros abaixo."
 
@@ -461,25 +464,26 @@ msgstr "Você deve fornecer um endereço URL"
 #: app/views.py:546
 msgid "Song successfully imported. You can now close this dialog."
 msgstr ""
-"Música importada com sucesso. Você pode fechar essa janela e retornar à tela "
-"anterior."
+"Música importada com sucesso. Você pode fechar essa janela e retornar à "
+"tela anterior."
 
 #: app/views.py:549
 msgid ""
-"We could not find the song you requested. Are you sure you entered a supported "
-"site URL?"
+"We could not find the song you requested. Are you sure you entered a "
+"supported site URL?"
 msgstr ""
-"Não conseguimos encontrar a música que você solicitou. Tem certeza de que você "
-"digitou uma URL suportada?"
+"Não conseguimos encontrar a música que você solicitou. Tem certeza de que"
+" você digitou uma URL suportada?"
 
-#: app/views.py:599
+#: app/views.py:600
 msgid ""
-"Show successfully added! Now you can start building your setlist (see below)."
+"Show successfully added! Now you can start building your setlist (see "
+"below)."
 msgstr ""
 "Show adicionado com sucesso! Agora você pode começar a construir o seu "
 "repertório (ver abaixo)."
 
-#: app/views.py:614
+#: app/views.py:615
 msgid "Show info updated!"
 msgstr "Show atualizado com sucesso!"
 
@@ -501,11 +505,12 @@ msgstr "Um erro ocorreu"
 
 #: app/templates/500.html:7
 msgid ""
-"We are sorry to inform an internal error has occurred. The site administrator "
-"has been contacted and we will try to fix this as soon as possible."
+"We are sorry to inform an internal error has occurred. The site "
+"administrator has been contacted and we will try to fix this as soon as "
+"possible."
 msgstr ""
-"Sentimos em informar que um erro interno ocorreu. O administrador do site foi "
-"contactado e tentaremos corrigir a situação o mais rápido possível"
+"Sentimos em informar que um erro interno ocorreu. O administrador do site"
+" foi contactado e tentaremos corrigir a situação o mais rápido possível"
 
 #: app/templates/bands.html:6
 msgid "Bands and Projects"
@@ -520,8 +525,8 @@ msgstr "Itens por página:"
 msgid "Add Band/Project"
 msgstr "Adicionar Banda/Projeto"
 
-#: app/templates/bands.html:29 app/templates/edit-show.html:81
-#: app/templates/shows.html:29 app/templates/songs.html:29
+#: app/templates/bands.html:29 app/templates/shows.html:29
+#: app/templates/songs.html:29
 msgid "Search..."
 msgstr "Pesquisar…"
 
@@ -537,41 +542,41 @@ msgstr "Membros"
 msgid "Confirm this action?"
 msgstr "Confirmar esta ação ?"
 
-#: app/templates/base.html:65 app/templates/base.html:98
+#: app/templates/base.html:68 app/templates/base.html:101
 #: app/templates/contact.html:6
 msgid "Contact"
 msgstr "Contato"
 
-#: app/templates/base.html:68 app/templates/base.html:101
-#: app/templates/base.html:143
+#: app/templates/base.html:71 app/templates/base.html:104
+#: app/templates/base.html:146
 msgid "About"
 msgstr "Sobre"
 
-#: app/templates/base.html:71
+#: app/templates/base.html:74
 msgid "Sign in"
 msgstr "Entrar"
 
-#: app/templates/base.html:81
+#: app/templates/base.html:84
 msgid "Bands"
 msgstr "Bandas"
 
-#: app/templates/base.html:84 app/templates/songs.html:6
+#: app/templates/base.html:87 app/templates/songs.html:6
 msgid "Songs"
 msgstr "Músicas"
 
-#: app/templates/base.html:87 app/templates/shows.html:6
+#: app/templates/base.html:90 app/templates/shows.html:6
 msgid "Shows"
 msgstr "Shows"
 
-#: app/templates/base.html:95 app/templates/profile.html:6
+#: app/templates/base.html:98 app/templates/profile.html:6
 msgid "Profile"
 msgstr "Perfil"
 
-#: app/templates/base.html:104
+#: app/templates/base.html:107
 msgid "Sign Out"
 msgstr "Sair"
 
-#: app/templates/base.html:151 app/templates/edit-song.html:81
+#: app/templates/base.html:154 app/templates/edit-song.html:81
 #: app/templates/songs.html:84
 msgid "Close"
 msgstr "Fechar"
@@ -600,16 +605,17 @@ msgstr "Membros da Banda"
 
 #: app/templates/edit-band.html:45
 msgid ""
-"Adding your band members' contact information is useful for sharing setlists"
+"Adding your band members' contact information is useful for sharing "
+"setlists"
 msgstr ""
-"Adicionar o contato dos seus membros da banda será útil para compartilhar "
-"repertórios"
+"Adicionar o contato dos seus membros da banda será útil para compartilhar"
+" repertórios"
 
 #: app/templates/edit-band.html:62
 msgid "Add Member"
 msgstr "Adicionar Membro"
 
-#: app/templates/edit-band.html:69 app/templates/edit-show.html:87
+#: app/templates/edit-band.html:69
 msgid "Email"
 msgstr "Email"
 
@@ -628,10 +634,6 @@ msgstr "Banda/Projeto"
 #: app/templates/edit-show.html:71
 msgid "Setlist"
 msgstr "Repertório"
-
-#: app/templates/edit-show.html:76
-msgid "Quick Add"
-msgstr "Adicionar rapidamente"
 
 #: app/templates/edit-show.html:80 app/templates/edit-song.html:9
 #: app/templates/songs.html:21
@@ -664,13 +666,15 @@ msgstr "música nos seus dedos"
 
 #: app/templates/home.html:7
 msgid ""
-"Songlist Plus is a web-based and mobile application with all the features your "
-"band needs. Manage bands, songs, shows and share your repertoire with your "
-"friends. Sync everything with your mobile device and start rocking! "
+"Songlist Plus is a web-based and mobile application with all the features"
+" your band needs. Manage bands, songs, shows and share your repertoire "
+"with your friends. Sync everything with your mobile device and start "
+"rocking! "
 msgstr ""
-"Songlist Plus é uma aplicação web e mobile que todas as funcionalidades que sua "
-"banda precisa. Gerencie bandas, músicas, shows e compartilhe seu repertório com "
-"seus amigos. Sincronize tudo com seu dispositivo móvel e comece a tocar!"
+"Songlist Plus é uma aplicação web e mobile que todas as funcionalidades "
+"que sua banda precisa. Gerencie bandas, músicas, shows e compartilhe seu "
+"repertório com seus amigos. Sincronize tudo com seu dispositivo móvel e "
+"comece a tocar!"
 
 #: app/templates/home.html:9 app/templates/signup.html:6
 msgid "Create free account"
@@ -682,11 +686,12 @@ msgstr "Músicas e Setlists"
 
 #: app/templates/home.html:17
 msgid ""
-"Add as many songs as you want to your repertoire and use them to build setlists"
+"Add as many songs as you want to your repertoire and use them to build "
+"setlists"
 msgstr "Adicione quantas músicas você quiser ao seu repertório"
 
-#: app/templates/home.html:19 app/templates/home.html:26 app/templates/home.html:33
-#: app/templates/home.html:40
+#: app/templates/home.html:19 app/templates/home.html:26
+#: app/templates/home.html:33 app/templates/home.html:40
 msgid "More Info"
 msgstr "Mais informação"
 
@@ -744,10 +749,11 @@ msgstr "Excluir Conta"
 
 #: app/templates/profile.html:61
 msgid ""
-"You may delete your account at any time. However, this action is irreversible."
+"You may delete your account at any time. However, this action is "
+"irreversible."
 msgstr ""
-"Você pode excluir a sua conta a qualquer momento. Entretanto, essa ação é "
-"irreversível"
+"Você pode excluir a sua conta a qualquer momento. Entretanto, essa ação é"
+" irreversível"
 
 #: app/templates/profile.html:62
 msgid "I understand, delete my account"
@@ -792,3 +798,7 @@ msgstr "Duração"
 
 #~ msgid "End"
 #~ msgstr "Término"
+
+#~ msgid "Quick Add"
+#~ msgstr "Adicionar rapidamente"
+

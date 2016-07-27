@@ -508,8 +508,10 @@
         showCtlr.selectedband = {}; //Selected band
         $http.get('/fetch-bands/').success(function(data){                
                 showCtlr.bands = data;                                    
-        });     
+        }); 
 
+        //Total setlist duration
+        showCtlr.totalDuration = '00:00:00';
 
         //Add or Update show
         this.editShow = function () {
@@ -569,7 +571,8 @@
         //Setlist
         showCtlr.setlist = []; 
         $http.get('/fetch-setlist/' + showCtlr.formData.showid).success(function(data){                
-                showCtlr.setlist = data;                                  
+                showCtlr.setlist = data; 
+                showCtlr.calculateTotalDuration();                                 
         });             
 
 
@@ -589,8 +592,10 @@
                 showCtlr.errors.error = false;
 
                 //Push to setlist
-                var songJustAdded = {'id' : response.data.id, 'title' : response.data.title, 'artist' : response.data.artist};
+                var songJustAdded = {'id' : response.data.id, 'title' : response.data.title, 
+                                    'artist' : response.data.artist, 'duration' : response.data.duration};
                 showCtlr.setlist.data.push(songJustAdded);
+                showCtlr.calculateTotalDuration();
 
                 //Remove from quick list (don't allow duplicates)
                 for (var i = 0; i < showCtlr.quickList.data.length; i++)
@@ -614,7 +619,7 @@
                 showCtlr.errors.error = false;
 
                 //Back to the Quicklist, sorted Alphabetically
-                 var songJustRemoved = {'id' : response.data.id, 'title' : response.data.title};
+                 var songJustRemoved = {'id' : response.data.id, 'title' : response.data.title, 'duration' : response.data.duration};
                  showCtlr.quickList.data.push(songJustRemoved);                 
                  showCtlr.quickList.data.sort(function(a, b) {
                      var songA = a.title.toUpperCase();
@@ -627,8 +632,31 @@
                     if (showCtlr.setlist.data[i].id == id) { 
                         showCtlr.setlist.data.splice(i, 1);
                         break;
-                }                               
+                }       
+                showCtlr.calculateTotalDuration();                        
             });
+        };
+
+        this.calculateTotalDuration = function() {
+            var minutes = 0;
+            var seconds = 0;
+            for(var i = 0; i < showCtlr.setlist.data.length; i++) {
+                 if(showCtlr.setlist.data[i].duration && showCtlr.setlist.data[i].duration != '') {
+                    var tmp =  showCtlr.setlist.data[i].duration.split(":");
+                    minutes +=  parseInt(tmp[0]);
+                    seconds += parseInt(tmp[1]);                    
+                 }
+            }
+
+            function secondsToHms(d) {
+                d = Number(d);  
+                var h = Math.floor(d / 3600);
+                var m = Math.floor(d % 3600 / 60);
+                var s = Math.floor(d % 3600 % 60);
+                return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s); 
+            }
+
+            showCtlr.totalDuration = secondsToHms(minutes*60 + seconds);   
         };
 
 

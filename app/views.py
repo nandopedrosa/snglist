@@ -687,7 +687,7 @@ def fetch_setlist(show_id):
 
     return_data = []
     for song in setlist:
-        return_data.append(dict(id=song.id, title=song.title, artist=song.artist))
+        return_data.append(dict(id=song.id, title=song.title, artist=song.artist, duration=song.pretty_duration()))
 
     return jsonify(data=return_data)
 
@@ -705,7 +705,7 @@ def add_song():
     db.session.add(show)
     db.session.commit()
     show.assign_position(song)
-    return jsonify(dict(id=song.id, title=song.title, artist=song.artist))
+    return jsonify(dict(id=song.id, title=song.title, artist=song.artist, duration=song.pretty_duration()))
 
 
 @app.route('/remove-from-setlist', methods=["POST"])
@@ -719,7 +719,7 @@ def remove_from_setlist():
     song = Song.query.get(int(request.form.get('songid')))
     show.remove_song(song)
     db.session.add(show)
-    return jsonify(dict(id=song.id, title=song.title + ' (' + song.artist + ')'))
+    return jsonify(dict(id=song.id, title=song.title + ' (' + song.artist + ')', duration=song.pretty_duration()))
 
 
 @app.route('/move-down', methods=["POST"])

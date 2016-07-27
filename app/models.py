@@ -117,7 +117,10 @@ class Song(db.Model):
         return self.title
 
     def pretty_duration(self):
-        return self.duration[:2] + ':' + self.duration[2:]
+        if self.duration is not None and self.duration != '':
+            return self.duration[:2] + ':' + self.duration[2:]
+        else:
+            return ''
 
     @staticmethod
     def get_lyrics_or_chords(url):

@@ -77,20 +77,25 @@
                             
                        </div>
                      </form>                      
-                     <button ng-click="showCtlr.addSong()" type="button" class="btn btn-success">{{_('Add Song')}}</button>                    
+                     <button ng-click="showCtlr.addSong()" type="button" class="btn btn-success">{{_('Add Song')}}</button>
+                     <h3 style="display:inline; margin-left:10px"> <small>Total duration: [[showCtlr.totalDuration]] </small></h3>                    
                      <br><br>
                       <table st-table="displayedCollection" st-safe-src="showCtlr.setlist.data" class="table table-striped">
                         <thead>
                             <tr>
+                                <th> # </th>
                                 <th>{{_('Title')}}</th>
                                 <th >{{_('Artist')}}</th>                             
+                                <th >{{_('Duration')}}</th>
                                 <th></th>   
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="song in displayedCollection">
+                                <td> [[ $index + 1 ]]
                                 <td>[[ song.title ]]</td>
                                 <td>[[ song.artist ]]</td>
+                                <td>[[ song.duration ]]</td>
                                 <td>
                                    <button type="button" ng-click="showCtlr.removeFromSetlist(song.id)" class="btn btn-sm btn-danger">
                                         <i class="glyphicon glyphicon-trash"></i>

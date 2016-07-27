@@ -11,7 +11,7 @@ from flask import render_template, request, session, redirect, url_for, jsonify,
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from flask.ext.babel import gettext, lazy_gettext, format_datetime
 from app import app, babel, db
-from app.config import LANGUAGES
+from app.config import LANGUAGES, ADMINS
 from sqlalchemy import desc
 from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm, SongForm, ShowForm
 from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user, get_date_format
@@ -91,7 +91,7 @@ def contact():
     if form.validate():
         form.errors['error'] = False
         body = CONTACT_MAIL_BODY.format(form.name.data, form.email.data, form.message.data)
-        send_email([form.email.data], '[snglist] Someone has sent you a contact message', body)
+        send_email(ADMINS, '[snglist] Someone has sent you a contact message', body)
         form.errors['msg'] = gettext('Message successfully sent')
     else:
         form.errors['error'] = True

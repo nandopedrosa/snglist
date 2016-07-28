@@ -687,7 +687,8 @@ def fetch_setlist(show_id):
 
     return_data = []
     for song in setlist:
-        return_data.append(dict(id=song.id, title=song.title, artist=song.artist, duration=song.pretty_duration()))
+        return_data.append(
+            dict(id=song.id, title=song.title, artist=song.artist, duration=song.pretty_duration(), lyrics=song.lyrics))
 
     return jsonify(data=return_data)
 
@@ -746,3 +747,26 @@ def move_up():
     song = Song.query.get(int(request.form.get('songid')))
     show.move_up(song)
     return jsonify(dict())
+
+
+@app.route('/perform/', methods=["GET"])
+@login_required
+def perform():
+    """
+    Shows the setlist in Perform Mode
+    :return: the rendered Perform page
+    """
+    if request.method == 'GET':
+        showid = request.args.get('id')
+
+        # Edit Song
+        if showid is not None:
+            show = Show.query.get(int(showid))
+
+            if not is_current_user(show.user_id):
+                return render_template("not-authorized.html")
+
+            start_date = format_datetime(show.start, get_date_format(fullformat=False))
+
+            return render_template("perform.html", show_description=show.name + ' (' + start_date + ')',
+                                   show_id=show.id, show_length=len(show.songs.all()))

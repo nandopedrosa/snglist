@@ -82,12 +82,18 @@ def getsoup(url):
     return soup
 
 
-def get_date_format():
+def get_date_format(fullformat=True):
     """
     Returns the correct date format (DD/MM/YYYY or MM/DD/YYYY) depending on the current language
     :return: the date format
     """
-    if session['lang'] == 'pt':
-        return "EEEE, dd 'de' MMMM 'de' yyyy, HH:mm"
+    if fullformat:
+        if session['lang'] == 'pt':
+            return "EEEE, dd 'de' MMMM 'de' yyyy, HH:mm"
+        else:
+            return "EEEE, MMMM dd yyyy, HH:mm"
     else:
-        return "EEEE, MMMM dd yyyy, HH:mm"
+        if session['lang'] == 'pt':
+            return "dd/MM/yyyy"
+        else:
+            return "MM/dd/yyyy"

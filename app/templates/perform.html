@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="page-header">{{show_description}}</h1>
+        </div>
+    </div>
+
+    {% if show_length > 0 %}
+
+     <div class="row" ng-cloak>
+        <div class="col-xs-12" ng-controller="PerformController as performCtlr">                  
+            <form id="perform-form" role="form" >
+                <input type="hidden" id="showid" value="{{show_id}}">
+                <div class="form-group">    
+                    <label>{{_('Setlist:')}}</label>
+                    <select class="form-control" ng-model="performCtlr.songid" ng-options="song.id as song.title for song in performCtlr.songs.data">
+                    </select>
+                </div>
+                                 
+                <button type="button" ng-click="performCtlr.previous()" class="btn  btn-primary">
+                <i class="glyphicon glyphicon-backward"></i>
+                </button>   
+                <button type="button" ng-click="performCtlr.next()" class="btn btn-primary">
+                <i class="glyphicon glyphicon-forward"></i>
+                </button>   
+                <h3 style="display:inline; margin-left:10px"> <small>Next: </small></h3>
+                
+            </form>                     
+        </div>        
+    </div>   
+
+    {% else %}
+
+     <div class="row">
+        <div class="col-xs-12">                  
+            <h4>{{_('You have not added any songs to this show. Come back here when you have built your setlist.')}} </h4>
+        </div>        
+    </div>  
+
+    {% endif %}
+
+{% endblock %}

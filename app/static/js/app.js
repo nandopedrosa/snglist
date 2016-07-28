@@ -695,7 +695,7 @@
 
     }]);  
 
-//-------------------------------- Song Report Controller -------------------------------------------------
+//-------------------------------- Show Report Controller -------------------------------------------------
     app.controller('ShowReportController', ['$http', function ($http) {
         var reportCtlr = this;             
         
@@ -725,6 +725,29 @@
                 reportCtlr.message = response.data.msg;
                 window.scrollTo(0,0);
             });
+        };           
+        
+    }]); 
+
+//-------------------------------- Perform Controller -------------------------------------------------
+    app.controller('PerformController', ['$http', function ($http) {
+        var performCtlr = this;             
+        
+        performCtlr.showid = $('#showid').attr('value');      
+        performCtlr.songs = []; // List of songs              
+        performCtlr.songid = '';
+
+        $http.get('/fetch-setlist/' + performCtlr.showid).success(function(data){                
+            performCtlr.songs = data; 
+            performCtlr.songid = performCtlr.songs.data[0].id;
+        });      
+
+        this.next = function() {
+     
+        };           
+
+        this.previous = function() {
+     
         };           
         
     }]); 

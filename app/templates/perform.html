@@ -15,17 +15,17 @@
                 <input type="hidden" id="showid" value="{{show_id}}">
                 <div class="form-group">    
                     <label>{{_('Setlist:')}}</label>
-                    <select class="form-control" ng-model="performCtlr.songid" ng-options="song.id as song.title for song in performCtlr.songs.data">
+                    <select class="form-control" ng-change="performCtlr.previewNext()" ng-model="performCtlr.songid" ng-options="song.id as song.title for song in performCtlr.songs.data">
                     </select>
                 </div>
                                  
-                <button type="button" ng-click="performCtlr.previous()" class="btn  btn-primary">
+                <button ng-disabled="!performCtlr.hasPrevious()" type="button" ng-click="performCtlr.previous()" class="btn  btn-primary">
                 <i class="glyphicon glyphicon-backward"></i>
                 </button>   
-                <button type="button" ng-click="performCtlr.next()" class="btn btn-primary">
+                <button type="button" ng-disabled="!performCtlr.hasNext()" ng-click="performCtlr.next()" class="btn btn-primary">
                 <i class="glyphicon glyphicon-forward"></i>
                 </button>   
-                <h3 style="display:inline; margin-left:10px"> <small>Next: </small></h3>
+                <h3 style="display:inline; margin-left:10px"> <small ng-if="performCtlr.hasNext()">Next: [[performCtlr.nextSong]]</small></h3>
                 
             </form>                     
         </div>        

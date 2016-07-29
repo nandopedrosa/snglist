@@ -735,7 +735,7 @@
         
         performCtlr.showid = $('#showid').attr('value');      
         performCtlr.songs = []; // List of songs              
-        performCtlr.songid = '';
+        performCtlr.songid = ''; //the current song being displayed        
 
         $http.get('/fetch-setlist/' + performCtlr.showid).success(function(data){                
             performCtlr.songs = data; 
@@ -743,12 +743,72 @@
         });      
 
         this.next = function() {
-     
+            for(var i = 0; i < performCtlr.songs.data.length; i++) {
+                if(performCtlr.songs.data[i].id == performCtlr.songid) {
+                    performCtlr.songid = performCtlr.songs.data[i+1].id;
+                    break;
+                }
+            }
+            performCtlr.previewNext();     
         };           
 
         this.previous = function() {
-     
-        };           
+            if(performCtlr.songs.data) {
+                for(var i = 0; i < performCtlr.songs.data.length; i++) {
+                    if(performCtlr.songs.data[i].id == performCtlr.songid) {
+                        performCtlr.songid = performCtlr.songs.data[i-1].id;
+                        break;
+                    }
+                }
+            }
+            performCtlr.previewNext();
+        };
+
+        this.hasNext = function() {
+            performCtlr.previewNext();
+            if(performCtlr.songs.data) {
+                for(var i = 0; i < performCtlr.songs.data.length; i++) {    
+                    if(performCtlr.songs.data[i].id == performCtlr.songid) {
+                        if(i + 1 < performCtlr.songs.data.length) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        };  
+
+        this.hasPrevious = function() {
+            if(performCtlr.songs.data) {
+                for(var i = 0; i < performCtlr.songs.data.length; i++) {
+                    if(performCtlr.songs.data[i].id == performCtlr.songid) {
+                        if(i - 1 >= 0) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        };   
+
+        performCtlr.nextSong = '';
+
+        this.previewNext = function() {
+             if(performCtlr.songs.data) {
+                 for(var i = 0; i < performCtlr.songs.data.length; i++) {
+                    if(performCtlr.songs.data[i].id == performCtlr.songid) {
+                        if(i + 1 < performCtlr.songs.data.length) {
+                            var relativePosition = i + 2;
+                            var totalSongs = performCtlr.songs.data.length;
+                            performCtlr.nextSong = performCtlr.songs.data[i+1].title + ' (' + relativePosition.toString() + '/' + totalSongs.toString() + ')';
+                        } else {
+                            performCtlr.nextSong =  '';
+                        }
+                    }
+                }
+            }
+        };    
+        
         
     }]); 
 

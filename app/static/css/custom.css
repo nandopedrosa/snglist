@@ -132,4 +132,10 @@ body {
 pre {
     border-style: none;
     background-color: white;
+    font-size: 18px;
 }
+
+.lyrics {
+    font-size: 18px;
+}
+

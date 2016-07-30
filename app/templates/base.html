@@ -184,7 +184,29 @@
 <!-- SongList custom JavaScript -->
 <script src="../static/js/app.js"></script>
 
+<!-- Increase and Decrease Font -->
+<script type="text/javascript">
 
+ jQuery('.incfont').click(function(){         
+    curSize= parseInt(jQuery('.lyrics').css('font-size')) + 2;
+            
+    if(curSize<=24) {
+        jQuery('.lyrics').css('font-size', curSize);
+        jQuery('.lyrics').find('pre').css('font-size', curSize);
+
+    }
+
+    }); 
+
+jQuery('.decfont').click(function(){   
+    curSize= parseInt(jQuery('.lyrics').css('font-size')) - 2;
+    
+  if(curSize>=12)
+    jQuery('.lyrics').css('font-size', curSize);
+    jQuery('.lyrics').find('pre').css('font-size', curSize);
+    
+    });
+</script>
 
 </body>
 

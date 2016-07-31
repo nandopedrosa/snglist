@@ -502,7 +502,9 @@
         showCtlr.formData.pay = $('#pay').attr('value');
         showCtlr.formData.contact = $('#contact').text();
         showCtlr.formData.notes = $('#notes').text();
-        
+
+        showCtlr.quickList = []; // List of songs for the quick search              
+        showCtlr.setlist = [];   // List of songs for the added setlist
 
         showCtlr.bands = []; // List of bands                
         showCtlr.selectedband = {}; //Selected band
@@ -522,12 +524,18 @@
                 url: '/edit-show',
                 data: $.param(showCtlr.formData)                
             })
-            .then(function(response) {              
+            .then(function(response) {                          
                 if(response.data.error) {                                                               
                     showCtlr.errors.error = true;                        
+
+                    console.log(response.data);
                   
                     if(response.data.name != undefined) {
                         showCtlr.errors.name = response.data.name[0];    
+                    }
+
+                    if(response.data.bandid != undefined) {
+                        showCtlr.errors.bandid = response.data.bandid[0];    
                     }
 
                     if(response.data.start != undefined) {
@@ -554,7 +562,18 @@
                     showCtlr.errors.error = false;
 
                     if(!showCtlr.formData.showid)
-                        showCtlr.formData.showid = response.data.addedid; //The show just added      
+                        showCtlr.formData.showid = response.data.addedid; //The show just added    
+
+                    //Populate quick add
+                    $http.get('/fetch-available-songs/' + showCtlr.formData.showid).success(function(data){                
+                        showCtlr.quickList = data;                                  
+                    }); 
+
+                    $http.get('/fetch-setlist/' + showCtlr.formData.showid).success(function(data){                
+                        showCtlr.setlist = data; 
+                        showCtlr.calculateTotalDuration();                                 
+                    });
+
                 }
                 showCtlr.message = response.data.msg;
                 window.scrollTo(0,0);
@@ -562,14 +581,12 @@
             });
         };
 
-        //Quick Add
-        showCtlr.quickList = []; // List of songs for the quick search                           
+        //Quick Add                               
         $http.get('/fetch-available-songs/' + showCtlr.formData.showid).success(function(data){                
                 showCtlr.quickList = data;                                  
         });             
 
-        //Setlist
-        showCtlr.setlist = []; 
+        //Setlist        
         $http.get('/fetch-setlist/' + showCtlr.formData.showid).success(function(data){                
                 showCtlr.setlist = data; 
                 showCtlr.calculateTotalDuration();                                 
@@ -594,7 +611,8 @@
                 //Push to setlist
                 var songJustAdded = {'id' : response.data.id, 'title' : response.data.title, 
                                     'artist' : response.data.artist, 'duration' : response.data.duration};
-                showCtlr.setlist.data.push(songJustAdded);
+                
+                showCtlr.setlist.data.push(songJustAdded);    
                 showCtlr.calculateTotalDuration();
 
                 //Remove from quick list (don't allow duplicates)
@@ -638,25 +656,27 @@
         };
 
         this.calculateTotalDuration = function() {
-            var minutes = 0;
-            var seconds = 0;
-            for(var i = 0; i < showCtlr.setlist.data.length; i++) {
-                 if(showCtlr.setlist.data[i].duration && showCtlr.setlist.data[i].duration != '') {
-                    var tmp =  showCtlr.setlist.data[i].duration.split(":");
-                    minutes +=  parseInt(tmp[0]);
-                    seconds += parseInt(tmp[1]);                    
-                 }
-            }
+           if(showCtlr.setlist.data) {
+                var minutes = 0;            
+                var seconds = 0;            
+                for(var i = 0; i < showCtlr.setlist.data.length; i++) {
+                     if(showCtlr.setlist.data[i].duration && showCtlr.setlist.data[i].duration != '') {
+                        var tmp =  showCtlr.setlist.data[i].duration.split(":");
+                        minutes +=  parseInt(tmp[0]);
+                        seconds += parseInt(tmp[1]);                    
+                     }
+                }
 
-            function secondsToHms(d) {
-                d = Number(d);  
-                var h = Math.floor(d / 3600);
-                var m = Math.floor(d % 3600 / 60);
-                var s = Math.floor(d % 3600 % 60);
-                return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s); 
-            }
+                function secondsToHms(d) {
+                    d = Number(d);  
+                    var h = Math.floor(d / 3600);
+                    var m = Math.floor(d % 3600 / 60);
+                    var s = Math.floor(d % 3600 % 60);
+                    return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s); 
+                }
 
-            showCtlr.totalDuration = secondsToHms(minutes*60 + seconds);   
+                showCtlr.totalDuration = secondsToHms(minutes*60 + seconds);   
+            }   
         };
 
 
@@ -691,8 +711,6 @@
             });
         };
 
-
-
     }]);  
 
 //-------------------------------- Show Report Controller -------------------------------------------------
@@ -717,10 +735,11 @@
             }).then(function(response){
                 reportCtlr.errors.error = false;
                 //Remove from list
-                for (var i = 0; i < reportCtlr.songs.data.length; i++)
+                for (var i = 0; i < reportCtlr.shows.data.length; i++) { 
                     if (reportCtlr.shows.data[i].id == id) { 
                         reportCtlr.shows.data.splice(i, 1);
                         break;
+                    }
                 }
                 reportCtlr.message = response.data.msg;
                 window.scrollTo(0,0);

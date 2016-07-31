@@ -10,9 +10,7 @@ __email__ = "fpedrosa@gmail.com"
 from app import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask.ext.login import UserMixin, \
-    AnonymousUserMixin  # Implements Login common functions (is_authenticated, is_active, etc.)
-from flask.ext.login import AnonymousUserMixin
+from flask.ext.login import UserMixin  # implements commons authentication functions
 from flask import current_app
 from app.util import getsoup
 from sqlalchemy.sql import text
@@ -173,8 +171,8 @@ class Show(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'))
     name = db.Column(db.String(128), nullable=False)
-    start = db.Column(db.DateTime)
-    end = db.Column(db.DateTime)
+    start = db.Column(db.DateTime, nullable=True)
+    end = db.Column(db.DateTime, nullable=True)
     address = db.Column(db.String(4000))
     contact = db.Column(db.String(4000))
     pay = db.Column(db.String(128))
@@ -186,6 +184,9 @@ class Show(db.Model):
                             secondaryjoin=(setlist.c.song_id == Song.id),
                             backref=db.backref('shows', lazy='dynamic'),
                             lazy='dynamic')
+
+    def __repr__(self):
+        return self.name
 
     def add_song(self, song):
         """

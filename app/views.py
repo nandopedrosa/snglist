@@ -633,7 +633,10 @@ def fetch_shows():
 
     for show in show_list:
         band = Band.query.get(int(show.band_id))
-        start = format_datetime(show.start, get_date_format())
+        if show.start:
+            start = format_datetime(show.start, get_date_format())
+        else:
+            start = ''
         return_data.append(dict(id=show.id, name=show.name, start=start, band=band.name))
 
     return jsonify(data=return_data)
@@ -647,6 +650,18 @@ def shows():
     :return: The rendered Shows Page
     """
     return render_template("shows.html")
+
+
+@app.route('/delete-show', methods=["POST"])
+@login_required
+def delete_show():
+    """
+    Deletes a show and it's setlist
+    :return: Info message
+    """
+    show = Show.query.get(int(request.form.get('id')))
+    db.session.delete(show)
+    return jsonify(dict(msg=gettext('Show successfully deleted.')))
 
 
 @app.route('/fetch-available-songs/<int:show_id>', methods=['GET'])

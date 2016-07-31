@@ -79,15 +79,15 @@
                         <img alt="language" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">                       
                         <img alt="language" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
                     </a>
+                </li>                
+                <li>
+                    <a href="/songs">{{ _('Songs') }} ({{total_songs()}})</a>
                 </li>
                 <li>
-                    <a href="/bands">{{ _('Bands') }} ()</a>
+                    <a href="/shows">{{ _('Shows') }} ({{total_shows()}})</a>
                 </li>
                 <li>
-                    <a href="/songs">{{ _('Songs') }} ()</a>
-                </li>
-                <li>
-                    <a href="/shows">{{ _('Shows') }} ()</a>
+                    <a href="/bands">{{ _('Bands') }} ({{total_bands()}})</a>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">

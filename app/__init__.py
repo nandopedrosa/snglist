@@ -6,7 +6,7 @@ __email__ = "fpedrosa@gmail.com"
 
 """
 from flask import Flask
-from flask.ext.login import LoginManager
+from flask.ext.login import LoginManager, current_user
 from flask.ext.mail import Mail
 from flask.ext.babel import Babel, lazy_gettext
 from flask_wtf.csrf import CsrfProtect
@@ -17,7 +17,6 @@ import logging
 import logging.handlers
 from datetime import datetime
 from flask.ext.sqlalchemy import SQLAlchemy
-
 
 """
 =================================================== Custom Config Classes ====================================
@@ -122,8 +121,6 @@ if not app.debug and MAIL_SERVER != '':
     mail_handler.setLevel(logging.ERROR)
     app.logger.addHandler(mail_handler)
 
-
-
 """
 =================================================== Global Functions ====================================
 Useful for calling directly from within Jinja templates
@@ -134,7 +131,32 @@ def current_year():
     return datetime.now().year
 
 
+def total_songs():
+    """
+    Gets the number of songs of the current user
+    :return: the number of songs of the current user
+    """
+    return len(current_user.songs.all())
+
+
+def total_shows():
+    """
+    Gets the number of shows of the current user
+    :return: the number of shows of the current user
+    """
+    return len(current_user.shows.all())
+
+
+def total_bands():
+    """
+    Gets the number of bands of the current user
+    :return: the number of bands of the current user
+    """
+    return len(current_user.bands.all())
+
+
 # Injecting global functions...
-app.jinja_env.globals.update(current_year=current_year)
+app.jinja_env.globals.update(current_year=current_year, total_songs=total_songs, total_shows=total_shows,
+                             total_bands=total_bands)
 
 from app import views

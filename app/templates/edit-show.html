@@ -24,13 +24,14 @@
                 <div class="form-group">
                     {{ show_form.name.label }} *
                     {{ show_form.name(class="form-control", ng_model="showCtlr.formData.name", placeholder=show_form.name.description) }}
-                    <p class="text-danger">[[ showCtlr.name.title ]]</p>
+                    <p class="text-danger">[[ showCtlr.errors.name ]]</p>
                 </div>  
                 <div class="form-group">    
-                    <label>{{_('Band/Project:')}}</label>
+                    <label>{{_('Band/Project:')}} *</label>
                     <select class="form-control" 
                     ng-model="showCtlr.selectedband" ng-init="showCtlr.selectedband.id = showCtlr.formData.bandid" ng-options="band.name for band in showCtlr.bands.data track by band.id">
                     </select>
+                    <p class="text-danger">[[ showCtlr.errors.bandid ]]</p>
                 </div> 
                 <div class="form-group">
                     {{ show_form.start.label }} 

@@ -266,7 +266,8 @@ class SongForm(Form):
 class ShowForm(Form):
     showid = HiddenField(widget=AngularJSHiddenInput())
 
-    bandid = HiddenField(widget=AngularJSHiddenInput())
+    bandid = HiddenField(widget=AngularJSHiddenInput(), validators=[
+        InputRequired(lazy_gettext('Please select the band/project associated with this show.'))])
 
     name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(),
                        description=lazy_gettext("Enter the name of the show"),
@@ -281,12 +282,10 @@ class ShowForm(Form):
                           description=lazy_gettext("Enter the start date/time of the show"),
                           format='%Y/%m/%d %H:%M')
 
-
     end = DateTimeField(lazy_gettext("End (YYYY/MM/DD HH24:mm)"), widget=AngularJSTextInput(),
                         validators=[Optional()],
                         description=lazy_gettext("Enter the end date/time of the show"),
                         format='%Y/%m/%d %H:%M')
-
 
     address = StringField(lazy_gettext("Address"), widget=AngularJSTextInput(),
                           description=lazy_gettext("Enter the address of the show"),
@@ -314,5 +313,3 @@ class ShowForm(Form):
                           description=lazy_gettext('Enter notes witih important observations'))
 
     date_time_placeholder = lazy_gettext('YYYY/MM/DD HH24:mm')
-
-

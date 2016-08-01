@@ -652,6 +652,67 @@ def shows():
     return render_template("shows.html")
 
 
+@app.route('/formats/')
+@login_required
+def formats():
+    """
+    Returns the available file formats for sharing setlists
+    :return: The file formats
+    """
+    # noinspection PyListCreation
+    return_data = []
+    return_data.append(dict(id=1, name=lazy_gettext('TXT (Titles Only)')))
+    return_data.append(dict(id=2, name=lazy_gettext('PDF')))
+
+    return jsonify(data=return_data)
+
+
+@app.route('/recipients/<int:show_id>')
+@login_required
+def recipients(show_id):
+    """
+    Returns the available recipient options for sharing setlists
+    :return: The recipient options
+    """
+    # noinspection PyListCreation
+    return_data = []
+    return_data.append(dict(id=1, name=lazy_gettext('Myself'), email=current_user.email))
+
+    show = current_user.shows.filter_by(id=show_id).first()
+    band = Band.query.get(int(show.band_id))
+    members = band.members.order_by(BandMember.name).all()
+
+    email = current_user.email
+
+    for member in members:
+        email = email + ', ' + member.email
+
+    return_data.append(dict(id=2, name=lazy_gettext('Me and Band Members'), email=email))
+
+    email = email.replace(current_user.email + ',', '')
+
+    return_data.append(dict(id=3, name=lazy_gettext('Band Members'), email=email))
+
+    return jsonify(data=return_data)
+
+
+@app.route('/pdf-options/')
+@login_required
+def pdf_options():
+    """
+    Returns the available pdf options for sharing setlists
+    :return: The pdf options
+    """
+    # noinspection PyListCreation
+    return_data = []
+    return_data.append(dict(id=1, name=lazy_gettext('Sequence number')))
+    return_data.append(dict(id=2, name=lazy_gettext('Artist')))
+    return_data.append(dict(id=3, name=lazy_gettext('Key')))
+    return_data.append(dict(id=4, name=lazy_gettext('Tempo')))
+
+    return jsonify(data=return_data)
+
+
 @app.route('/delete-show', methods=["POST"])
 @login_required
 def delete_show():

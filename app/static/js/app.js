@@ -744,7 +744,56 @@
                 reportCtlr.message = response.data.msg;
                 window.scrollTo(0,0);
             });
-        };           
+        };
+
+        reportCtlr.recipients = []; // List of sharing recipients
+        this.getRecipients = function(id) {
+            $http.get('/recipients/' + id).success(function(data){         
+            reportCtlr.recipients = data;        
+        });     
+        }
+        
+        reportCtlr.formats = []; // List of sharing formats                        
+        $http.get('/formats/').success(function(data){         
+            reportCtlr.formats = data;        
+        }); 
+
+        this.showRecipientsEmails = function(id) {
+            for(var i = 0; i < reportCtlr.recipients.data.length; i++) {
+                if(reportCtlr.recipients.data[i].id == id) {
+                    return reportCtlr.recipients.data[i].email;
+                }  
+            }
+            return '';
+        }
+
+        reportCtlr.pdfOptions = [];
+        $http.get('/pdf-options').success(function(data){         
+            reportCtlr.pdfOptions = data;        
+        });       
+
+        // selected pdf options
+        reportCtlr.selection = [];
+
+          // toggle selection for a given pdf option
+        reportCtlr.toggleSelection = function toggleSelection(option) {
+          var idx = -1;
+
+          for(var i = 0; i < reportCtlr.selection.length; i++) {
+            if(reportCtlr.selection[i].id == option.id)
+                idx = option.id;
+          }
+
+          // is currently selected
+          if (idx > -1) {
+            reportCtlr.selection.splice(idx, 1);
+          }
+
+          // is newly selected
+          else {
+            reportCtlr.selection.push(option);
+          }
+        };
         
     }]); 
 

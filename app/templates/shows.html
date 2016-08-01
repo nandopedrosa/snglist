@@ -51,6 +51,9 @@
                             <a href="/perform?id=[[show.id]]" class="btn btn-sm btn-success" role="button">
                                 <i class="glyphicon glyphicon-headphones"></i>  
                             </a>
+                            <a href="#" data-toggle="modal" ng-click="reportCtlr.getRecipients(show.id)" data-target="#share-modal" class="btn btn-sm btn-info" role="button">
+                                <i class="glyphicon glyphicon-share"></i>  
+                            </a>
                         </td>
                     </tr>
                 </tbody>
@@ -63,6 +66,55 @@
                     </tr>
                 </tfoot>
             </table>
+
+
+            <div id="share-modal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->   
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{_('Share Setlist')}}</h4>
+                        </div>
+                        <div class="modal-body" >
+                            <div class="form-group">
+                               <label>{{_('Format')}}</label>
+                               <select class="form-control" ng-model="reportCtlr.formatid" ng-init="reportCtlr.formatid.id=1" ng-options="format.name for format in reportCtlr.formats.data track by format.id">
+                              </select>
+                            </div>
+
+                            <div ng-if="reportCtlr.formatid.id==2" class="form-group">
+                                <label>{{_('PDF Options')}}</label>
+                                <div class="checkbox" ng-repeat="option in reportCtlr.pdfOptions.data">
+                                <label >
+                                  <input
+                                    type="checkbox"
+                                    name="selectedOptions"
+                                    value="[[option.id]]"                                    
+                                    ng-click="reportCtlr.toggleSelection(option)"
+                                  > [[option.name]]
+                                </label>
+                                </div>                                   
+                            </div>
+
+                             <div class="form-group">
+                               <label>{{_('Recipients')}}</label>
+                               <select class="form-control" ng-model="reportCtlr.recipientid" ng-init="reportCtlr.recipientid.id=1" ng-options="recipient.name for recipient in reportCtlr.recipients.data track by recipient.id">
+                              </select>
+                              <p style="margin-top:5px; margin-left:5px">[[reportCtlr.showRecipientsEmails(reportCtlr.recipientid.id)]] </p>
+                            </div>   
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button ng-click="reportCtlr.share()" type="button" class="btn btn-primary">{{_('Share')}}</button>
+                            <button id="btn-close-about-modal" type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>        
     </div>   
 

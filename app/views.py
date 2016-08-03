@@ -14,7 +14,7 @@ from app import app, babel, db
 from app.config import LANGUAGES, ADMINS
 from sqlalchemy import desc
 from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm, SongForm, ShowForm
-from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user, get_date_format
+from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user, get_date_format, create_pdf
 from app.models import User, Band, BandMember, Song, Show
 
 
@@ -846,3 +846,54 @@ def perform():
 
             return render_template("perform.html", show_description=show.name + ' (' + start_date + ')',
                                    show_id=show.id, show_length=len(show.songs.all()))
+
+
+@app.route('/share-setlist', methods=["POST"])
+@login_required
+def share_setlist():
+    """
+    Sends by email a setlist to the chosen recipients in the chosen format (txt or pdf)
+    :return: Success message
+    """
+    show = Show.query.get(int(request.form.get('showid')))
+    share_songs = show.songs
+
+    if request.form.get('recipients') == '':
+        share_recipients = [current_user.email]  # Default recipient
+    else:
+        share_recipients = request.form.get('recipients').split(',')
+
+    file_format = int(request.form.get('format'))
+
+    start_date = format_datetime(show.start, get_date_format(fullformat=False))
+    nr_songs = str(len(share_songs.all())) + ' ' + gettext('songs')
+
+    subject = gettext('Setlist for ') + show.name + ' (' + start_date + ')'
+    body = gettext('This Setlist was sent from Songlist Plus\n\n')
+    pdf = None
+
+    if file_format == 1:  # TXT
+        setlist_txt = ''
+        for song in share_songs:
+            setlist_txt += song.title + '\n'
+        body += setlist_txt
+
+    else:  # PDF
+        if request.form.get('options') != '':
+            options = request.form.get('options').split(',')
+            sequence_nr = True if '1' in options else False
+            artist = True if '2' in options else False
+            key = True if '3' in options else False
+            tempo = True if '4' in options else False
+
+        template = render_template('setlist.html', title=show.name, songs=share_songs, sequence_nr=sequence_nr,
+                                   artist=artist, key=key, tempo=tempo, start_date=start_date, nr_songs=nr_songs)
+        pdf = create_pdf(template)
+
+    try:
+        send_email(share_recipients, subject, body, pdf)
+    except:
+        return jsonify(dict(msg=gettext(
+            'An error occurred while sending your Setlist. Please contact the administrator. We are sorry for the incovenience.')))
+    else:
+        return jsonify(dict(msg=gettext('The Setlist was sent to the chosen recipients')))

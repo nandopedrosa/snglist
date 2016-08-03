@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <span style="font-size: 32px; font-weight: bold;">{{title}}</span>
+    <br>
+    <span style="font-size: 14px;"> {{start_date}}</span>    
+    <span style="font-size: 14px;"> {{nr_songs}}</span>  
+    <hr>
+    <br>   
+    <table style="font-size: 20px; width:100%;">
+        <tbody>
+            {% for song in songs %}
+            <tr > 
+                <td  style="font-weight:bold" width="55%"> {% if sequence_nr %} {{loop.index}} {{song.title}} {% else %} {{song.title}} {% endif %} </td> 
+                <td  width="35%"> {% if artist and song.artist %} {{song.artist}} {% endif %} </td> 
+                <td  width="8%"> {% if key and song.key %} {{song.key}} {% endif %} </td> 
+                <td  width="2%"> {% if tempo and song.tempo %} {{song.tempo}} {% endif %} </td>
+             </tr>                
+             {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>

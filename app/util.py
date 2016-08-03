@@ -15,6 +15,8 @@ from app import app, mail
 from app.decorators import async
 from app.config import ADMINS
 from flask.ext.login import current_user
+from xhtml2pdf import pisa
+from io import BytesIO
 
 # Constants
 CONTACT_MAIL_BODY = "Name: {0} \n\nReply to: {1} \n\nMessage:\n\n{2}"
@@ -33,15 +35,20 @@ Note: this is an automatic message, there is no need to reply.
 """)
 
 
-def send_email(to, subject, body):
+def send_email(to, subject, body, pdf=None):
     """
     :param to: recipient of the email (could be a list)
     :param subject: the subject of the email
     :param body: the text body of the email
+    :param pdf: pdf attachment (setlist)
     :return: none
     """
     msg = Message(subject, recipients=to)
     msg.body = body
+
+    if pdf is not None:
+        msg.attach("setlist.pdf", "application/pdf", pdf.getvalue())
+
     __send_email_async(app, msg)
 
 
@@ -97,3 +104,14 @@ def get_date_format(fullformat=True):
             return "dd/MM/yyyy"
         else:
             return "MM/dd/yyyy"
+
+
+def create_pdf(pdf_data):
+    """
+    Creates a PDF document from a template
+    :param pdf_data: The pdf template
+    :return: the PDF document
+    """
+    pdf = BytesIO()
+    pisa.CreatePDF(BytesIO(pdf_data.encode('utf-8')), pdf)
+    return pdf

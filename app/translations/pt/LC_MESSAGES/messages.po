@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-07-31 14:00-0300\n"
-"PO-Revision-Date: 2016-07-31 14:03-0300\n"
+"POT-Creation-Date: 2016-08-03 01:31-0300\n"
+"PO-Revision-Date: 2016-08-03 01:34-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -207,6 +207,7 @@ msgid "The title of the song name must have a maximum of 128 characters"
 msgstr "O título da música deve ter no máximo 128 caracteres"
 
 #: app/forms.py:225 app/templates/edit-show.html:89 app/templates/songs.html:34
+#: app/views.py:709
 msgid "Artist"
 msgstr "Artista"
 
@@ -218,7 +219,7 @@ msgstr "Digite o nome da banda ou artista da música"
 msgid "The artist of the song name must have a maximum of 128 characters"
 msgstr "O nome do artista deve ter no máximo 128 caracteres"
 
-#: app/forms.py:233 app/templates/songs.html:36
+#: app/forms.py:233 app/templates/songs.html:36 app/views.py:710
 msgid "Key"
 msgstr "Tom"
 
@@ -343,7 +344,7 @@ msgstr "O pagamento deve ter no máximo 128 caracteres"
 msgid "YYYY/MM/DD HH24:mm"
 msgstr "AAAA/MM/DD HH24:mm"
 
-#: app/util.py:22
+#: app/util.py:24
 msgid ""
 "Welcome to Songlist Plus!\n"
 "\n"
@@ -488,8 +489,62 @@ msgid "Show info updated!"
 msgstr "Show atualizado com sucesso!"
 
 #: app/views.py:664
+msgid "TXT (Titles Only)"
+msgstr "TXT (apenas títulos)"
+
+#: app/views.py:665
+msgid "PDF"
+msgstr "PDF"
+
+#: app/views.py:679
+msgid "Myself"
+msgstr "Eu mesmo"
+
+#: app/views.py:690
+msgid "Me and Band Members"
+msgstr "Eu e os membros da banda"
+
+#: app/templates/edit-band.html:42 app/views.py:694
+msgid "Band Members"
+msgstr "Membros da Banda"
+
+#: app/views.py:708
+msgid "Sequence number"
+msgstr "Número sequencial"
+
+#: app/templates/songs.html:35 app/views.py:711
+msgid "Tempo"
+msgstr "Tempo"
+
+#: app/views.py:725
 msgid "Show successfully deleted."
 msgstr "Show adicionado com sucesso."
+
+#: app/views.py:869
+msgid "songs"
+msgstr "músicas"
+
+#: app/views.py:871
+msgid "Setlist for "
+msgstr "Repertório de"
+
+#: app/views.py:872
+msgid ""
+"This Setlist was sent from Songlist Plus\n"
+"\n"
+msgstr "Esse repertório foi enviado a partir do Songlist Plus\n"
+
+#: app/views.py:896
+msgid ""
+"An error occurred while sending your Setlist. Please contact the administrator. "
+"We are sorry for the incovenience."
+msgstr ""
+"Ocorreu um erro ao enviar o seu Repertório. Por favor entre em contato com o "
+"administrador. Desculpe-nos pelo transtorno."
+
+#: app/views.py:899
+msgid "The Setlist was sent to the chosen recipients"
+msgstr "O Repertório foi enviado aos destinatários."
 
 #: app/templates/404.html:6
 msgid "Page not found"
@@ -580,7 +635,7 @@ msgid "Sign Out"
 msgstr "Sair"
 
 #: app/templates/base.html:154 app/templates/edit-song.html:81
-#: app/templates/songs.html:84
+#: app/templates/shows.html:115 app/templates/songs.html:84
 msgid "Close"
 msgstr "Fechar"
 
@@ -601,10 +656,6 @@ msgstr "Voltar"
 #: app/templates/edit-song.html:59
 msgid "Save"
 msgstr "Salvar"
-
-#: app/templates/edit-band.html:42
-msgid "Band Members"
-msgstr "Membros da Banda"
 
 #: app/templates/edit-band.html:45
 msgid ""
@@ -781,13 +832,29 @@ msgstr "Eu entendo, exclua a minha conta"
 msgid "When"
 msgstr "Quando"
 
+#: app/templates/shows.html:79
+msgid "Share Setlist"
+msgstr "Compartilhar Repertório"
+
+#: app/templates/shows.html:85
+msgid "Format"
+msgstr "Formato"
+
+#: app/templates/shows.html:91
+msgid "PDF Options"
+msgstr "Opções de PDF"
+
+#: app/templates/shows.html:105
+msgid "Recipients"
+msgstr "Destinatários"
+
+#: app/templates/shows.html:114
+msgid "Share"
+msgstr "Compartilhar"
+
 #: app/templates/signup.html:35
 msgid "Register"
 msgstr "Inscrever-se"
-
-#: app/templates/songs.html:35
-msgid "Tempo"
-msgstr "Tempo"
 
 #~ msgid "music on your figners"
 #~ msgstr "música nos seus dedos"

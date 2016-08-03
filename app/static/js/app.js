@@ -719,6 +719,8 @@
         
         reportCtlr.options = [10,25,50,100];         
         reportCtlr.message = '';
+        reportCtlr.shareMessage = '';
+        reportCtlr.showid = '';
 
         reportCtlr.shows = []; // List of songs                
         $http.get('/fetch-shows/').success(function(data){                
@@ -749,7 +751,8 @@
         reportCtlr.recipients = []; // List of sharing recipients
         this.getRecipients = function(id) {
             $http.get('/recipients/' + id).success(function(data){         
-            reportCtlr.recipients = data;        
+            reportCtlr.recipients = data; 
+            reportCtlr.showid = id;       
         });     
         }
         
@@ -759,6 +762,9 @@
         }); 
 
         this.showRecipientsEmails = function(id) {
+            if(!reportCtlr.recipients.data)
+                return;
+
             for(var i = 0; i < reportCtlr.recipients.data.length; i++) {
                 if(reportCtlr.recipients.data[i].id == id) {
                     return reportCtlr.recipients.data[i].email;
@@ -793,6 +799,28 @@
           else {
             reportCtlr.selection.push(option);
           }
+        };
+
+        this.share = function() {     
+            reportCtlr.shareMessage = '';   
+            var optionsStr = '';
+            if(reportCtlr.selection) {
+                for (var i = 0; i < reportCtlr.selection.length; i++) {
+                    optionsStr +=  '' + reportCtlr.selection[i].id;
+                    if(i + 1 != reportCtlr.selection.length)
+                        optionsStr += ',';       
+                }
+            }
+
+            var data = {'showid' : reportCtlr.showid, 'format' : reportCtlr.formatid.id, 'options' : optionsStr, 
+                         'recipients' : reportCtlr.recipientid.email};
+            $http({
+                method: 'POST',
+                url: '/share-setlist',
+                data: $.param(data)                
+            }).then(function(response){                
+                reportCtlr.shareMessage = response.data.msg;                
+            });
         };
         
     }]); 

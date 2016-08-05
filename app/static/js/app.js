@@ -750,6 +750,7 @@
 
         reportCtlr.recipients = []; // List of sharing recipients
         this.getRecipients = function(id) {
+            reportCtlr.shareMessage = '';
             $http.get('/recipients/' + id).success(function(data){         
             reportCtlr.recipients = data; 
             reportCtlr.showid = id;       

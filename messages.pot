@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-08-03 01:31-0300\n"
+"POT-Creation-Date: 2016-08-07 16:15-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -609,7 +609,42 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
-#: app/templates/base.html:154 app/templates/edit-song.html:81
+#: app/templates/base.html:149
+msgid ""
+"is a website for managing songs, set lists, lyrics, chords and all the "
+"information your band needs to share in an easy and intuitive way."
+msgstr ""
+
+#: app/templates/base.html:151
+msgid ""
+"No more printing tons of sheets of paper and carrying awkward binders to "
+"your gigs. Just add all your songs to Songlist Plus and you can easily "
+"find them and view lyrics or chords on your device."
+msgstr ""
+
+#: app/templates/base.html:153
+msgid ""
+"The website is fully responsive, which means it works seamlessly across "
+"all devices, be it a desktop computer, notebook or mobile device."
+msgstr ""
+
+#: app/templates/base.html:155
+msgid "Create your "
+msgstr ""
+
+#: app/templates/base.html:155
+msgid "free "
+msgstr ""
+
+#: app/templates/base.html:155
+msgid "account and start rockin'!"
+msgstr ""
+
+#: app/templates/base.html:158
+msgid "p.s - mobile app coming soon"
+msgstr ""
+
+#: app/templates/base.html:162 app/templates/edit-song.html:81
 #: app/templates/shows.html:115 app/templates/songs.html:84
 msgid "Close"
 msgstr ""
@@ -750,8 +785,48 @@ msgstr ""
 msgid "Songs and Setlists"
 msgstr ""
 
+#: app/templates/info.html:14
+msgid ""
+"Adding songs is easy. Just choose the \"Songs\" menu and input all the "
+"relevant information that you need - song title, artist, key, tempo, "
+"duration, lyrics/chords, etc."
+msgstr ""
+
+#: app/templates/info.html:17
+msgid ""
+"After you have added your songs, access the \"Shows\" menu and start "
+"building your setlists for easy visualization during performances."
+msgstr ""
+
 #: app/templates/info.html:29
 msgid "Lyrics and Chords"
+msgstr ""
+
+#: app/templates/info.html:37
+msgid ""
+"You can also import lyrics or chords from famous websites in English or "
+"Portuguese. Supported sites: LyricsFreak.com, E-chords.com, "
+"Letras.mus.br, Cifraclub.com.br."
+msgstr ""
+
+#: app/templates/info.html:40
+msgid "No need to copy and paste or manually type your songs!"
+msgstr ""
+
+#: app/templates/info.html:60
+msgid ""
+"After you have built your setlists, you can easily share them with your "
+"band members so they can print and bring them to the show."
+msgstr ""
+
+#: app/templates/info.html:63
+msgid ""
+"Supported formats: Plain Text (for just a quick share) and PDF (with "
+"custom options)."
+msgstr ""
+
+#: app/templates/info.html:83
+msgid "Coming soon..."
 msgstr ""
 
 #: app/templates/not-authorized.html:6

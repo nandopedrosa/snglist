@@ -38,6 +38,6 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 if os.environ.get('DATABASE_URL') is None:
     SQLALCHEMY_DATABASE_URI = (
-    'sqlite:///' + os.path.join(basedir, 'data.db') + '?check_same_thread=False')  # Development Database (SQLite)
+        'sqlite:///' + os.path.join(basedir, 'data.db') + '?check_same_thread=False')  # Development Database (SQLite)
 else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']  # Heroku Database

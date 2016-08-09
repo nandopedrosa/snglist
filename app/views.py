@@ -38,8 +38,6 @@ def not_found_error(error):
 # noinspection PyUnusedLocal
 @app.errorhandler(500)
 def internal_error(error):
-    contact_form = ContactForm()
-    current_year = datetime.now().year
     return render_template("500.html")
 
 

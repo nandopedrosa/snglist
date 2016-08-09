@@ -27,7 +27,7 @@ if not MAIL_PASSWORD:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
 MAIL_DEFAULT_SENDER = 'songlistplus@gmail.com'
-MAIL_USE_SSL = True
+
 ADMINS = ['fpedrosa@gmail.com']
 
 

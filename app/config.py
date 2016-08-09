@@ -8,7 +8,6 @@ __email__ = "fpedrosa@gmail.com"
 """
 import os
 
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Security settings for WTForms
@@ -17,7 +16,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Flask-mail settings (With MailGun)
 MAIL_SERVER = os.environ.get('MAILGUN_SMTP_SERVER', 'smtp.gmail.com')
-MAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', 465)
+MAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', None)
+if not MAIL_PORT:
+    MAIL_PORT = 465
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+
 MAIL_USERNAME = os.environ.get('MAILGUN_SMTP_LOGIN', 'songlistplus@gmail.com')
 MAIL_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', None)
 if not MAIL_PASSWORD:
@@ -26,7 +30,6 @@ if not MAIL_PASSWORD:
 MAIL_DEFAULT_SENDER = 'songlistplus@gmail.com'
 
 ADMINS = ['fpedrosa@gmail.com']
-
 
 # BABEL
 LANGUAGES = {

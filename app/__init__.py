@@ -121,6 +121,12 @@ if not app.debug and MAIL_SERVER != '':
     mail_handler.setLevel(logging.ERROR)
     app.logger.addHandler(mail_handler)
 
+# SSL Handling
+if not app.debug and not app.config['SSL_DISABLE']:
+        from flask_sslify import SSLify
+        sslify = SSLify(app)
+
+
 """
 =================================================== Global Functions ====================================
 Useful for calling directly from within Jinja templates

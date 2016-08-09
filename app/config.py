@@ -41,3 +41,10 @@ if os.environ.get('DATABASE_URL') is None:
         'sqlite:///' + os.path.join(basedir, 'data.db') + '?check_same_thread=False')  # Development Database (SQLite)
 else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']  # Heroku Database
+
+# SSL Handling
+SSL_DISABLE = bool(os.environ.get('SSL_DISABLE'))
+
+if not SSL_DISABLE:
+    from werkzeug.contrib.fixers import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app)

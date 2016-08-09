@@ -12,7 +12,7 @@ from flask.ext.babel import Babel, lazy_gettext
 from flask_wtf.csrf import CsrfProtect
 from flask.json import JSONEncoder as BaseEncoder
 from speaklater import _LazyString
-from app.config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
+from app.config import ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, SSL_DISABLE
 import logging
 import logging.handlers
 from datetime import datetime
@@ -122,8 +122,10 @@ if not app.debug and MAIL_SERVER != '':
     app.logger.addHandler(mail_handler)
 
 # SSL Handling
-if not app.debug and not app.config['SSL_DISABLE']:
+if not app.debug and not SSL_DISABLE:
         from flask_sslify import SSLify
+        from werkzeug.contrib.fixers import ProxyFix
+        app.wsgi_app = ProxyFix(app.wsgi_app)
         sslify = SSLify(app)
 
 

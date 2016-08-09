@@ -7,7 +7,7 @@ __email__ = "fpedrosa@gmail.com"
 
 """
 import os
-from app import app
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -45,7 +45,3 @@ else:
 
 # SSL Handling
 SSL_DISABLE = bool(os.environ.get('SSL_DISABLE'))
-
-if not SSL_DISABLE:
-    from werkzeug.contrib.fixers import ProxyFix
-    app.wsgi_app = ProxyFix(app.wsgi_app)

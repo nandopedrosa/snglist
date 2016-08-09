@@ -15,15 +15,21 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 CSRF_ENABLED = True
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Flask-mail settings
-MAIL_SERVER = 'smtp.gmail.com'
-MAIL_PORT = 465
-MAIL_USE_TLS = False
-MAIL_USE_SSL = True
-MAIL_USERNAME = os.environ.get('SNG_MAIL_USERNAME')
-MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+# Flask-mail settings (With MailGun)
+MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY')
+MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN')
+
+MAIL_SERVER = os.environ.get('MAILGUN_SMTP_SERVER', 'smtp.gmail.com')
+MAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', 465)
+MAIL_USERNAME = os.environ.get('MAILGUN_SMTP_LOGIN', 'songlistplus@gmail.com')
+MAIL_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', None)
+if not MAIL_PASSWORD:
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+
 MAIL_DEFAULT_SENDER = 'songlistplus@gmail.com'
+MAIL_USE_SSL = True
 ADMINS = ['fpedrosa@gmail.com']
+
 
 # BABEL
 LANGUAGES = {

@@ -114,7 +114,7 @@ if not app.debug and MAIL_SERVER != '':
     if MAIL_USERNAME or MAIL_PASSWORD:
         credentials = (MAIL_USERNAME, MAIL_PASSWORD)
 
-    mail_handler = TlsSMTPHandler(("smtp.gmail.com", 587),
+    mail_handler = TlsSMTPHandler((MAIL_SERVER, MAIL_PORT),
                                   'no-reply@' + MAIL_SERVER, ADMINS,
                                   '[snglist] Application error', credentials)
 

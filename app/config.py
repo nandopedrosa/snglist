@@ -16,9 +16,6 @@ CSRF_ENABLED = True
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Flask-mail settings (With MailGun)
-MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY')
-MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN')
-
 MAIL_SERVER = os.environ.get('MAILGUN_SMTP_SERVER', 'smtp.gmail.com')
 MAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', 465)
 MAIL_USERNAME = os.environ.get('MAILGUN_SMTP_LOGIN', 'songlistplus@gmail.com')

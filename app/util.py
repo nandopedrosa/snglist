@@ -95,12 +95,12 @@ def get_date_format(fullformat=True):
     :return: the date format
     """
     if fullformat:
-        if session['lang'] == 'pt':
+        if 'lang' in session and session['lang'] == 'pt':
             return "EEEE, dd 'de' MMMM 'de' yyyy, HH:mm"
         else:
             return "EEEE, MMMM dd yyyy, HH:mm"
     else:
-        if session['lang'] == 'pt':
+        if 'lang' in session and session['lang'] == 'pt':
             return "dd/MM/yyyy"
         else:
             return "MM/dd/yyyy"

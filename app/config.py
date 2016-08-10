@@ -14,7 +14,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 CSRF_ENABLED = True
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Flask-mail settings (With MailGun)
+# Flask-mail settings (With MailGun or GMAIL)
 MAIL_SERVER = os.environ.get('MAILGUN_SMTP_SERVER', 'smtp.gmail.com')
 MAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', None)
 if not MAIL_PORT:

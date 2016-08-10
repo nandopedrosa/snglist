@@ -303,7 +303,9 @@ def edit_band():
                 # New Band
                 band = Band(name=form.name.data, style=form.style.data, user_id=current_user.id)
                 db.session.add(band)
+                db.session.commit()
                 form.errors['msg'] = gettext('You have added a new band/project!')
+                form.errors['addedid'] = band.id
             else:
                 # Edit band
                 band = Band.query.get(int(form.bandid.data))
@@ -332,6 +334,8 @@ def add_member():
         form.errors['error'] = False
         member = BandMember(name=form.member_name.data, email=form.member_email.data, band_id=form.bandid.data)
         db.session.add(member)
+        db.session.commit()
+        form.errors['memberid'] = member.id
         form.errors['msg'] = gettext('Band member added')
 
     else:

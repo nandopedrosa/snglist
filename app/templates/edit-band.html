@@ -11,81 +11,80 @@
         </div>
     </div>
 
-     <div class="row" ng-cloak>
-        <div class="col-xs-12" ng-controller="BandFormController as bandCtlr">
-            <div class="alert" ng-class="{'alert-danger': bandCtlr.errors.error == true, 'alert-success': bandCtlr.errors.error == false}" ng-show="bandCtlr.message != ''" role="alert">[[ bandCtlr.message ]]</div>                            
-            <form id="band-form">
-                <div class="form-group">
-                    {{band_form.bandid(class="form-control", ng_model="bandCtlr.formData.bandid")}}
-                </div>
-                <div class="form-group">
-                    {{ band_form.name.label }} *
-                    {{ band_form.name(class="form-control", ng_model="bandCtlr.formData.name", placeholder=band_form.name.description) }}
-                    <p class="text-danger">[[ bandCtlr.errors.name ]]</p>
-                </div>                
-                <div class="form-group">
-                    {{ band_form.style.label }}
-                    {{ band_form.style(class="form-control", ng_model="bandCtlr.formData.style", placeholder=band_form.style.description) }}
-                    <p class="text-danger">[[ bandCtlr.errors.style ]]</p>
-                </div>             
-            </form> 
-            <a href="/bands" class="btn btn-default" role="button">{{ _('Back') }}</a>
-            <button ng-click="bandCtlr.editBand()" type="button" class="btn btn-primary">{{_('Save')}}</button>
-        </div>        
-    </div> 
-    <br>
-    {% if band_form.bandid.data %}
-    <div class="row" ng-cloak>
-        <div class="col-xs-12" ng-controller="BandFormController as bandCtlr">
-            <div class="panel panel-default">
-                <div class="panel-heading"> 
-                    <h3 class="panel-title">{{_('Band Members')}}</h3> 
-                </div> 
-                <div class="panel-body">                     
-                     <p><em>{{_("Adding your band members' contact information is useful for sharing setlists")}}</em></p>
-                     <form>
-                        <div class="form-group">
-                            {{member_form.bandid(class="form-control", ng_model="bandCtlr.memberData.bandid")}}
-                        </div>
-                        <div class="form-group">
-                            {{ member_form.member_name.label }} *
-                            {{ member_form.member_name(class="form-control", ng_model="bandCtlr.memberData.member_name", placeholder=member_form.member_name.description) }}
-                            <p class="text-danger">[[ bandCtlr.errors.member_name ]]</p>
-                        </div>  
-                        <div class="form-group">
-                            {{ member_form.member_email.label }} *
-                            {{ member_form.member_email(class="form-control", ng_model="bandCtlr.memberData.member_email", placeholder=member_form.member_email.description) }}
-                            <p class="text-danger">[[ bandCtlr.errors.member_email ]]</p>
-                        </div>     
-                     </form> 
-                     <div class="form-group">                      
-                         <button ng-click="bandCtlr.addMember()" type="button" class="btn btn-success">{{_('Add Member')}}</button>   
-                    </div>                          
+    <div ng-controller="BandFormController as bandCtlr">
+         <div class="row" ng-cloak>
+            <div class="col-xs-12" >
+                <div class="alert" ng-class="{'alert-danger': bandCtlr.errors.error == true, 'alert-success': bandCtlr.errors.error == false}" ng-show="bandCtlr.message != ''" role="alert">[[ bandCtlr.message ]]</div>                            
+                <form id="band-form">
+                    <div class="form-group">
+                        {{band_form.bandid(class="form-control", ng_model="bandCtlr.formData.bandid")}}
+                    </div>
+                    <div class="form-group">
+                        {{ band_form.name.label }} *
+                        {{ band_form.name(class="form-control", ng_model="bandCtlr.formData.name", placeholder=band_form.name.description) }}
+                        <p class="text-danger">[[ bandCtlr.errors.name ]]</p>
+                    </div>                
+                    <div class="form-group">
+                        {{ band_form.style.label }}
+                        {{ band_form.style(class="form-control", ng_model="bandCtlr.formData.style", placeholder=band_form.style.description) }}
+                        <p class="text-danger">[[ bandCtlr.errors.style ]]</p>
+                    </div>             
+                </form> 
+                <a href="/bands" class="btn btn-default" role="button">{{ _('Back') }}</a>
+                <button ng-click="bandCtlr.editBand()" type="button" class="btn btn-primary">{{_('Save')}}</button>
+            </div>        
+        </div> 
+        <br>    
+        <div class="row" ng-cloak>
+            <div ng-show="bandCtlr.formData.bandid != ''" class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> 
+                        <h3 class="panel-title">{{_('Band Members')}}</h3> 
+                    </div> 
+                    <div class="panel-body">                     
+                         <p><em>{{_("Adding your band members' contact information is useful for sharing setlists")}}</em></p>
+                         <form>
+                            <div class="form-group">
+                                {{member_form.bandid(class="form-control", ng_model="bandCtlr.memberData.bandid")}}
+                            </div>
+                            <div class="form-group">
+                                {{ member_form.member_name.label }} *
+                                {{ member_form.member_name(class="form-control", ng_model="bandCtlr.memberData.member_name", placeholder=member_form.member_name.description) }}
+                                <p class="text-danger">[[ bandCtlr.errors.member_name ]]</p>
+                            </div>  
+                            <div class="form-group">
+                                {{ member_form.member_email.label }} *
+                                {{ member_form.member_email(class="form-control", ng_model="bandCtlr.memberData.member_email", placeholder=member_form.member_email.description) }}
+                                <p class="text-danger">[[ bandCtlr.errors.member_email ]]</p>
+                            </div>     
+                         </form> 
+                         <div class="form-group">                      
+                             <button ng-click="bandCtlr.addMember()" type="button" class="btn btn-success">{{_('Add Member')}}</button>   
+                        </div>                          
 
-                      <table st-table="displayedCollection" st-safe-src="bandCtlr.members.data" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th st-sort="name">{{_('Name')}}</th>
-                                <th st-sort="email">{{_('Email')}}</th>                             
-                                <th></th>   
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="member in displayedCollection">
-                                <td>[[ member.name ]]</td>
-                                <td>[[ member.email ]]</td>
-                                <td>
-                                   <button type="button" ng-click="bandCtlr.deleteMember(member.id)" class="btn btn-sm btn-danger">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>                
-            </div>                         
-        </div>
-    <div> 
-
-    {% endif %}    
+                          <table st-table="displayedCollection" st-safe-src="bandCtlr.members.data" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th st-sort="name">{{_('Name')}}</th>
+                                    <th st-sort="email">{{_('Email')}}</th>                             
+                                    <th></th>   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="member in displayedCollection">
+                                    <td>[[ member.name ]]</td>
+                                    <td>[[ member.email ]]</td>
+                                    <td>
+                                       <button type="button" ng-click="bandCtlr.deleteMember(member.id)" class="btn btn-sm btn-danger">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>                
+                </div>                         
+            </div>
+        <div> 
+    </div>
 {% endblock %}

@@ -231,6 +231,10 @@
         bandCtlr.formData.style = $('#style').attr('value');
         bandCtlr.formData.bandid = $('#bandid').attr('value');
 
+        bandCtlr.members = []; //Members list
+        bandCtlr.memberData = {}; // Band members form    
+        bandCtlr.memberData.bandid = $('#bandid').attr('value');   
+
         //Add or Update band
         this.editBand = function () {            
             bandCtlr.errors = {}; //Init errors              
@@ -253,17 +257,22 @@
                     
                 } else {
                     bandCtlr.errors.error = false;                     
-                    if (bandCtlr.formData.bandid == '') // New band, clear form
-                        bandCtlr.formData = {};
+                    if(!bandCtlr.formData.bandid) {
+                    	bandCtlr.formData.bandid = response.data.addedid; //the band just added
+
+                    	 $http.get('/fetch-members/' + bandCtlr.formData.bandid).success(function(data){                
+                			bandCtlr.members = data;
+            			});  
+                    	 bandCtlr.memberData.bandid = response.data.addedid;
+                    }
+
+
+
                 }
                 bandCtlr.message = response.data.msg;
                 window.scrollTo(0,0);
             });
         };
-
-        bandCtlr.memberData = {}; // Band members form    
-        bandCtlr.memberData.bandid = $('#bandid').attr('value');   
-        bandCtlr.members = []; //Members list
 
         if (typeof bandCtlr.memberData.bandid != "undefined" && bandCtlr.memberData.bandid != '') {
             $http.get('/fetch-members/' + bandCtlr.memberData.bandid).success(function(data){                
@@ -272,8 +281,7 @@
         }
 
         //Add or Update a band member
-        this.addMember = function () {   
-            bandCtlr.memberData.bandid = $('#bandid').attr('value');   
+        this.addMember = function () {               
             bandCtlr.errors = {}; //Init errors              
             $http({
                 method: 'POST',
@@ -294,10 +302,12 @@
                     
                 } else {
                     //Member added
-                    bandCtlr.errors.error = false;                         
-                    bandCtlr.members.data.push({name : bandCtlr.memberData.member_name, 
+                    bandCtlr.errors.error = false;
+                    var addedMemberId = response.data.memberid;
+                    bandCtlr.members.data.push({id : addedMemberId, name : bandCtlr.memberData.member_name, 
                         email : bandCtlr.memberData.member_email });
-                    bandCtlr.memberData = {}; // Band members form                    
+                    bandCtlr.memberData.member_name = ''; 
+                    bandCtlr.memberData.member_email = ''; 
                 }
                 bandCtlr.message = response.data.msg;
             });

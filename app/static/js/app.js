@@ -425,7 +425,7 @@
                     
                 } else {
                     songCtlr.errors.error = false;                     
-                    if (songCtlr.formData.songid == '') { // New band, clear form
+                    if (songCtlr.formData.songid == '' || typeof songCtlr.formData.songid == "undefined") { // New band, clear form
                         songCtlr.formData = {};
                         //hard reset CK Editor
                         songCtlr.formData.lyrics = '';

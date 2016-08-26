@@ -787,6 +787,34 @@ def add_song():
     return jsonify(dict(id=song.id, title=song.title, artist=song.artist, duration=song.pretty_duration()))
 
 
+@app.route('/save-setlist', methods=["POST"])
+@login_required
+def save_setlist():
+    """
+    Saves the sorted setlist
+    :return: empty dict
+    """
+    show = Show.query.get(int(request.form.get('showid')))
+
+    # First we delete the previous songs, so we don't have to deal with updates
+    show.remove_all_songs()
+
+    # Now we add the new, sorted, setlist
+    song_ids = request.form.get('songIds').split(',')
+
+    pos = 1
+
+    for song_id in song_ids:
+        song = Song.query.get(song_id)
+        show.add_song(song)
+        db.session.add(show)
+        db.session.commit()
+        show.assign_position(song, pos)
+        pos += 1
+
+    return jsonify(dict())
+
+
 @app.route('/remove-from-setlist', methods=["POST"])
 @login_required
 def remove_from_setlist():

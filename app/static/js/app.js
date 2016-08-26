@@ -6,7 +6,7 @@
  */
 
 (function () {
-    var app = angular.module('songlist', ['smart-table', 'ui.mask', 'ngSanitize', 'rt.select2']);
+    var app = angular.module('songlist', ['smart-table', 'ui.mask', 'ui.sortable', 'ngSanitize', 'rt.select2']);
 
     app.config(['$interpolateProvider', '$httpProvider', function ($interpolateProvider, $httpProvider) {
         //Change template start and end symbol to play nice with Flask's Jinja2 Templates
@@ -687,39 +687,30 @@
 
                 showCtlr.totalDuration = secondsToHms(minutes*60 + seconds);   
             }   
+        }; 
+
+        var getSongIds = function() {
+            //Song ids
+            var ids = "";
+            for(var i = 0; i < showCtlr.setlist.data.length; i++) {
+                ids += showCtlr.setlist.data[i].id;
+                if(i + 1 != showCtlr.setlist.data.length)
+                    ids += ","; 
+            }
+            return {songIds:ids, showid: showCtlr.formData.showid};
         };
 
-
-        this.moveUp = function(songid) {
-            showCtlr.errors = {}; //Init errors  
-            var songToBeMoved = {'songid' : songid, 'showid' : showCtlr.formData.showid};              
-            $http({
-                method: 'POST',
-                url: '/move-up',
-                data: $.param(songToBeMoved)                
-            }).then(function(response){
-                showCtlr.errors.error = false;
-                $http.get('/fetch-setlist/' + showCtlr.formData.showid).success(function(data){                
-                    showCtlr.setlist = data;                                  
-                });                       
-            });
+        //Save Setlist after sorting
+        this.sortableOptions = {         
+            stop: function(e, ui) {                
+                $http({
+                    method: 'POST',
+                    url: '/save-setlist',
+                    data: $.param(getSongIds())                
+                });
+            }
         };
 
-
-        this.moveDown = function(songid) {
-            showCtlr.errors = {}; //Init errors  
-            var songToBeMoved = {'songid' : songid, 'showid' : showCtlr.formData.showid};              
-            $http({
-                method: 'POST',
-                url: '/move-down',
-                data: $.param(songToBeMoved)                
-            }).then(function(response){
-                showCtlr.errors.error = false;
-                $http.get('/fetch-setlist/' + showCtlr.formData.showid).success(function(data){                
-                    showCtlr.setlist = data;                                  
-                });                       
-            });
-        };
 
     }]);  
 

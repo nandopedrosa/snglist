@@ -835,11 +835,13 @@
         performCtlr.songs = []; // List of songs              
         performCtlr.songid = ''; //the current song being displayed   
         performCtlr.lyrics = ''; //the lyrics/chords of the song being displayed     
+        performCtlr.title = ''; //the title of the song being displayed     
 
         $http.get('/fetch-setlist/' + performCtlr.showid).success(function(data){                
             performCtlr.songs = data; 
             performCtlr.songid = performCtlr.songs.data[0].id;
             performCtlr.lyrics = performCtlr.songs.data[0].lyrics;
+            performCtlr.title = performCtlr.songs.data[i+1].title;
         });      
 
         this.next = function() {
@@ -847,6 +849,7 @@
                 if(performCtlr.songs.data[i].id == performCtlr.songid) {
                     performCtlr.songid = performCtlr.songs.data[i+1].id;
                     performCtlr.lyrics = performCtlr.songs.data[i+1].lyrics;
+                    performCtlr.title = performCtlr.songs.data[i+1].title;
                     break;
                 }
             }
@@ -859,6 +862,7 @@
                     if(performCtlr.songs.data[i].id == performCtlr.songid) {
                         performCtlr.songid = performCtlr.songs.data[i-1].id;
                         performCtlr.lyrics = performCtlr.songs.data[i-1].lyrics;
+                        performCtlr.title = performCtlr.songs.data[i-1].title;
                         break;
                     }
                 }
@@ -900,6 +904,7 @@
                  for(var i = 0; i < performCtlr.songs.data.length; i++) {
                     if(performCtlr.songs.data[i].id == performCtlr.songid) {
                         performCtlr.lyrics = performCtlr.songs.data[i].lyrics;
+                        performCtlr.title = performCtlr.songs.data[i].title;
                         if(i + 1 < performCtlr.songs.data.length) {                            
                             performCtlr.nextSong = performCtlr.songs.data[i+1].title;
                         } else {

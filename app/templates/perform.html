@@ -17,13 +17,12 @@
         </div>
     </div>    
 
-     <div class="row" ng-cloak>
+     <div class="row row-centered" style="margin-top:30px" ng-cloak>
         <div class="col-xs-12" ng-controller="PerformController as performCtlr">                  
-            <form id="perform-form" role="form" >
+            <form id="perform-form" role="form" class="text-left" >
                 <input type="hidden" id="showid" value="{{show_id}}">
-                <div class="form-group">    
-                    <label>{{_('Setlist:')}}</label>
-                    <select class="form-control" ng-change="performCtlr.previewNext()" ng-model="performCtlr.songid" ng-options="song.id as song.title for song in performCtlr.songs.data">
+                <div class="form-group">                        
+                    <select style="font-size:18px" class="form-control" ng-change="performCtlr.previewNext()" ng-model="performCtlr.songid" ng-options="song.id as song.title for song in performCtlr.songs.data">
                     </select>
                 </div>
                                  
@@ -34,9 +33,10 @@
                 <i class="glyphicon glyphicon-forward"></i>
                 </button>   
                 <h3 style="display:inline; margin-left:10px"> <small ng-if="performCtlr.hasNext()">{{_('Next')}}: [[performCtlr.nextSong]]</small></h3>                
-            </form>
-            <br>                               
-            <p class="lyrics" ng-bind-html="performCtlr.lyrics"></p>              
+            </form>                       
+            <h1 style="margin=top:30px" class="page-header text-left"> [[ performCtlr.title ]] </h3>    
+            <br>                          
+            <p class="lyrics col-centered" ng-bind-html="performCtlr.lyrics"></p>              
             <br><br>
         </div>        
     </div>   

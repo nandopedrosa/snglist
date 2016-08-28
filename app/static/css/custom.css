@@ -136,6 +136,19 @@ pre {
 }
 
 .lyrics {
-    font-size: 18px;
+    font-size: 22px;
+}
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
 }
 

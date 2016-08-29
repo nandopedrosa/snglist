@@ -766,7 +766,8 @@ def fetch_setlist(show_id):
     return_data = []
     for song in setlist:
         return_data.append(
-            dict(id=song.id, title=song.title, artist=song.artist, duration=song.pretty_duration(), lyrics=song.lyrics))
+            dict(id=song.id, title=song.title, tempo=song.tempo, artist=song.artist, duration=song.pretty_duration(),
+                 lyrics=song.lyrics))
 
     return jsonify(data=return_data)
 

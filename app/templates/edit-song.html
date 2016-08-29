@@ -35,7 +35,7 @@
                 </div> 
                 <div class="form-group">
                     {{ song_form.tempo.label }} 
-                    {{ song_form.tempo(class="form-control", ng_model="songCtlr.formData.tempo", **{'ui-mask':'999'}) }}
+                    {{ song_form.tempo(class="form-control", ng_model="songCtlr.formData.tempo", **{'ui-mask':'99?9'}) }}
                     <p class="text-danger">[[ songCtlr.errors.tempo ]]</p>
                 </div>   
                  <div class="form-group">

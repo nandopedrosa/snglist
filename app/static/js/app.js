@@ -828,20 +828,45 @@
     }]); 
 
 //-------------------------------- Perform Controller -------------------------------------------------
-    app.controller('PerformController', ['$http', function ($http) {
+    app.controller('PerformController', ['$http', '$interval', function ($http, $interval) {
         var performCtlr = this;             
         
         performCtlr.showid = $('#showid').attr('value');      
         performCtlr.songs = []; // List of songs              
         performCtlr.songid = ''; //the current song being displayed   
         performCtlr.lyrics = ''; //the lyrics/chords of the song being displayed     
-        performCtlr.title = ''; //the title of the song being displayed     
+        performCtlr.title = ''; //the title of the song being displayed    
+        performCtlr.tempo = 0; //The tempo of the song being displayed 
+        var promise; //The most recent interval (useful to stop the tempo interval)
 
+        var startOrResetTempo = function(songTempo) {
+            if(angular.isDefined(songTempo) && songTempo != null) {
+                if(angular.isDefined(promise)) {
+                    $interval.cancel(promise);                    
+                }
+                promise = $interval(
+                    function() {
+                        $('#tempo').toggleClass('blink');
+                    }
+                    , 1000*60/songTempo);
+            } else {
+                //No tempo set, just reset the metronome and clear the red
+                if(angular.isDefined(promise)) {
+                    $interval.cancel(promise);                    
+                }
+                $('#tempo').removeClass('blink');
+            }
+        }
+        
         $http.get('/fetch-setlist/' + performCtlr.showid).success(function(data){                
             performCtlr.songs = data; 
             performCtlr.songid = performCtlr.songs.data[0].id;
             performCtlr.lyrics = performCtlr.songs.data[0].lyrics;
-            performCtlr.title = performCtlr.songs.data[i+1].title;
+            performCtlr.title = performCtlr.songs.data[0].title;
+            
+            performCtlr.tempo = performCtlr.songs.data[0].tempo;                
+            startOrResetTempo(performCtlr.tempo);
+
         });      
 
         this.next = function() {
@@ -850,6 +875,8 @@
                     performCtlr.songid = performCtlr.songs.data[i+1].id;
                     performCtlr.lyrics = performCtlr.songs.data[i+1].lyrics;
                     performCtlr.title = performCtlr.songs.data[i+1].title;
+                    performCtlr.tempo = performCtlr.songs.data[i+1].tempo;
+                    startOrResetTempo(performCtlr.tempo);
                     break;
                 }
             }
@@ -863,6 +890,8 @@
                         performCtlr.songid = performCtlr.songs.data[i-1].id;
                         performCtlr.lyrics = performCtlr.songs.data[i-1].lyrics;
                         performCtlr.title = performCtlr.songs.data[i-1].title;
+                        performCtlr.tempo = performCtlr.songs.data[i-1].tempo;
+                        startOrResetTempo(performCtlr.tempo);
                         break;
                     }
                 }
@@ -905,6 +934,7 @@
                     if(performCtlr.songs.data[i].id == performCtlr.songid) {
                         performCtlr.lyrics = performCtlr.songs.data[i].lyrics;
                         performCtlr.title = performCtlr.songs.data[i].title;
+                        performCtlr.tempo = performCtlr.songs.data[i].tempo;
                         if(i + 1 < performCtlr.songs.data.length) {                            
                             performCtlr.nextSong = performCtlr.songs.data[i+1].title;
                         } else {

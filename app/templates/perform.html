@@ -35,9 +35,9 @@
                 <i class="glyphicon glyphicon-forward"></i>
                 </button>   
                 <h3 style="display:inline; margin-left:10px"> <small ng-if="performCtlr.hasNext()">{{_('Next')}}: [[performCtlr.nextSong]]</small></h3> 
-                <button id="tempo" class="btn btn-lg btn-default disabled" style="display:block; margin-top:15px"> </button>               
+                <h2 id="tempo" style="color: rgb(119,119,119)"> </h2> 
             </form>                       
-            <h1 style="margin-top:20px" class="page-header text-left"> [[ performCtlr.title ]] </h3>    
+            <h1 style="margin-top:15px" class="page-header text-left"> [[ performCtlr.title ]] </h3>    
             <br>                          
             <p class="lyrics col-centered" ng-bind-html="performCtlr.lyrics"></p>              
             <br><br>

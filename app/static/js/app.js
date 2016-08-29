@@ -838,23 +838,45 @@
         performCtlr.title = ''; //the title of the song being displayed    
         performCtlr.tempo = 0; //The tempo of the song being displayed 
         var promise; //The most recent interval (useful to stop the tempo interval)
+        var bar = 1; //Current bar
+        var beat = 0; //Current beat        
 
-        var startOrResetTempo = function(songTempo) {
+        var pad = function pad(num, size) {
+            var s = "000000000" + num;
+            return s.substr(s.length-size);
+        }
+
+        var updateTempo = function(songTempo) {
             if(angular.isDefined(songTempo) && songTempo != null) {
                 if(angular.isDefined(promise)) {
-                    $interval.cancel(promise);                    
+                    $interval.cancel(promise);
+                    bar = 1;
+                    beat = 0;
+
                 }
                 promise = $interval(
                     function() {
-                        $('#tempo').toggleClass('blink');
+                        beat++;                        
+
+                        if(beat > 4) {
+                            beat = 1;
+                            bar++;
+                            if(bar > 9999)
+                                bar = 1; 
+                        }
+
+                        $('#tempo').text(pad(bar,4) + '.' + pad(beat,2));
+                        
                     }
                     , 1000*60/songTempo);
             } else {
                 //No tempo set, just reset the metronome and clear the red
                 if(angular.isDefined(promise)) {
-                    $interval.cancel(promise);                    
-                }
-                $('#tempo').removeClass('blink');
+                    $interval.cancel(promise);
+                    bar = 1;
+                    beat = 0;     
+                    $('#tempo').text(pad(bar,4) + '.' + pad(beat,2));               
+                }                
             }
         }
         
@@ -865,7 +887,7 @@
             performCtlr.title = performCtlr.songs.data[0].title;
             
             performCtlr.tempo = performCtlr.songs.data[0].tempo;                
-            startOrResetTempo(performCtlr.tempo);
+            updateTempo(performCtlr.tempo);
 
         });      
 
@@ -876,7 +898,7 @@
                     performCtlr.lyrics = performCtlr.songs.data[i+1].lyrics;
                     performCtlr.title = performCtlr.songs.data[i+1].title;
                     performCtlr.tempo = performCtlr.songs.data[i+1].tempo;
-                    startOrResetTempo(performCtlr.tempo);
+                    updateTempo(performCtlr.tempo);
                     break;
                 }
             }
@@ -891,7 +913,7 @@
                         performCtlr.lyrics = performCtlr.songs.data[i-1].lyrics;
                         performCtlr.title = performCtlr.songs.data[i-1].title;
                         performCtlr.tempo = performCtlr.songs.data[i-1].tempo;
-                        startOrResetTempo(performCtlr.tempo);
+                        updateTempo(performCtlr.tempo);
                         break;
                     }
                 }

@@ -492,7 +492,13 @@
                 reportCtlr.message = response.data.msg;
                 window.scrollTo(0,0);
             });
-        };           
+        };
+
+        this.exportSongs = function() {
+           reportCtlr.message = $('#about').text() == 'Sobre' ? 'Músicas exportadas com sucesso. Você pode compartilhar o arquivo com um amigo ou companheiro de banda para que ele possa importar suas músicas em sua própria base de dados.' : 'Songs successfully exported. You can share the exported file with friends or band mates so they can import your songs into their own database.';
+        };   
+
+
         
     }]); 
 

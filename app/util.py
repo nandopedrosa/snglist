@@ -115,3 +115,14 @@ def create_pdf(pdf_data):
     pdf = BytesIO()
     pisa.CreatePDF(BytesIO(pdf_data.encode('utf-8')), pdf)
     return pdf
+
+
+def allowed_file(filename, allowed_extensions):
+    """
+    Checks if a given file extension is allowed
+    :param filename: The name of the file
+    :param allowed_extensions: The list of allowed file extensions
+    :return: true if the extension is allowed, false otherwise
+    """
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in allowed_extensions

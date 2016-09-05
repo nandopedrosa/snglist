@@ -7,14 +7,16 @@ __email__ = "fpedrosa@gmail.com"
 
 """
 
-from flask import render_template, request, session, redirect, url_for, jsonify, flash
+from flask import render_template, request, session, redirect, url_for, jsonify, flash, make_response
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from flask.ext.babel import gettext, lazy_gettext, format_datetime
+from json import loads
 from app import app, babel, db
 from app.config import LANGUAGES, ADMINS
 from sqlalchemy import desc
 from app.forms import ContactForm, SignupForm, LoginForm, ProfileForm, BandForm, BandMemberForm, SongForm, ShowForm
-from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user, get_date_format, create_pdf
+from app.util import send_email, CONTACT_MAIL_BODY, CONFIRMATION_MAIL_BODY, is_current_user, get_date_format, \
+    create_pdf, allowed_file
 from app.models import User, Band, BandMember, Song, Show
 
 
@@ -465,14 +467,14 @@ def edit_song():
             form.errors['error'] = False
 
             if form.songid.data == '':
-                # New Band
+                # New Song
                 song = Song(title=form.title.data, artist=form.artist.data, key=form.key.data, tempo=form.tempo.data,
                             duration=form.duration.data, notes=form.notes.data, lyrics=form.lyrics.data,
                             user_id=current_user.id)
                 db.session.add(song)
                 form.errors['msg'] = gettext('Song successfully added!')
             else:
-                # Edit band
+                # Edit Song
                 song = Song.query.get(int(form.songid.data))
                 song.title = form.title.data
                 song.artist = form.artist.data
@@ -928,3 +930,74 @@ def share_setlist():
             'An error occurred while sending your Setlist. Please contact the administrator. We are sorry for the incovenience.')))
     else:
         return jsonify(dict(msg=gettext('The Setlist was sent to the chosen recipients')))
+
+
+@app.route('/export-songs', methods=["GET"])
+@login_required
+def export_songs():
+    """
+    Exports the user songs to JSON format
+    :return: JSON file
+    """
+
+    song_database = current_user.songs.order_by(Song.title).all()  # All the current user songs
+    song_ids = []
+
+    # List of song ids
+    for song in song_database:
+        song_ids.append(song.id)
+
+    d = dict()
+    d['user_id'] = current_user.id
+    d['song_ids'] = song_ids
+
+    export_json = jsonify(d)  # Songs in json format
+
+    response = make_response(export_json)
+    response.headers["Content-Disposition"] = "attachment; filename=songs.json"
+
+    return response
+
+
+@app.route('/import-songs', methods=["POST"])
+@login_required
+def import_songs():
+    """
+    Imports songs from a JSON file to the current user
+    :return: Success message
+    """
+
+    if 'file' not in request.files:
+        flash(gettext('File not found'))
+        return render_template("songs.html")
+
+    file = request.files['file']
+
+    if file.filename == '':
+        flash(gettext('File not found'))
+        return render_template("songs.html")
+
+    if not allowed_file(file.filename, ['json']):
+        flash(gettext('File not allowed'))
+        return render_template("songs.html")
+
+    if file:
+        file.seek(0)
+        contents = loads(file.read().decode('utf-8'))
+
+        count = 0
+
+        for song_id in contents['song_ids']:
+            original_song = Song.query.get(int(song_id))
+
+            if original_song:
+                copy_song = Song(title=original_song.title, artist=original_song.artist, key=original_song.key,
+                                 tempo=original_song.tempo,
+                                 duration=original_song.duration, notes=original_song.notes,
+                                 lyrics=original_song.lyrics,
+                                 user_id=current_user.id)
+                db.session.add(copy_song)
+                count += 1
+
+        flash(gettext(str(count) + ' songs successfully added'))
+        return render_template("songs.html")

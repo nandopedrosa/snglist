@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-08-07 16:15-0300\n"
+"POT-Creation-Date: 2016-09-05 08:14-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,7 +185,7 @@ msgstr ""
 msgid "The email must have a minimum of 6 characters"
 msgstr ""
 
-#: app/forms.py:216 app/templates/edit-show.html:88 app/templates/songs.html:33
+#: app/forms.py:216 app/templates/edit-show.html:88 app/templates/songs.html:39
 msgid "Title"
 msgstr ""
 
@@ -201,8 +201,8 @@ msgstr ""
 msgid "The title of the song name must have a maximum of 128 characters"
 msgstr ""
 
-#: app/forms.py:225 app/templates/edit-show.html:89 app/templates/songs.html:34
-#: app/views.py:709
+#: app/forms.py:225 app/templates/edit-show.html:89 app/templates/songs.html:40
+#: app/views.py:713
 msgid "Artist"
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 msgid "The artist of the song name must have a maximum of 128 characters"
 msgstr ""
 
-#: app/forms.py:233 app/templates/songs.html:36 app/views.py:710
+#: app/forms.py:233 app/templates/songs.html:42 app/views.py:714
 msgid "Key"
 msgstr ""
 
@@ -381,8 +381,8 @@ msgstr ""
 msgid "Profile updated"
 msgstr ""
 
-#: app/views.py:179 app/views.py:319 app/views.py:341 app/views.py:487
-#: app/views.py:619
+#: app/views.py:179 app/views.py:321 app/views.py:345 app/views.py:491
+#: app/views.py:623
 msgid "Your request was not successful. Please, check the errors below."
 msgstr ""
 
@@ -414,112 +414,124 @@ msgstr ""
 msgid "You have been logged out."
 msgstr ""
 
-#: app/views.py:308
+#: app/views.py:309
 msgid "You have added a new band/project!"
 msgstr ""
 
-#: app/views.py:315
+#: app/views.py:317
 msgid "Band/Project info updated!"
 msgstr ""
 
-#: app/views.py:337
+#: app/views.py:341
 msgid "Band member added"
 msgstr ""
 
-#: app/views.py:422
+#: app/views.py:426
 msgid "Band successfully deleted."
 msgstr ""
 
-#: app/views.py:471
+#: app/views.py:475
 msgid "Song successfully added!"
 msgstr ""
 
-#: app/views.py:483
+#: app/views.py:487
 msgid "Song info updated!"
 msgstr ""
 
-#: app/views.py:528
+#: app/views.py:532
 msgid "Song successfully deleted."
 msgstr ""
 
-#: app/views.py:541
+#: app/views.py:545
 msgid "You must provide a URL address"
 msgstr ""
 
-#: app/views.py:546
+#: app/views.py:550
 msgid "Song successfully imported. You can now close this dialog."
 msgstr ""
 
-#: app/views.py:549
+#: app/views.py:553
 msgid ""
 "We could not find the song you requested. Are you sure you entered a "
 "supported site URL?"
 msgstr ""
 
-#: app/views.py:600
+#: app/views.py:604
 msgid ""
 "Show successfully added! Now you can start building your setlist (see "
 "below)."
 msgstr ""
 
-#: app/views.py:615
+#: app/views.py:619
 msgid "Show info updated!"
 msgstr ""
 
-#: app/views.py:664
+#: app/views.py:668
 msgid "TXT (Titles Only)"
 msgstr ""
 
-#: app/views.py:665
+#: app/views.py:669
 msgid "PDF"
 msgstr ""
 
-#: app/views.py:679
+#: app/views.py:683
 msgid "Myself"
 msgstr ""
 
-#: app/views.py:690
+#: app/views.py:694
 msgid "Me and Band Members"
 msgstr ""
 
-#: app/templates/edit-band.html:42 app/views.py:694
+#: app/templates/edit-band.html:42 app/views.py:698
 msgid "Band Members"
 msgstr ""
 
-#: app/views.py:708
+#: app/views.py:712
 msgid "Sequence number"
 msgstr ""
 
-#: app/templates/songs.html:35 app/views.py:711
+#: app/templates/songs.html:41 app/views.py:715
 msgid "Tempo"
 msgstr ""
 
-#: app/views.py:725
+#: app/views.py:729
 msgid "Show successfully deleted."
 msgstr ""
 
-#: app/views.py:869
+#: app/views.py:902
 msgid "songs"
 msgstr ""
 
-#: app/views.py:871
+#: app/views.py:904
 msgid "Setlist for "
 msgstr ""
 
-#: app/views.py:872
+#: app/views.py:905
 msgid ""
 "This Setlist was sent from Songlist Plus\n"
 "\n"
 msgstr ""
 
-#: app/views.py:896
+#: app/views.py:929
 msgid ""
 "An error occurred while sending your Setlist. Please contact the "
 "administrator. We are sorry for the incovenience."
 msgstr ""
 
-#: app/views.py:899
+#: app/views.py:932
 msgid "The Setlist was sent to the chosen recipients"
+msgstr ""
+
+#: app/views.py:971 app/views.py:977
+msgid "File not found"
+msgstr ""
+
+#: app/views.py:981
+msgid "File not allowed"
+msgstr ""
+
+#: app/views.py:1002
+msgid " songs successfully added"
 msgstr ""
 
 #: app/templates/404.html:6
@@ -559,7 +571,7 @@ msgid "Add Band/Project"
 msgstr ""
 
 #: app/templates/bands.html:29 app/templates/shows.html:29
-#: app/templates/songs.html:29
+#: app/templates/songs.html:35
 msgid "Search..."
 msgstr ""
 
@@ -575,77 +587,78 @@ msgstr ""
 msgid "Confirm this action?"
 msgstr ""
 
-#: app/templates/base.html:68 app/templates/base.html:101
+#: app/templates/base.html:73 app/templates/base.html:106
 #: app/templates/contact.html:6
 msgid "Contact"
 msgstr ""
 
-#: app/templates/base.html:71 app/templates/base.html:104
-#: app/templates/base.html:146
+#: app/templates/base.html:76 app/templates/base.html:109
+#: app/templates/base.html:151
 msgid "About"
 msgstr ""
 
-#: app/templates/base.html:74
+#: app/templates/base.html:79
 msgid "Sign in"
 msgstr ""
 
-#: app/templates/base.html:84 app/templates/songs.html:6
+#: app/templates/base.html:89 app/templates/songs.html:6
 msgid "Songs"
 msgstr ""
 
-#: app/templates/base.html:87 app/templates/shows.html:6
+#: app/templates/base.html:92 app/templates/shows.html:6
 msgid "Shows"
 msgstr ""
 
-#: app/templates/base.html:90
+#: app/templates/base.html:95
 msgid "Bands"
 msgstr ""
 
-#: app/templates/base.html:98 app/templates/profile.html:6
+#: app/templates/base.html:103 app/templates/profile.html:6
 msgid "Profile"
 msgstr ""
 
-#: app/templates/base.html:107
+#: app/templates/base.html:112
 msgid "Sign Out"
 msgstr ""
 
-#: app/templates/base.html:149
+#: app/templates/base.html:154
 msgid ""
 "is a website for managing songs, set lists, lyrics, chords and all the "
 "information your band needs to share in an easy and intuitive way."
 msgstr ""
 
-#: app/templates/base.html:151
+#: app/templates/base.html:156
 msgid ""
 "No more printing tons of sheets of paper and carrying awkward binders to "
 "your gigs. Just add all your songs to Songlist Plus and you can easily "
 "find them and view lyrics or chords on your device."
 msgstr ""
 
-#: app/templates/base.html:153
+#: app/templates/base.html:158
 msgid ""
 "The website is fully responsive, which means it works seamlessly across "
 "all devices, be it a desktop computer, notebook or mobile device."
 msgstr ""
 
-#: app/templates/base.html:155
+#: app/templates/base.html:160
 msgid "Create your "
 msgstr ""
 
-#: app/templates/base.html:155
+#: app/templates/base.html:160
 msgid "free "
 msgstr ""
 
-#: app/templates/base.html:155
+#: app/templates/base.html:160
 msgid "account and start rockin'!"
 msgstr ""
 
-#: app/templates/base.html:158
+#: app/templates/base.html:163
 msgid "p.s - mobile app coming soon"
 msgstr ""
 
-#: app/templates/base.html:162 app/templates/edit-song.html:81
-#: app/templates/shows.html:115 app/templates/songs.html:84
+#: app/templates/base.html:167 app/templates/edit-song.html:81
+#: app/templates/shows.html:115 app/templates/songs.html:90
+#: app/templates/songs.html:124
 msgid "Close"
 msgstr ""
 
@@ -657,12 +670,12 @@ msgstr ""
 msgid "Edit Band/Project"
 msgstr ""
 
-#: app/templates/edit-band.html:32 app/templates/edit-show.html:67
+#: app/templates/edit-band.html:33 app/templates/edit-show.html:67
 #: app/templates/edit-song.html:58
 msgid "Back"
 msgstr ""
 
-#: app/templates/edit-band.html:33 app/templates/edit-show.html:68
+#: app/templates/edit-band.html:34 app/templates/edit-show.html:68
 #: app/templates/edit-song.html:59
 msgid "Save"
 msgstr ""
@@ -702,7 +715,7 @@ msgstr ""
 msgid "Add Song"
 msgstr ""
 
-#: app/templates/edit-show.html:90 app/templates/songs.html:37
+#: app/templates/edit-show.html:90 app/templates/songs.html:43
 msgid "Duration"
 msgstr ""
 
@@ -722,7 +735,7 @@ msgstr ""
 msgid "Insert page URL Address"
 msgstr ""
 
-#: app/templates/edit-song.html:78
+#: app/templates/edit-song.html:78 app/templates/songs.html:119
 msgid "Import"
 msgstr ""
 
@@ -837,15 +850,11 @@ msgstr ""
 msgid "You are not authorized to view or edit this item."
 msgstr ""
 
-#: app/templates/perform.html:25
-msgid "Setlist:"
-msgstr ""
-
-#: app/templates/perform.html:36
+#: app/templates/perform.html:37
 msgid "Next"
 msgstr ""
 
-#: app/templates/perform.html:48
+#: app/templates/perform.html:54
 msgid ""
 "You have not added any songs to this show. Come back here when you have "
 "built your setlist."
@@ -899,5 +908,17 @@ msgstr ""
 
 #: app/templates/signup.html:35
 msgid "Register"
+msgstr ""
+
+#: app/templates/songs.html:24
+msgid "Export Songs"
+msgstr ""
+
+#: app/templates/songs.html:27 app/templates/songs.html:103
+msgid "Import Songs"
+msgstr ""
+
+#: app/templates/songs.html:112
+msgid "Browse..."
 msgstr ""
 

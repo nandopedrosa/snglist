@@ -890,25 +890,42 @@
             performCtlr.songs = data; 
             performCtlr.songid = performCtlr.songs.data[0].id;
             performCtlr.lyrics = performCtlr.songs.data[0].lyrics;
-            performCtlr.title = performCtlr.songs.data[0].title;
-            
+            jQuery('#lyrics-contents').html(performCtlr.lyrics);                                      
+            performCtlr.title = performCtlr.songs.data[0].title;            
             performCtlr.tempo = performCtlr.songs.data[0].tempo;                
             updateTempo(performCtlr.tempo);
 
-        });      
+        }); 
+
+        var updateLyrics = function(lyrics) {
+            //Reset to one column
+            jQuery('#lyrics-columns').uncolumnize();
+            jQuery('#lyrics-columns').empty();  
+            jQuery('#lyrics-columns').append('<p id="lyrics-contents" class="lyrics col-centered"></p>');  
+            jQuery('#lyrics-contents').html(lyrics);   
+            
+            if(jQuery('#twocolumns').is(":visible")) {
+                //Currently at one column
+
+            } else {
+                //Currently at two columns
+                jQuery('#lyrics-columns').columnize({ columns: 2 });
+            }
+        };    
 
         this.next = function() {
             for(var i = 0; i < performCtlr.songs.data.length; i++) {
                 if(performCtlr.songs.data[i].id == performCtlr.songid) {
                     performCtlr.songid = performCtlr.songs.data[i+1].id;
                     performCtlr.lyrics = performCtlr.songs.data[i+1].lyrics;
+                    updateLyrics(performCtlr.lyrics);
                     performCtlr.title = performCtlr.songs.data[i+1].title;
                     performCtlr.tempo = performCtlr.songs.data[i+1].tempo;
                     updateTempo(performCtlr.tempo);
                     break;
                 }
             }
-            performCtlr.previewNext();     
+            performCtlr.previewNext(false);     
         };           
 
         this.previous = function() {
@@ -917,6 +934,7 @@
                     if(performCtlr.songs.data[i].id == performCtlr.songid) {
                         performCtlr.songid = performCtlr.songs.data[i-1].id;
                         performCtlr.lyrics = performCtlr.songs.data[i-1].lyrics;
+                        updateLyrics(performCtlr.lyrics);
                         performCtlr.title = performCtlr.songs.data[i-1].title;
                         performCtlr.tempo = performCtlr.songs.data[i-1].tempo;
                         updateTempo(performCtlr.tempo);
@@ -924,11 +942,11 @@
                     }
                 }
             }
-            performCtlr.previewNext();
+            performCtlr.previewNext(false);
         };
 
         this.hasNext = function() {
-            performCtlr.previewNext();
+            performCtlr.previewNext(false);
             if(performCtlr.songs.data) {
                 for(var i = 0; i < performCtlr.songs.data.length; i++) {    
                     if(performCtlr.songs.data[i].id == performCtlr.songid) {
@@ -956,11 +974,15 @@
 
         performCtlr.nextSong = '';
 
-        this.previewNext = function() {
+        this.previewNext = function(onChange) {
              if(performCtlr.songs.data) {
                  for(var i = 0; i < performCtlr.songs.data.length; i++) {
                     if(performCtlr.songs.data[i].id == performCtlr.songid) {
                         performCtlr.lyrics = performCtlr.songs.data[i].lyrics;
+                        
+                        if(typeof(onChange)==='undefined')
+                            updateLyrics(performCtlr.lyrics);
+
                         performCtlr.title = performCtlr.songs.data[i].title;
                         performCtlr.tempo = performCtlr.songs.data[i].tempo;
                         if(i + 1 < performCtlr.songs.data.length) {                            

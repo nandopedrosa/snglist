@@ -11,13 +11,15 @@
     {% if show_length > 0 %}
 
     <div class="row">
-        <div class="col-xs-12 ">                        
+        <div class="col-xs-12 ">                                    
             <a class="pull-right" id="night" style="margin-left:10px" href="#"><img src="../static/images/night.png" /></a>
             <a class="pull-right" id="day" style="margin-left:10px; display:none" href="#"><img src="../static/images/day.png" /></a>
-            <a class="incfont pull-right" href="#"><img src="../static/images/more.png" /></a>
+            <a class="incfont pull-right" href="#"><img src="../static/images/more.png" /></a>            
             <a style="margin-right: 10px" class="decfont pull-right"  href="#"><img src="../static/images/less.png" /></a>            
+            <a class="pull-right" id="twocolumns" style="margin-right:10px" href="#"><img src="../static/images/twocolumns.png"/></a>              
+            <a class="pull-right" id="onecolumn" style="display:none;margin-right:10px" href="#"><img src="../static/images/onecolumn.png"/></a>
         </div>
-    </div>    
+    </div> 
 
      <div class="row row-centered" style="margin-top:30px" ng-cloak>
         <div class="col-xs-12" ng-controller="PerformController as performCtlr">                  
@@ -39,13 +41,13 @@
             </form>                       
             <h1 style="margin-top:15px" class="page-header text-left"> [[ performCtlr.title ]] </h3>    
             <br>                          
-            <p class="lyrics col-centered" ng-bind-html="performCtlr.lyrics"></p>              
+            <div id="lyrics-columns" >
+                <p id="lyrics-contents" class="lyrics col-centered"></p>
+            </div>
             <br><br>
     
         </div>        
     </div>   
-
-    
 
     {% else %}
 

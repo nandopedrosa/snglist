@@ -173,6 +173,9 @@
 <!-- jQuery -->
 <script src="../static/js/jquery/jquery.min.js"></script>
 
+<!-- jQuery Columnizer -->
+<script src="../static/js/jquery/jquery.columnizer.js"></script>
+
 <!-- Angular -->
 <script src="../static/js/angular/angular.min.js"></script>
 
@@ -263,7 +266,25 @@ jQuery('.decfont').click(function(){
 
 </script>
 
-<!-- File uploads -->
+<!-- Two Columns -->
+
+<script type="text/javascript">     
+
+        jQuery('#twocolumns').click(function() {
+            jQuery('#lyrics-columns').columnize({ columns: 2 });
+            jQuery('#onecolumn').show();
+            jQuery('#twocolumns').hide();
+        });        
+
+        jQuery('#onecolumn').click(function() {
+            jQuery('#lyrics-columns').uncolumnize();
+            jQuery('#onecolumn').hide();
+            jQuery('#twocolumns').show();
+        });        
+</script>   
+
+
+
 <script type="text/javascript">
 
 $(function() {

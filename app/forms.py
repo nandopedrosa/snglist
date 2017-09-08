@@ -180,7 +180,7 @@ class BandForm(Form):
 
     style = StringField(lazy_gettext("Style"), widget=AngularJSTextInput(),
                         description=lazy_gettext('Enter the musical style of your band/project'),
-                        validators=[
+                        validators=[Optional(),
                             Length(min=3,
                                    message=lazy_gettext("Your band/project name must have a minimum of 3 characters")),
                             Length(max=128,

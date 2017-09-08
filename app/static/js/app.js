@@ -850,7 +850,18 @@
         var pad = function pad(num, size) {
             var s = "000000000" + num;
             return s.substr(s.length-size);
-        }
+        }       
+        
+        $http.get('/fetch-setlist/' + performCtlr.showid).success(function(data){                
+            performCtlr.songs = data; 
+            performCtlr.songid = performCtlr.songs.data[0].id;
+            performCtlr.lyrics = performCtlr.songs.data[0].lyrics;
+            jQuery('#lyrics-contents').html(performCtlr.lyrics);                                      
+            performCtlr.title = performCtlr.songs.data[0].title;            
+            performCtlr.tempo = performCtlr.songs.data[0].tempo;                
+            updateTempo(performCtlr.tempo);
+
+        }); 
 
         var updateTempo = function(songTempo) {
             if(angular.isDefined(songTempo) && songTempo != null) {
@@ -871,7 +882,7 @@
                                 bar = 1; 
                         }
 
-                        $('#tempo').text(pad(bar,4) + '.' + pad(beat,2));
+                        $('#tempo').text(pad(bar,4) + '.' + pad(beat,2) + ' (' + performCtlr.tempo +' bpm)');
                         
                     }
                     , 1000*60/songTempo);
@@ -881,21 +892,10 @@
                     $interval.cancel(promise);
                     bar = 1;
                     beat = 0;     
-                    $('#tempo').text(pad(bar,4) + '.' + pad(beat,2));               
+                    $('#tempo').text(pad(bar,4) + '.' + pad(beat,2) + ' (' + performCtlr.tempo +' bpm)');               
                 }                
             }
         }
-        
-        $http.get('/fetch-setlist/' + performCtlr.showid).success(function(data){                
-            performCtlr.songs = data; 
-            performCtlr.songid = performCtlr.songs.data[0].id;
-            performCtlr.lyrics = performCtlr.songs.data[0].lyrics;
-            jQuery('#lyrics-contents').html(performCtlr.lyrics);                                      
-            performCtlr.title = performCtlr.songs.data[0].title;            
-            performCtlr.tempo = performCtlr.songs.data[0].tempo;                
-            updateTempo(performCtlr.tempo);
-
-        }); 
 
         var updateLyrics = function(lyrics) {
             //Reset to one column

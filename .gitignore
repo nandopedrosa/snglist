@@ -5,3 +5,4 @@
 *$py.class
 *.cache/
 flask
+snglist-venv/

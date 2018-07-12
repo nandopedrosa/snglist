@@ -6,17 +6,17 @@ __email__ = "fpedrosa@gmail.com"
 
 """
 
-import httplib2
-from bs4 import BeautifulSoup
-from flask.ext.mail import Message
-from flask import url_for, session
-from flask.ext.babel import gettext
-from app import app, mail
-from app.decorators import async
-from app.config import ADMINS
-from flask.ext.login import current_user
-from xhtml2pdf import pisa
 from io import BytesIO
+
+import httplib2
+from app import app, mail
+from app.decorators import async_decorator
+from bs4 import BeautifulSoup
+from flask import session
+from flask.ext.babel import gettext
+from flask.ext.login import current_user
+from flask.ext.mail import Message
+from xhtml2pdf import pisa
 
 # Constants
 CONTACT_MAIL_BODY = "Name: {0} \n\nReply to: {1} \n\nMessage:\n\n{2}"
@@ -53,7 +53,7 @@ def send_email(to, subject, body, pdf=None):
 
 
 # noinspection PyShadowingNames
-@async
+@async_decorator
 def __send_email_async(app, msg):
     """
     Helper function to make send emails asynchronously (there' no point making the user wait for the email to be sent)

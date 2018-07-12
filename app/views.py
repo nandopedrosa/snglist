@@ -828,7 +828,7 @@ def remove_from_setlist():
     show = Show.query.get(int(request.form.get('showid')))
     song = Song.query.get(int(request.form.get('songid')))
     show.remove_song(song)
-    db.session.add(show)
+    db.session.commit()
     return jsonify(dict(id=song.id, title=song.title + ' (' + song.artist + ')', duration=song.pretty_duration()))
 
 

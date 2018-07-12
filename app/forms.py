@@ -60,7 +60,7 @@ class AngularJSCheckboxInput(CheckboxInput):
 class ContactForm(Form):
     name = StringField(lazy_gettext("Name"), widget=AngularJSTextInput(), description=lazy_gettext('Enter your name'),
                        validators=[
-                           InputRequired(lazy_gettext("Please enter your name")),
+                           InputRequired(lazy_gettext("Please, enter your name")),
                            Length(min=3, message=lazy_gettext("Your name must have a minimum of 3 characters")),
                            Length(max=128, message=lazy_gettext("Your name must have a maximum of 128 characters"))
                        ])

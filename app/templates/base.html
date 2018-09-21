@@ -65,8 +65,8 @@
                 {% if not current_user.is_authenticated %}
                 <li>
                     <a href="#" ng-click="navCtlr.changeLanguage()">                        
-                        <img alt="language" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">                       
-                        <img alt="language" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
+                        <img title="Mudar para Português" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">                       
+                        <img title="Switch to English" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
                     </a>
                 </li>
                 <li>
@@ -81,8 +81,8 @@
                 {% else %}               
                  <li>
                     <a href="#" ng-click="navCtlr.changeLanguage()">                        
-                        <img alt="language" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">                       
-                        <img alt="language" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
+                        <img title="Mudar para Português" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">                       
+                        <img title="Switch to English" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
                     </a>
                 </li>                
                 <li>

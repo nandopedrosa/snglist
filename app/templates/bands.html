@@ -42,10 +42,12 @@
                         <td>[[ band.style ]]</td>
                         <td>[[ band.members ]]</td>
                         <td>
-                           <button type="button" ng-click="reportCtlr.deleteBand(band.id)" confirmation-needed class="btn btn-sm btn-danger">
+                           <button 
+                                title = "{{_('Delete Band')}}"
+                                type="button" ng-click="reportCtlr.deleteBand(band.id)" confirmation-needed class="btn btn-sm btn-danger">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </button>
-                            <a href="/edit-band?id=[[band.id]]" class="btn btn-sm btn-primary" role="button">
+                            <a href="/edit-band?id=[[band.id]]" class="btn btn-sm btn-primary" role="button" title = "{{_('Edit Band')}}">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </a>
                         </td>

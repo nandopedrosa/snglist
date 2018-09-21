@@ -98,7 +98,9 @@
                                 <td> [[ song.artist ]]   </td>
                                 <td> [[ song.duration ]] </td>
                                 <td>
-                                   <button type="button" ng-click="showCtlr.removeFromSetlist(song.id)" class="btn btn-sm btn-danger">
+                                   <button 
+                                        title = "{{_('Remove Song from Setlist')}}"
+                                        type="button" ng-click="showCtlr.removeFromSetlist(song.id)" class="btn btn-sm btn-danger">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </button>                                    
                                 </td>

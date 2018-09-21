@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-09-05 08:14-0300\n"
-"PO-Revision-Date: 2016-09-05 08:15-0300\n"
+"POT-Creation-Date: 2018-09-21 11:11-0300\n"
+"PO-Revision-Date: 2018-09-21 11:13-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: app/__init__.py:107
 msgid "Please enter your credentials to confirm this request"
@@ -608,6 +608,14 @@ msgstr "Banda/Projeto"
 msgid "Members"
 msgstr "Membros"
 
+#: app/templates/bands.html:46
+msgid "Delete Band"
+msgstr "Excluir Banda"
+
+#: app/templates/bands.html:50
+msgid "Edit Band"
+msgstr "Editar Banda"
+
 #: app/templates/base.html:8
 msgid "Confirm this action?"
 msgstr "Confirmar esta ação ?"
@@ -690,8 +698,8 @@ msgid "p.s - mobile app coming soon"
 msgstr "p.s - aplicativo móvel em breve"
 
 #: app/templates/base.html:167 app/templates/edit-song.html:81
-#: app/templates/shows.html:115 app/templates/songs.html:90
-#: app/templates/songs.html:124
+#: app/templates/shows.html:119 app/templates/songs.html:95
+#: app/templates/songs.html:129
 msgid "Close"
 msgstr "Fechar"
 
@@ -728,7 +736,11 @@ msgstr "Adicionar Membro"
 msgid "Email"
 msgstr "Email"
 
-#: app/templates/edit-show.html:7
+#: app/templates/edit-band.html:79
+msgid "Delete Band Member"
+msgstr "Excluir Membro da Banda"
+
+#: app/templates/edit-show.html:7 app/templates/shows.html:51
 msgid "Edit Show"
 msgstr "Editar Show"
 
@@ -753,6 +765,10 @@ msgstr "Adicionar Música"
 msgid "Duration"
 msgstr "Duração"
 
+#: app/templates/edit-show.html:102
+msgid "Remove Song from Setlist"
+msgstr "Excluir Música do Repertório do Show"
+
 #: app/templates/edit-song.html:7
 msgid "Edit Song"
 msgstr "Editar Música"
@@ -769,7 +785,7 @@ msgstr "Importar Letra/Cifra"
 msgid "Insert page URL Address"
 msgstr "Insira o endereço URL"
 
-#: app/templates/edit-song.html:78 app/templates/songs.html:119
+#: app/templates/edit-song.html:78 app/templates/songs.html:124
 msgid "Import"
 msgstr "Importar"
 
@@ -897,11 +913,11 @@ msgstr "Erro de autorização"
 msgid "You are not authorized to view or edit this item."
 msgstr "Você não está autorizado a visualizar ou editar este item."
 
-#: app/templates/perform.html:37
+#: app/templates/perform.html:31
 msgid "Next"
 msgstr "Próxima"
 
-#: app/templates/perform.html:54
+#: app/templates/perform.html:61
 msgid ""
 "You have not added any songs to this show. Come back here when you have built "
 "your setlist."
@@ -936,23 +952,31 @@ msgstr "Eu entendo, exclua a minha conta"
 msgid "When"
 msgstr "Quando"
 
-#: app/templates/shows.html:79
+#: app/templates/shows.html:46
+msgid "Delete Show"
+msgstr "Excluir Show"
+
+#: app/templates/shows.html:54
+msgid "Open Perform Mode"
+msgstr "Abrir Modo de Apresentação"
+
+#: app/templates/shows.html:58 app/templates/shows.html:83
 msgid "Share Setlist"
 msgstr "Compartilhar Repertório"
 
-#: app/templates/shows.html:85
+#: app/templates/shows.html:89
 msgid "Format"
 msgstr "Formato"
 
-#: app/templates/shows.html:91
+#: app/templates/shows.html:95
 msgid "PDF Options"
 msgstr "Opções de PDF"
 
-#: app/templates/shows.html:105
+#: app/templates/shows.html:109
 msgid "Recipients"
 msgstr "Destinatários"
 
-#: app/templates/shows.html:114
+#: app/templates/shows.html:118
 msgid "Share"
 msgstr "Compartilhar"
 
@@ -964,11 +988,23 @@ msgstr "Inscrever-se"
 msgid "Export Songs"
 msgstr "Exportar Músicas"
 
-#: app/templates/songs.html:27 app/templates/songs.html:103
+#: app/templates/songs.html:27 app/templates/songs.html:108
 msgid "Import Songs"
 msgstr "Importar Músicas"
 
-#: app/templates/songs.html:112
+#: app/templates/songs.html:56
+msgid "Delete Song"
+msgstr "Excluir Música"
+
+#: app/templates/songs.html:59
+msgid " Edit Song"
+msgstr "Editar Música"
+
+#: app/templates/songs.html:63
+msgid "View Lyrics"
+msgstr "Ver Letra"
+
+#: app/templates/songs.html:117
 msgid "Browse..."
 msgstr "Procurar…"
 

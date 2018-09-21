@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2016 ORGANIZATION
+# Copyright (C) 2018 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-09-05 08:14-0300\n"
+"POT-Creation-Date: 2018-09-21 11:11-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -583,6 +583,14 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
+#: app/templates/bands.html:46
+msgid "Delete Band"
+msgstr ""
+
+#: app/templates/bands.html:50
+msgid "Edit Band"
+msgstr ""
+
 #: app/templates/base.html:8
 msgid "Confirm this action?"
 msgstr ""
@@ -657,8 +665,8 @@ msgid "p.s - mobile app coming soon"
 msgstr ""
 
 #: app/templates/base.html:167 app/templates/edit-song.html:81
-#: app/templates/shows.html:115 app/templates/songs.html:90
-#: app/templates/songs.html:124
+#: app/templates/shows.html:119 app/templates/songs.html:95
+#: app/templates/songs.html:129
 msgid "Close"
 msgstr ""
 
@@ -694,7 +702,11 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: app/templates/edit-show.html:7
+#: app/templates/edit-band.html:79
+msgid "Delete Band Member"
+msgstr ""
+
+#: app/templates/edit-show.html:7 app/templates/shows.html:51
 msgid "Edit Show"
 msgstr ""
 
@@ -719,6 +731,10 @@ msgstr ""
 msgid "Duration"
 msgstr ""
 
+#: app/templates/edit-show.html:102
+msgid "Remove Song from Setlist"
+msgstr ""
+
 #: app/templates/edit-song.html:7
 msgid "Edit Song"
 msgstr ""
@@ -735,7 +751,7 @@ msgstr ""
 msgid "Insert page URL Address"
 msgstr ""
 
-#: app/templates/edit-song.html:78 app/templates/songs.html:119
+#: app/templates/edit-song.html:78 app/templates/songs.html:124
 msgid "Import"
 msgstr ""
 
@@ -850,11 +866,11 @@ msgstr ""
 msgid "You are not authorized to view or edit this item."
 msgstr ""
 
-#: app/templates/perform.html:37
+#: app/templates/perform.html:31
 msgid "Next"
 msgstr ""
 
-#: app/templates/perform.html:54
+#: app/templates/perform.html:61
 msgid ""
 "You have not added any songs to this show. Come back here when you have "
 "built your setlist."
@@ -886,23 +902,31 @@ msgstr ""
 msgid "When"
 msgstr ""
 
-#: app/templates/shows.html:79
+#: app/templates/shows.html:46
+msgid "Delete Show"
+msgstr ""
+
+#: app/templates/shows.html:54
+msgid "Open Perform Mode"
+msgstr ""
+
+#: app/templates/shows.html:58 app/templates/shows.html:83
 msgid "Share Setlist"
 msgstr ""
 
-#: app/templates/shows.html:85
+#: app/templates/shows.html:89
 msgid "Format"
 msgstr ""
 
-#: app/templates/shows.html:91
+#: app/templates/shows.html:95
 msgid "PDF Options"
 msgstr ""
 
-#: app/templates/shows.html:105
+#: app/templates/shows.html:109
 msgid "Recipients"
 msgstr ""
 
-#: app/templates/shows.html:114
+#: app/templates/shows.html:118
 msgid "Share"
 msgstr ""
 
@@ -914,11 +938,23 @@ msgstr ""
 msgid "Export Songs"
 msgstr ""
 
-#: app/templates/songs.html:27 app/templates/songs.html:103
+#: app/templates/songs.html:27 app/templates/songs.html:108
 msgid "Import Songs"
 msgstr ""
 
-#: app/templates/songs.html:112
+#: app/templates/songs.html:56
+msgid "Delete Song"
+msgstr ""
+
+#: app/templates/songs.html:59
+msgid " Edit Song"
+msgstr ""
+
+#: app/templates/songs.html:63
+msgid "View Lyrics"
+msgstr ""
+
+#: app/templates/songs.html:117
 msgid "Browse..."
 msgstr ""
 

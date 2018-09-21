@@ -42,16 +42,20 @@
                         <td>[[ show.start ]]</td>
                         <td>[[ show.band ]]</td>
                         <td>
-                           <button type="button" ng-click="reportCtlr.deleteShow(show.id)" confirmation-needed class="btn btn-sm btn-danger">
+                           <button 
+                                    title = "{{_('Delete Show')}}"
+                                    type="button" ng-click="reportCtlr.deleteShow(show.id)" 
+                                    confirmation-needed class="btn btn-sm btn-danger">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </button>
-                            <a href="/edit-show?id=[[show.id]]" class="btn btn-sm btn-primary" role="button">
+                            <a href="/edit-show?id=[[show.id]]" class="btn btn-sm btn-primary" role="button" title = "{{_('Edit Show')}}">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </a>
-                            <a href="/perform?id=[[show.id]]" class="btn btn-sm btn-success" role="button">
+                            <a href="/perform?id=[[show.id]]" class="btn btn-sm btn-success" role="button" title = "{{_('Open Perform Mode')}}">
                                 <i class="glyphicon glyphicon-headphones"></i>  
                             </a>
-                            <a href="#" data-toggle="modal" ng-click="reportCtlr.getRecipients(show.id)" data-target="#share-modal" class="btn btn-sm btn-info" role="button">
+                            <a href="#" data-toggle="modal" ng-click="reportCtlr.getRecipients(show.id)" data-target="#share-modal" 
+                            class="btn btn-sm btn-info" role="button" title = "{{_('Share Setlist')}}">
                                 <i class="glyphicon glyphicon-share"></i>  
                             </a>
                         </td>

@@ -52,13 +52,18 @@
                         <td>[[ song.key ]]</td>
                         <td>[[ song.duration ]]</td>
                         <td>
-                           <button type="button" ng-click="reportCtlr.deleteSong(song.id)" confirmation-needed class="btn btn-sm btn-danger">
+                           <button type="button" ng-click="reportCtlr.deleteSong(song.id)" confirmation-needed c
+                                    lass="btn btn-sm btn-danger" title = "{{_('Delete Song')}}">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </button>
-                            <a href="/edit-song?id=[[song.id]]" class="btn btn-sm btn-primary" role="button">
+                            <a  href="/edit-song?id=[[song.id]]" class="btn btn-sm btn-primary" role="button" title = "{{_(' Edit Song')}}">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </a>
-                            <button type="button" data-toggle="modal" data-target="#lyrics-modal" ng-click="reportCtlr.lyrics = [[song.lyrics]]; reportCtlr.songTitle = [[song.title]]" class="btn btn-sm btn-default">
+                            <button 
+                                    title = "{{_('View Lyrics')}}"
+                                    type="button" data-toggle="modal" data-target="#lyrics-modal" 
+                                    ng-click="reportCtlr.lyrics = [[song.lyrics]]; reportCtlr.songTitle = [[song.title]]" 
+                                    class="btn btn-sm btn-default">
                                 <i class="glyphicon glyphicon-list-alt"></i>
                             </button>
                         </td>

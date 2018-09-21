@@ -177,6 +177,21 @@ class Show(db.Model):
     contact = db.Column(db.String(4000))
     pay = db.Column(db.String(128))
     notes = db.Column(db.String(4000))
+
+    """
+    Configuration for a many to many relationship between Shows and Songs
+
+    1. 'Song' is the right side entity of the relationship (the left side entity is the parent class).
+    2. secondary configures the association table that is used for this relationship. See auxiliary tables at the top
+       of this file
+    3. primaryjoin indicates the condition that links the left side entity  with the association table.
+    4. secondaryjoin indicates the condition that links the right side entity with the association table.
+    5. backref defines how this relationship will be accessed from the right side entity.
+       The additional lazy argument indicates the execution mode for this query. A mode of dynamic sets up the query to
+       not run until specifically requested.
+    6. lazy is similar to the parameter of the same name in the backref, but this one applies to the left side query
+       instead of the right side.
+    """
     songs = db.relationship('Song',
                             secondary=setlist,
                             order_by=setlist.c.song_position,

@@ -1,6 +1,6 @@
 Flask-Migrate instructions:
 
-Initialize the DB:
+Initialize the DB (only the first time, to create the directory):
 
     python migrate.py db init
 

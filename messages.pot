@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-21 11:11-0300\n"
+"POT-Creation-Date: 2018-09-23 21:39-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: app/forms.py:61 app/forms.py:82 app/forms.py:115 app/forms.py:171
 #: app/forms.py:194 app/forms.py:272 app/templates/edit-band.html:68
-#: app/templates/shows.html:33
+#: app/templates/edit-song.html:72 app/templates/shows.html:33
 msgid "Name"
 msgstr ""
 
@@ -202,7 +202,7 @@ msgid "The title of the song name must have a maximum of 128 characters"
 msgstr ""
 
 #: app/forms.py:225 app/templates/edit-show.html:89 app/templates/songs.html:40
-#: app/views.py:713
+#: app/views.py:794
 msgid "Artist"
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 msgid "The artist of the song name must have a maximum of 128 characters"
 msgstr ""
 
-#: app/forms.py:233 app/templates/songs.html:42 app/views.py:714
+#: app/forms.py:233 app/templates/songs.html:42 app/views.py:795
 msgid "Key"
 msgstr ""
 
@@ -256,8 +256,8 @@ msgstr ""
 msgid "Your note must have between 3 and 4000 characters"
 msgstr ""
 
-#: app/forms.py:260 app/forms.py:313
-msgid "Enter notes witih important observations"
+#: app/forms.py:260
+msgid "Enter notes with important observations"
 msgstr ""
 
 #: app/forms.py:262
@@ -336,6 +336,10 @@ msgstr ""
 msgid "The payment amount name must have a maximum of 128 characters"
 msgstr ""
 
+#: app/forms.py:313
+msgid "Enter notes witih important observations"
+msgstr ""
+
 #: app/forms.py:315
 msgid "YYYY/MM/DD HH24:mm"
 msgstr ""
@@ -381,8 +385,8 @@ msgstr ""
 msgid "Profile updated"
 msgstr ""
 
-#: app/views.py:179 app/views.py:321 app/views.py:345 app/views.py:491
-#: app/views.py:623
+#: app/views.py:179 app/views.py:321 app/views.py:345 app/views.py:492
+#: app/views.py:704
 msgid "Your request was not successful. Please, check the errors below."
 msgstr ""
 
@@ -431,106 +435,108 @@ msgid "Band successfully deleted."
 msgstr ""
 
 #: app/views.py:475
-msgid "Song successfully added!"
+msgid ""
+"Song successfully added! Now you can associate your bands with this song."
+" This is useful for filtering which songs belong to which of your bands."
 msgstr ""
 
-#: app/views.py:487
+#: app/views.py:488
 msgid "Song info updated!"
 msgstr ""
 
-#: app/views.py:532
+#: app/views.py:613
 msgid "Song successfully deleted."
 msgstr ""
 
-#: app/views.py:545
+#: app/views.py:626
 msgid "You must provide a URL address"
 msgstr ""
 
-#: app/views.py:550
+#: app/views.py:631
 msgid "Song successfully imported. You can now close this dialog."
 msgstr ""
 
-#: app/views.py:553
+#: app/views.py:634
 msgid ""
 "We could not find the song you requested. Are you sure you entered a "
 "supported site URL?"
 msgstr ""
 
-#: app/views.py:604
+#: app/views.py:685
 msgid ""
 "Show successfully added! Now you can start building your setlist (see "
 "below)."
 msgstr ""
 
-#: app/views.py:619
+#: app/views.py:700
 msgid "Show info updated!"
 msgstr ""
 
-#: app/views.py:668
+#: app/views.py:749
 msgid "TXT (Titles Only)"
 msgstr ""
 
-#: app/views.py:669
+#: app/views.py:750
 msgid "PDF"
 msgstr ""
 
-#: app/views.py:683
+#: app/views.py:764
 msgid "Myself"
 msgstr ""
 
-#: app/views.py:694
+#: app/views.py:775
 msgid "Me and Band Members"
 msgstr ""
 
-#: app/templates/edit-band.html:42 app/views.py:698
+#: app/templates/edit-band.html:42 app/views.py:779
 msgid "Band Members"
 msgstr ""
 
-#: app/views.py:712
+#: app/views.py:793
 msgid "Sequence number"
 msgstr ""
 
-#: app/templates/songs.html:41 app/views.py:715
+#: app/templates/songs.html:41 app/views.py:796
 msgid "Tempo"
 msgstr ""
 
-#: app/views.py:729
+#: app/views.py:810
 msgid "Show successfully deleted."
 msgstr ""
 
-#: app/views.py:902
+#: app/views.py:983
 msgid "songs"
 msgstr ""
 
-#: app/views.py:904
+#: app/views.py:985
 msgid "Setlist for "
 msgstr ""
 
-#: app/views.py:905
+#: app/views.py:986
 msgid ""
 "This Setlist was sent from Songlist Plus\n"
 "\n"
 msgstr ""
 
-#: app/views.py:929
+#: app/views.py:1010
 msgid ""
 "An error occurred while sending your Setlist. Please contact the "
 "administrator. We are sorry for the incovenience."
 msgstr ""
 
-#: app/views.py:932
+#: app/views.py:1013
 msgid "The Setlist was sent to the chosen recipients"
 msgstr ""
 
-#: app/views.py:971 app/views.py:977
+#: app/views.py:1052 app/views.py:1058
 msgid "File not found"
 msgstr ""
 
-#: app/views.py:981
+#: app/views.py:1062
 msgid "File not allowed"
 msgstr ""
 
-#: app/views.py:1002
+#: app/views.py:1083
 msgid " songs successfully added"
 msgstr ""
 
@@ -664,7 +670,7 @@ msgstr ""
 msgid "p.s - mobile app coming soon"
 msgstr ""
 
-#: app/templates/base.html:167 app/templates/edit-song.html:81
+#: app/templates/base.html:167 app/templates/edit-song.html:127
 #: app/templates/shows.html:119 app/templates/songs.html:95
 #: app/templates/songs.html:129
 msgid "Close"
@@ -679,12 +685,12 @@ msgid "Edit Band/Project"
 msgstr ""
 
 #: app/templates/edit-band.html:33 app/templates/edit-show.html:67
-#: app/templates/edit-song.html:58
+#: app/templates/edit-song.html:105
 msgid "Back"
 msgstr ""
 
 #: app/templates/edit-band.html:34 app/templates/edit-show.html:68
-#: app/templates/edit-song.html:59
+#: app/templates/edit-song.html:106
 msgid "Save"
 msgstr ""
 
@@ -739,19 +745,40 @@ msgstr ""
 msgid "Edit Song"
 msgstr ""
 
-#: app/templates/edit-song.html:48
+#: app/templates/edit-song.html:53
+msgid "Associated Bands"
+msgstr ""
+
+#: app/templates/edit-song.html:57
+msgid ""
+"Here you can associate your bands with this song. This is useful for "
+"filtering which\n"
+"                            songs belong to which ones of your bands."
+msgstr ""
+
+#: app/templates/edit-song.html:66
+msgid ""
+"Associate\n"
+"                        Band"
+msgstr ""
+
+#: app/templates/edit-song.html:80
+msgid "Disassociate band from song"
+msgstr ""
+
+#: app/templates/edit-song.html:93
 msgid "Import..."
 msgstr ""
 
-#: app/templates/edit-song.html:68
+#: app/templates/edit-song.html:115
 msgid "Import Lyrics/Chords"
 msgstr ""
 
-#: app/templates/edit-song.html:72
+#: app/templates/edit-song.html:119
 msgid "Insert page URL Address"
 msgstr ""
 
-#: app/templates/edit-song.html:78 app/templates/songs.html:124
+#: app/templates/edit-song.html:124 app/templates/songs.html:124
 msgid "Import"
 msgstr ""
 

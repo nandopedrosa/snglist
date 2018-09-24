@@ -257,7 +257,7 @@ class SongForm(Form):
                           validators=[
                               Length(max=4000,
                                      message=lazy_gettext("Your note must have between 3 and 4000 characters"))],
-                          description=lazy_gettext('Enter notes witih important observations'))
+                          description=lazy_gettext('Enter notes with important observations'))
 
     lyrics = TextAreaField(lazy_gettext("Lyrics/Chords"), widget=AngularJSTextArea(),
                            description=lazy_gettext('Enter the lyrics and/or chords of the song'))

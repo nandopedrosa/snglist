@@ -15,13 +15,19 @@ from flask import current_app
 from app.util import getsoup
 from sqlalchemy.sql import text
 
-# Many-to-Many auxiliary table
+# Many-to-Many auxiliary table of Songs and Shows
 setlist = db.Table(
     'setlist',
     db.Column('show_id', db.Integer, db.ForeignKey('show.id')),
     db.Column('song_id', db.Integer, db.ForeignKey('song.id')),
     db.Column('song_position', db.Integer)
 )
+
+# Many-to-Many auxiliary table of Bands and Songs
+band_songs = db.Table('band_songs',
+                      db.Column('band_id', db.Integer, db.ForeignKey('band.id'), nullable=False),
+                      db.Column('song_id', db.Integer, db.ForeignKey('song.id'), nullable=False)
+                      )
 
 
 class User(UserMixin, db.Model):
@@ -71,32 +77,6 @@ class User(UserMixin, db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-
-class Band(db.Model):
-    __tablename__ = 'band'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    name = db.Column(db.String(128), nullable=False)
-    style = db.Column(db.String(128))
-    members = db.relationship('BandMember',
-                              backref=db.backref('band'),
-                              cascade="all, delete-orphan",
-                              lazy='dynamic')
-
-    def __repr__(self):
-        return 'Band {0}'.format(self.name)
-
-
-class BandMember(db.Model):
-    __tablename__ = 'band_member'
-    id = db.Column(db.Integer, primary_key=True)
-    band_id = db.Column(db.Integer, db.ForeignKey('band.id'))
-    name = db.Column(db.String(128), nullable=False)
-    email = db.Column(db.String(64), nullable=False)
-
-    def __repr__(self):
-        return 'Band Member {0} ({1})'.format(self.name, self.email)
 
 
 class Song(db.Model):
@@ -162,6 +142,69 @@ class Song(db.Model):
             html = str(content)
 
         return html
+
+
+class Band(db.Model):
+    __tablename__ = 'band'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    name = db.Column(db.String(128), nullable=False)
+    style = db.Column(db.String(128))
+    members = db.relationship('BandMember',
+                              backref=db.backref('band'),
+                              cascade="all, delete-orphan",
+                              lazy='dynamic')
+    """
+    Configuration for a many to many relationship between Shows and Songs
+
+    1. 'Song' is the right side entity of the relationship (the left side entity is the parent class).
+    2. secondary configures the association table that is used for this relationship. See auxiliary tables at the top
+       of this file
+    3. primaryjoin indicates the condition that links the left side entity  with the association table.
+    4. secondaryjoin indicates the condition that links the right side entity with the association table.
+    5. backref defines how this relationship will be accessed from the right side entity.
+       The additional lazy argument indicates the execution mode for this query. A mode of dynamic sets up the query to
+       not run until specifically requested.
+    6. lazy is similar to the parameter of the same name in the backref, but this one applies to the left side query
+       instead of the right side.
+    """
+    songs = db.relationship('Song',
+                            secondary=band_songs,
+                            primaryjoin=(band_songs.c.band_id == id),
+                            secondaryjoin=(band_songs.c.song_id == Song.id),
+                            backref=db.backref('bands', lazy='dynamic'),
+                            lazy='dynamic')
+
+    def associate_song(self, song):
+        """
+        Adds a song to the association list
+        :param song: The song object to be added
+        :return: None
+        """
+        self.songs.append(song)
+
+    def disassociate_song(self, song):
+        """
+        Removes a song from the association list
+        :param song: The song object to be removed
+        :return: None
+        """
+        self.songs.remove(song)
+
+
+def __repr__(self):
+    return 'Band {0}'.format(self.name)
+
+
+class BandMember(db.Model):
+    __tablename__ = 'band_member'
+    id = db.Column(db.Integer, primary_key=True)
+    band_id = db.Column(db.Integer, db.ForeignKey('band.id'))
+    name = db.Column(db.String(128), nullable=False)
+    email = db.Column(db.String(64), nullable=False)
+
+    def __repr__(self):
+        return 'Band Member {0} ({1})'.format(self.name, self.email)
 
 
 # noinspection SqlDialectInspection

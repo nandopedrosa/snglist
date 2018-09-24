@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-21 11:11-0300\n"
-"PO-Revision-Date: 2018-09-21 11:13-0300\n"
+"POT-Creation-Date: 2018-09-23 21:39-0300\n"
+"PO-Revision-Date: 2018-09-23 21:45-0300\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #: app/forms.py:61 app/forms.py:82 app/forms.py:115 app/forms.py:171
 #: app/forms.py:194 app/forms.py:272 app/templates/edit-band.html:68
-#: app/templates/shows.html:33
+#: app/templates/edit-song.html:72 app/templates/shows.html:33
 msgid "Name"
 msgstr "Nome"
 
@@ -207,7 +207,7 @@ msgid "The title of the song name must have a maximum of 128 characters"
 msgstr "O título da música deve ter no máximo 128 caracteres"
 
 #: app/forms.py:225 app/templates/edit-show.html:89 app/templates/songs.html:40
-#: app/views.py:713
+#: app/views.py:794
 msgid "Artist"
 msgstr "Artista"
 
@@ -219,7 +219,7 @@ msgstr "Digite o nome da banda ou artista da música"
 msgid "The artist of the song name must have a maximum of 128 characters"
 msgstr "O nome do artista deve ter no máximo 128 caracteres"
 
-#: app/forms.py:233 app/templates/songs.html:42 app/views.py:714
+#: app/forms.py:233 app/templates/songs.html:42 app/views.py:795
 msgid "Key"
 msgstr "Tom"
 
@@ -260,9 +260,9 @@ msgstr "Observações"
 msgid "Your note must have between 3 and 4000 characters"
 msgstr "A sua observação deve ter entre 3 e 4000 caracteres"
 
-#: app/forms.py:260 app/forms.py:313
-msgid "Enter notes witih important observations"
-msgstr "Digite observações que você julgar importantes"
+#: app/forms.py:260
+msgid "Enter notes with important observations"
+msgstr "Digite observações"
 
 #: app/forms.py:262
 msgid "Lyrics/Chords"
@@ -340,6 +340,10 @@ msgstr "Digite o quanto você vai ser pago"
 msgid "The payment amount name must have a maximum of 128 characters"
 msgstr "O pagamento deve ter no máximo 128 caracteres"
 
+#: app/forms.py:313
+msgid "Enter notes witih important observations"
+msgstr "Digite observações que você julgar importantes"
+
 #: app/forms.py:315
 msgid "YYYY/MM/DD HH24:mm"
 msgstr "AAAA/MM/DD HH24:mm"
@@ -398,8 +402,8 @@ msgstr "Não foi possível realizar o seu registro. Verifique os erros abaixo."
 msgid "Profile updated"
 msgstr "Perfil atualizado"
 
-#: app/views.py:179 app/views.py:321 app/views.py:345 app/views.py:491
-#: app/views.py:623
+#: app/views.py:179 app/views.py:321 app/views.py:345 app/views.py:492
+#: app/views.py:704
 msgid "Your request was not successful. Please, check the errors below."
 msgstr "A sua requisição não obteve sucesso. Por favor, verifique os erros abaixo."
 
@@ -448,28 +452,33 @@ msgid "Band successfully deleted."
 msgstr "Banda excluída com sucesso."
 
 #: app/views.py:475
-msgid "Song successfully added!"
-msgstr "Música adicionada com sucesso!"
+msgid ""
+"Song successfully added! Now you can associate your bands with this song. This "
+"is useful for filtering which songs belong to which of your bands."
+msgstr ""
+"Música adicionada com sucesso! Agora você pode relacionar uma ou mais de suas "
+"bandas a essa música. Isso é útil para filtrar quais músicas estão relacionadas "
+"ao repertório de cada uma de suas bandas."
 
-#: app/views.py:487
+#: app/views.py:488
 msgid "Song info updated!"
 msgstr "Música atualizada com sucesso!"
 
-#: app/views.py:532
+#: app/views.py:613
 msgid "Song successfully deleted."
 msgstr "Música excluída com sucesso."
 
-#: app/views.py:545
+#: app/views.py:626
 msgid "You must provide a URL address"
 msgstr "Você deve fornecer um endereço URL"
 
-#: app/views.py:550
+#: app/views.py:631
 msgid "Song successfully imported. You can now close this dialog."
 msgstr ""
 "Música importada com sucesso. Você pode fechar essa janela e retornar à tela "
 "anterior."
 
-#: app/views.py:553
+#: app/views.py:634
 msgid ""
 "We could not find the song you requested. Are you sure you entered a supported "
 "site URL?"
@@ -477,64 +486,64 @@ msgstr ""
 "Não conseguimos encontrar a música que você solicitou. Tem certeza de que você "
 "digitou uma URL suportada?"
 
-#: app/views.py:604
+#: app/views.py:685
 msgid ""
 "Show successfully added! Now you can start building your setlist (see below)."
 msgstr ""
 "Show adicionado com sucesso! Agora você pode começar a construir o seu "
 "repertório (ver abaixo)."
 
-#: app/views.py:619
+#: app/views.py:700
 msgid "Show info updated!"
 msgstr "Show atualizado com sucesso!"
 
-#: app/views.py:668
+#: app/views.py:749
 msgid "TXT (Titles Only)"
 msgstr "TXT (apenas títulos)"
 
-#: app/views.py:669
+#: app/views.py:750
 msgid "PDF"
 msgstr "PDF"
 
-#: app/views.py:683
+#: app/views.py:764
 msgid "Myself"
 msgstr "Eu mesmo"
 
-#: app/views.py:694
+#: app/views.py:775
 msgid "Me and Band Members"
 msgstr "Eu e os membros da banda"
 
-#: app/templates/edit-band.html:42 app/views.py:698
+#: app/templates/edit-band.html:42 app/views.py:779
 msgid "Band Members"
 msgstr "Membros da Banda"
 
-#: app/views.py:712
+#: app/views.py:793
 msgid "Sequence number"
 msgstr "Número sequencial"
 
-#: app/templates/songs.html:41 app/views.py:715
+#: app/templates/songs.html:41 app/views.py:796
 msgid "Tempo"
 msgstr "Tempo"
 
-#: app/views.py:729
+#: app/views.py:810
 msgid "Show successfully deleted."
 msgstr "Show adicionado com sucesso."
 
-#: app/views.py:902
+#: app/views.py:983
 msgid "songs"
 msgstr "músicas"
 
-#: app/views.py:904
+#: app/views.py:985
 msgid "Setlist for "
 msgstr "Repertório de"
 
-#: app/views.py:905
+#: app/views.py:986
 msgid ""
 "This Setlist was sent from Songlist Plus\n"
 "\n"
 msgstr "Esse repertório foi enviado a partir do Songlist Plus\n"
 
-#: app/views.py:929
+#: app/views.py:1010
 msgid ""
 "An error occurred while sending your Setlist. Please contact the administrator. "
 "We are sorry for the incovenience."
@@ -542,19 +551,19 @@ msgstr ""
 "Ocorreu um erro ao enviar o seu Repertório. Por favor entre em contato com o "
 "administrador. Desculpe-nos pelo transtorno."
 
-#: app/views.py:932
+#: app/views.py:1013
 msgid "The Setlist was sent to the chosen recipients"
 msgstr "O Repertório foi enviado aos destinatários."
 
-#: app/views.py:971 app/views.py:977
+#: app/views.py:1052 app/views.py:1058
 msgid "File not found"
 msgstr "Arquivo não encontrado"
 
-#: app/views.py:981
+#: app/views.py:1062
 msgid "File not allowed"
 msgstr "Arquivo não permitido"
 
-#: app/views.py:1002
+#: app/views.py:1083
 msgid " songs successfully added"
 msgstr "músicas adicionadas com sucesso"
 
@@ -697,7 +706,7 @@ msgstr "e comece a tocar!"
 msgid "p.s - mobile app coming soon"
 msgstr "p.s - aplicativo móvel em breve"
 
-#: app/templates/base.html:167 app/templates/edit-song.html:81
+#: app/templates/base.html:167 app/templates/edit-song.html:127
 #: app/templates/shows.html:119 app/templates/songs.html:95
 #: app/templates/songs.html:129
 msgid "Close"
@@ -712,12 +721,12 @@ msgid "Edit Band/Project"
 msgstr "Editar Banda/Projeto"
 
 #: app/templates/edit-band.html:33 app/templates/edit-show.html:67
-#: app/templates/edit-song.html:58
+#: app/templates/edit-song.html:105
 msgid "Back"
 msgstr "Voltar"
 
 #: app/templates/edit-band.html:34 app/templates/edit-show.html:68
-#: app/templates/edit-song.html:59
+#: app/templates/edit-song.html:106
 msgid "Save"
 msgstr "Salvar"
 
@@ -773,19 +782,42 @@ msgstr "Excluir Música do Repertório do Show"
 msgid "Edit Song"
 msgstr "Editar Música"
 
-#: app/templates/edit-song.html:48
+#: app/templates/edit-song.html:53
+msgid "Associated Bands"
+msgstr "Bandas Relacionadas"
+
+#: app/templates/edit-song.html:57
+msgid ""
+"Here you can associate your bands with this song. This is useful for filtering "
+"which\n"
+"                            songs belong to which ones of your bands."
+msgstr ""
+"Aqui você pode relacionar suas bandas a essa música. Isso é útil para filtrar "
+"quais músicas estão relacionadas ao repertório de cada uma de suas bandas."
+
+#: app/templates/edit-song.html:66
+msgid ""
+"Associate\n"
+"                        Band"
+msgstr "Relacionar Banda"
+
+#: app/templates/edit-song.html:80
+msgid "Disassociate band from song"
+msgstr "Remover relacionamento dessa banda com essa música"
+
+#: app/templates/edit-song.html:93
 msgid "Import..."
 msgstr "Importar…"
 
-#: app/templates/edit-song.html:68
+#: app/templates/edit-song.html:115
 msgid "Import Lyrics/Chords"
 msgstr "Importar Letra/Cifra"
 
-#: app/templates/edit-song.html:72
+#: app/templates/edit-song.html:119
 msgid "Insert page URL Address"
 msgstr "Insira o endereço URL"
 
-#: app/templates/edit-song.html:78 app/templates/songs.html:124
+#: app/templates/edit-song.html:124 app/templates/songs.html:124
 msgid "Import"
 msgstr "Importar"
 
@@ -1037,3 +1069,6 @@ msgstr "Procurar…"
 
 #~ msgid "Setlist:"
 #~ msgstr "Repertório:"
+
+#~ msgid "Song successfully added!"
+#~ msgstr "Música adicionada com sucesso!"

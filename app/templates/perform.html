@@ -25,7 +25,7 @@
                 <input type="hidden" id="showid" value="{{show_id}}">
                 <div class="form-group">                        
                     <select style="font-size:18px" class="form-control" ng-change="performCtlr.previewNext()" ng-model="performCtlr.songid" ng-options="song.id as song.title for song in performCtlr.songs.data">
-                    </select>
+                    </select> 
                 </div>
                                  
                 <h3 style="display:inline; margin-left:10px"> <span style="color:#777" ng-if="performCtlr.hasNext()">{{_('Next')}}: [[performCtlr.nextSong]]</span></h3> 

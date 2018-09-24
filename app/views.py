@@ -472,7 +472,8 @@ def edit_song():
                             duration=form.duration.data, notes=form.notes.data, lyrics=form.lyrics.data,
                             user_id=current_user.id)
                 db.session.add(song)
-                form.errors['msg'] = gettext('Song successfully added!')
+                form.errors['msg'] = gettext(
+                    'Song successfully added! Now you can associate your bands with this song. This is useful for filtering which songs belong to which of your bands.')
             else:
                 # Edit Song
                 song = Song.query.get(int(form.songid.data))
@@ -491,6 +492,86 @@ def edit_song():
             form.errors['msg'] = gettext('Your request was not successful. Please, check the errors below.')
 
         return jsonify(form.errors)
+
+
+@app.route('/fetch-available-bands/<int:song_id>', methods=['GET'])
+@login_required
+def fetch_available_bands(song_id):
+    """
+    Fetch all the available bands from a given user that can be associated to a song
+    :param song_id: the song to which associate a band
+    :return: JSON with the bands list
+    """
+    song = Song.query.get(int(song_id))
+
+    if not is_current_user(song.user_id):
+        return render_template("not-authorized.html")
+
+    available_bands = current_user.bands.order_by(Band.name).all()
+    bands_associated_to_the_song = song.bands
+
+    # Now we remove bands already associated to the song, and return only the leftover bands
+    for associated_band in bands_associated_to_the_song:
+        for band in available_bands:
+            if associated_band.id == band.id:
+                available_bands.remove(band)
+
+    return_data = []
+
+    for band in available_bands:
+        return_data.append(dict(id=band.id, name=band.name))
+
+    return jsonify(data=return_data)
+
+
+@app.route('/fetch-associated-bands/<int:song_id>', methods=['GET'])
+@login_required
+def fetch_associated_bands(song_id):
+    """
+    Fetch all the bands associated to a song
+    :param song_id: the song to which associate a band
+    :return: JSON with the bands list
+    """
+    song = Song.query.get(int(song_id))
+
+    if not is_current_user(song.user_id):
+        return render_template("not-authorized.html")
+
+    associated_bands = song.bands
+
+    return_data = []
+
+    for band in associated_bands:
+        return_data.append(dict(id=band.id, name=band.name))
+
+    return jsonify(data=return_data)
+
+
+@app.route('/associate-band', methods=["POST"])
+@login_required
+def associate_band():
+    """
+    Associates a band with a song
+    :return: the band just added
+    """
+    song = Song.query.get(int(request.form.get('songid')))
+    band = Band.query.get(int(request.form.get('bandid')))
+
+    band.associate_song(song)
+
+    db.session.add(band)
+    db.session.commit()
+    return jsonify(dict(id=band.id, name=band.name))
+
+
+@app.route('/disassociate-band', methods=["POST"])
+@login_required
+def disassociate_band():
+    song = Song.query.get(int(request.form.get('songid')))
+    band = Band.query.get(int(request.form.get('bandid')))
+
+    band.disassociate_song(song)
+    return jsonify(dict(id=band.id, name=band.name))
 
 
 @app.route('/fetch-songs/', methods=['GET'])
@@ -779,7 +860,7 @@ def fetch_setlist(show_id):
 def add_song():
     """
     Adds a song to a show setlist
-    :return: empty dict
+    :return: the song just added
     """
     show = Show.query.get(int(request.form.get('showid')))
     song = Song.query.get(int(request.form.get('songid')))

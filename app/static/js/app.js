@@ -554,10 +554,22 @@
         reportCtlr.songTitle = '';
         reportCtlr.message = '';
 
-        reportCtlr.songs = []; // List of songs                
+        reportCtlr.songs = []; // List of songs              
         $http.get('/fetch-songs/').success(function (data) {
             reportCtlr.songs = data;
         });
+
+        reportCtlr.allBands = []; //List of all bands (for filtering)
+        $http.get('/fetch-bands/').success(function (data) {
+            reportCtlr.allBands = data;
+        });
+
+        this.filterSongsByBand = function(id) {
+            reportCtlr.songs = []; // List of songs    
+            $http.get('/fetch-songs-by-band/' + reportCtlr.bandid).success(function (data) {
+                reportCtlr.songs = data;
+            });
+        };
 
         this.deleteSong = function (id) {
             reportCtlr.errors = {}; //Init errors    

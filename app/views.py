@@ -579,14 +579,38 @@ def disassociate_band():
 def fetch_songs():
     """
     Fetch all the songs of the current user
+    :param band_id: -1 if you want all songs, or a given ID if you want to filter the songs associated with a specific band
     :return: JSON with the songs list
     """
-    song_list = current_user.songs.order_by(Song.title).all()
     return_data = []
+
+    song_list = current_user.songs.order_by(Song.title).all()
 
     for song in song_list:
         return_data.append(dict(id=song.id, title=song.title, artist=song.artist, tempo=song.tempo, key=song.key,
                                 duration=song.pretty_duration(), lyrics=song.lyrics))
+
+    return jsonify(data=return_data)
+
+
+@app.route('/fetch-songs-by-band/<band_id>', methods=['GET'])
+@login_required
+def fetch_songs_by_band(band_id):
+    """
+    Fetch all the songs of the current user
+    :param band_id: String 'null' if you want all songs, or a given ID if you want to filter the songs associated with a specific band
+    :return: JSON with the songs list
+    """
+    return_data = []
+
+    if band_id == 'null':
+        song_list = current_user.songs.order_by(Song.title).all()
+    else:
+        song_list =  Band.query.get(int(band_id)).songs.order_by(Song.title).all()
+
+    for song in song_list:
+        return_data.append(dict(id=song.id, title=song.title, artist=song.artist, tempo=song.tempo, key=song.key,
+                                duration=song.pretty_duration(), lyrics=song.lyrics, bands=song.get_list_of_associated_bands()))
 
     return jsonify(data=return_data)
 

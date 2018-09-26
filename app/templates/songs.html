@@ -1,138 +1,147 @@
 {% extends "base.html" %}
 {% block content %}
- 
-    <div class="row">
-        <div class="col-xs-12">
-            <h1 class="page-header">{{_('Songs')}}</h1>
-        </div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <h1 class="page-header">{{_('Songs')}}</h1>
     </div>
+</div>
 
-     <div class="row" ng-cloak>
-        <div class="col-xs-12" ng-controller="SongReportController as reportCtlr">      
-            <div class="alert alert-success" ng-show="reportCtlr.message != ''" role="alert">[[ reportCtlr.message ]]</div>
-            <form class="form-inline" role="form">
-                <div class="form-group">    
-                    <label class="inline-margin">{{_('Items per page:')}}</label>
-                    <select class="form-control inline-margin" 
-                    ng-model="reportCtlr.itemsPerPage" ng-init="reportCtlr.itemsPerPage='10'" ng-options="x for x in reportCtlr.options">
-                    </select>
-                </div> 
-                <div class="form-group">    
-                    <a href="/edit-song" class="btn btn-primary form-control" role="button">{{ _('Add Song') }}</a>
-                </div> 
-                <div class="form-group">    
-                    <a href="/export-songs" ng-click="reportCtlr.exportSongs()" class="btn btn-success form-control" role="button">{{ _('Export Songs') }}</a>
-                </div> 
-                <div class="form-group">    
-                    <button type="button" data-toggle="modal" data-target="#import-modal" class="btn btn-warning form-control" role="button">{{ _('Import Songs') }}</a>
-                </div>                 
-            </form>         
+<div class="row" ng-cloak>
+    <div class="col-xs-12" ng-controller="SongReportController as reportCtlr">
+        <div class="alert alert-success" ng-show="reportCtlr.message != ''" role="alert">[[ reportCtlr.message ]]</div>
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label class="inline-margin">{{_('Items per page:')}}</label>
+                <select class="form-control inline-margin" ng-model="reportCtlr.itemsPerPage" ng-init="reportCtlr.itemsPerPage='10'"
+                    ng-options="x for x in reportCtlr.options">
+                </select>
+            </div>
+            <div class="form-group">
+                <a href="/edit-song" class="btn btn-primary form-control" role="button">{{ _('Add Song') }}</a>
+            </div>
+            <div class="form-group">
+                <a href="/export-songs" ng-click="reportCtlr.exportSongs()" class="btn btn-success form-control" role="button">{{
+                    _('Export Songs') }}</a>
+            </div>
+            <div class="form-group">
+                <button type="button" data-toggle="modal" data-target="#import-modal" class="btn btn-warning form-control"
+                    role="button">{{ _('Import Songs') }}</a>
+            </div>
+        </form>
 
-             <table st-table="displayedCollection" st-safe-src="reportCtlr.songs.data" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th colspan="6" class="searchbox">
-                            <input st-search placeholder="{{_('Search...')}}" class="input-sm form-control" type="search"/>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th st-sort="title">{{_('Title')}}<i class="fa fa-fw fa-sort"></th>
-                        <th st-sort="artist">{{_('Artist')}}<i class="fa fa-fw fa-sort"></th>                             
-                        <th st-sort="tempo">{{_('Tempo')}}<i class="fa fa-fw fa-sort"></th>
-                        <th st-sort="key">{{_('Key')}}<i class="fa fa-fw fa-sort"></th>
-                        <th st-sort="duration">{{_('Duration')}}<i class="fa fa-fw fa-sort"></th>                             
-                        <th></th>   
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="song in displayedCollection">
-                        <td>[[ song.title ]]</td>
-                        <td>[[ song.artist ]]</td>
-                        <td>[[ song.tempo ]]</td>
-                        <td>[[ song.key ]]</td>
-                        <td>[[ song.duration ]]</td>
-                        <td>
-                           <button type="button" ng-click="reportCtlr.deleteSong(song.id)" confirmation-needed 
-                                    class="btn btn-sm btn-danger" title = "{{_('Delete Song')}}">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </button>
-                            <a  href="/edit-song?id=[[song.id]]" class="btn btn-sm btn-primary" role="button" title = "{{_(' Edit Song')}}">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
-                            <button 
-                                    title = "{{_('View Lyrics')}}"
-                                    type="button" data-toggle="modal" data-target="#lyrics-modal" 
-                                    ng-click="reportCtlr.lyrics = [[song.lyrics]]; reportCtlr.songTitle = [[song.title]]" 
-                                    class="btn btn-sm btn-default">
-                                <i class="glyphicon glyphicon-list-alt"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="6" class="text-left">
-                            <div st-pagination="" st-items-by-page="reportCtlr.itemsPerPage" 
-                            st-displayed-pages="5"></div>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+        <form role="form" style="margin-top:20px">
+            <div class="form-group">
+                <select class="form-control" ng-model="reportCtlr.bandid" ng-options="band.id as band.name for band in reportCtlr.allBands.data"
+                    ng-change="reportCtlr.filterSongsByBand(reportCtlr.bandid)">
+                    <option value="" selected>{{_('All bands')}}</option>
+                </select>
 
-            <div id="lyrics-modal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
+            </div>
+        </form>
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title" ><span ng-bind-html="reportCtlr.songTitle"</span></h4>
-                        </div>
-                        <div class="modal-body">
-                            <p ng-bind-html="reportCtlr.lyrics"></p>  
-                        </div>
-                        <div class="modal-footer">
-                            <button id="btn-close-about-modal" type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
-                        </div>
+        <table st-table="displayedCollection" st-safe-src="reportCtlr.songs.data" class="table table-striped">
+            <thead>
+                <tr>
+                    <th colspan="6" class="searchbox">
+                        <input st-search placeholder="{{_('Search...')}}" class="input-sm form-control" type="search" />
+                    </th>
+                </tr>
+                <tr>
+                    <th st-sort="title">{{_('Title')}}<i class="fa fa-fw fa-sort"></th>
+                    <th st-sort="artist">{{_('Artist')}}<i class="fa fa-fw fa-sort"></th>
+                    <th st-sort="tempo">{{_('Tempo')}}<i class="fa fa-fw fa-sort"></th>
+                    <th st-sort="key">{{_('Key')}}<i class="fa fa-fw fa-sort"></th>
+                    <th st-sort="duration">{{_('Duration')}}<i class="fa fa-fw fa-sort"></th>
+                    <th>{{_('Associated with')}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="song in displayedCollection">
+                    <td>[[ song.title ]]</td>
+                    <td>[[ song.artist ]]</td>
+                    <td>[[ song.tempo ]]</td>
+                    <td>[[ song.key ]]</td>
+                    <td>[[ song.duration ]]</td>
+                    <td>[[ song.bands ]]</td>
+                    <td>
+                        <button type="button" ng-click="reportCtlr.deleteSong(song.id)" confirmation-needed class="btn btn-sm btn-danger"
+                            title="{{_('Delete Song')}}">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </button>
+                        <a href="/edit-song?id=[[song.id]]" class="btn btn-sm btn-primary" role="button" title="{{_(' Edit Song')}}">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <button title="{{_('View Lyrics')}}" type="button" data-toggle="modal" data-target="#lyrics-modal"
+                            ng-click="reportCtlr.lyrics = [[song.lyrics]]; reportCtlr.songTitle = [[song.title]]" class="btn btn-sm btn-default">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-left">
+                        <div st-pagination="" st-items-by-page="reportCtlr.itemsPerPage" st-displayed-pages="5"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div id="lyrics-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span ng-bind-html="reportCtlr.songTitle" </span> </h4> </div> <div
+                                class="modal-body">
+                                <p ng-bind-html="reportCtlr.lyrics"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-close-about-modal" type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-              <div id="import-modal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
+        <div id="import-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title" id="about-header">{{ _('Import Songs') }}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form action = "/import-songs" method = "POST" enctype = "multipart/form-data">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                       <label class="input-group-btn">
-                                            <span class="btn btn-warning">
-                                                {{_('Browse...')}} <input type="file" name="file" style="display: none;">
-                                            </span>
-                                        </label>
-                                        <input type="text" class="form-control" readonly>
-                                    </div>  
-                                </div>                              
-                                <div class="form-group">
-                                    <input type="submit" class="btn btn-primary" value="{{_('Import')}}">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="about-header">{{ _('Import Songs') }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/import-songs" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label class="input-group-btn">
+                                        <span class="btn btn-warning">
+                                            {{_('Browse...')}} <input type="file" name="file" style="display: none;">
+                                        </span>
+                                    </label>
+                                    <input type="text" class="form-control" readonly>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button id="btn-close-about-modal" type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
-                        </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" value="{{_('Import')}}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-close-about-modal" type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-        </div>        
-    </div>   
+    </div>
+</div>
 
 {% endblock %}

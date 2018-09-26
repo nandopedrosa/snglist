@@ -143,6 +143,19 @@ class Song(db.Model):
 
         return html
 
+    def get_list_of_associated_bands(self):
+        formatted_output = ''
+
+        associated_bands = self.query.get(self.id).bands.order_by(Band.name).all()
+
+        for band in associated_bands:
+            formatted_output = formatted_output + band.name + ', '
+
+        if len(formatted_output) > 0:
+            formatted_output = formatted_output[:-2]
+
+        return formatted_output
+
 
 class Band(db.Model):
     __tablename__ = 'band'

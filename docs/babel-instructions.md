@@ -27,3 +27,7 @@ AND DON'T FORGET TO ALWAYS COMPILE: pybabel compile -d app/translations
 Note: if you want to extract with LAZY_GETTEXT, you have to inform the -K parameter. Like this:
 
 pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot app
+then
+pybabel update -i messages.pot -d app/translations 
+then
+pybabel compile -d app/translations

@@ -6,7 +6,15 @@
  */
 
 (function () {
-    var app = angular.module('songlist', ['smart-table', 'ui.mask', 'ui.sortable', 'ngSanitize', 'rt.select2']);
+    var app = angular.module('songlist', ['cgBusy', 'smart-table', 'ui.mask', 'ui.sortable',
+        'ngSanitize', 'rt.select2']);
+
+    var loadMessage = $('#about').text() == 'Sobre' ? 'Carregando, por favor espere...' : 'Loading, please wait...';
+
+    // angular.module('songlist').value('cgBusyDefaults', {
+    //     message: 'teste'       
+    // });
+
 
     app.config(['$interpolateProvider', '$httpProvider', function ($interpolateProvider, $httpProvider) {
         //Change template start and end symbol to play nice with Flask's Jinja2 Templates
@@ -37,16 +45,16 @@
     }]);
 
     //-------------------------------- Contact Form Controller ------------------------------------------
-    app.controller('ContactFormController', ['$http', function ($http) {
+    app.controller('ContactFormController', ['$http', '$scope', function ($http, $scope) {
 
         var contactCtlr = this;
         contactCtlr.formData = {}; //Form to be serialized
         contactCtlr.message = ''; //Error or Success message
 
         //Sends a new contact message and handles the response
-        this.sendMessage = function () {
+        this.sendMessage = function () {            
             contactCtlr.errors = {}; //Init errors              
-            $http({
+            contactCtlr.myPromise = $http({
                 method: 'POST',
                 url: '/contact',
                 data: $.param(contactCtlr.formData)
@@ -466,8 +474,8 @@
         //Associate Band
         songCtlr.bandid = '';
         this.associateBand = function () {
-            
-            if (songCtlr.bandid == '' || songCtlr.formData.songid == null) 
+
+            if (songCtlr.bandid == '' || songCtlr.formData.songid == null)
                 return;
 
             songCtlr.errors = {}; //Init errors    
@@ -505,7 +513,7 @@
                 songCtlr.errors.error = false;
 
                 //Back to the Available Bands list, sorted alphabetically
-                var bandJustRemoved = { 'id': response.data.id, 'name': response.data.name};
+                var bandJustRemoved = { 'id': response.data.id, 'name': response.data.name };
                 songCtlr.availableBands.data.push(bandJustRemoved);
                 songCtlr.availableBands.data.sort(function (a, b) {
                     var bandA = a.name.toUpperCase();
@@ -518,7 +526,7 @@
                     if (songCtlr.associatedBands.data[i].id == id) {
                         songCtlr.associatedBands.data.splice(i, 1);
                         break;
-                    }                
+                    }
             });
         };
 
@@ -564,7 +572,7 @@
             reportCtlr.allBands = data;
         });
 
-        this.filterSongsByBand = function(id) {
+        this.filterSongsByBand = function (id) {
             reportCtlr.songs = []; // List of songs    
             $http.get('/fetch-songs-by-band/' + reportCtlr.bandid).success(function (data) {
                 reportCtlr.songs = data;

@@ -8,7 +8,7 @@
     </div>
 
     <div class="row" ng-cloak>
-        <div class="col-xs-12" ng-controller="ContactFormController as contactCtlr">
+         <div class="col-xs-12" ng-controller="ContactFormController as contactCtlr" cg-busy="myPromise">
             <div class="alert" ng-class="{'alert-danger': contactCtlr.errors.error == true, 'alert-success': contactCtlr.errors.error == false}" ng-show="contactCtlr.message != ''" role="alert">[[ contactCtlr.message ]]</div>            
             <form id="contact-form">                
                 <div class="form-group">

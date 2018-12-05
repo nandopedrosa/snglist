@@ -3,13 +3,14 @@
 
 <head>
 
-    <meta charset="utf-8">    
-    <meta name="csrf-token" content="{{ csrf_token() }}"> <!--Used by Flask for Security-->    
-    <meta name="confirmation" content="{{_('Confirm this action?')}}"> <!--Used for confirmation dialogs-->    
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!--Used by Flask for Security-->
+    <meta name="confirmation" content="{{_('Confirm this action?')}}">
+    <!--Used for confirmation dialogs-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-          content="Repertoire, set list and song management. Web based interface and mobile app available.">
+    <meta name="description" content="Repertoire, set list and song management. Web based interface and mobile app available.">
     <meta name="author" content="Fernando Pedrosa">
 
     <title id="page-title">Songlist Plus</title>
@@ -29,292 +30,305 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="../static/images/fav.png">
 
+    <!-- Angular-Busy -->
+    <link href="../static/css/angular-busy/angular-busy.min.css" rel="stylesheet">
+
     <!-- CK Editor -->
     <script src="../static/js/ckeditor/ckeditor.js"></script>
 
 </head>
 
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-default navbar-static-top" ng-controller="NavBarController as navCtlr">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" ng-controller="NavBarController as navCtlr">
+        <div class="container">
+            <div class="navbar-header" id="sng-collapse">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-info">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="navbar-header pull-left hidden-xs">
+                <a class="navbar-brand" href="/">
+                    <img alt="brand" src="../static/images/logo-scaled.png">
+                </a>
+            </div>
+
+            <div class="navbar-header pull-left visible-xs">
+                <a class="navbar-brand" href="/">
+                    <img alt="brand" src="../static/images/logo-headphone.png">
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-info">
+                <ul class="nav navbar-nav navbar-right" id="sng-nav-menu">
+                    {% if not current_user.is_authenticated %}
+                    <li>
+                        <a href="#" ng-click="navCtlr.changeLanguage()">
+                            <img title="Mudar para Português" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">
+                            <img title="Switch to English" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/contact">{{ _('Contact') }}</a>
+                    </li>
+                    <li>
+                        <a href="#" id="about" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
+                    </li>
+                    <li>
+                        <a href="/login">{{ _('Sign in') }}</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="#" ng-click="navCtlr.changeLanguage()">
+                            <img title="Mudar para Português" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">
+                            <img title="Switch to English" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/songs">{{ _('Songs') }} ({{total_songs()}})</a>
+                    </li>
+                    <li>
+                        <a href="/shows">{{ _('Shows') }} ({{total_shows()}})</a>
+                    </li>
+                    <li>
+                        <a href="/bands">{{ _('Bands') }} ({{total_bands()}})</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="glyphicon glyphicon-user"></i> <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/profile">{{ _('Profile') }}</a>
+                            </li>
+                            <li>
+                                <a href="/contact">{{ _('Contact') }}</a>
+                            </li>
+                            <li>
+                                <a href="#" id="about" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
+                            </li>
+                            <li>
+                                <a href="/logout">{{ _('Sign Out') }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="navbar-header" id="sng-collapse">
-
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-info">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
         </div>
+        {% endfor %}
 
-        <div class="navbar-header pull-left hidden-xs">
-            <a class="navbar-brand" href="/">
-                <img alt="brand" src="../static/images/logo-scaled.png">                
-            </a>
-        </div>
+        <!-- Page content-->
+        {% block content %} {% endblock %}
 
-        <div class="navbar-header pull-left visible-xs">
-            <a class="navbar-brand" href="/">
-                <img alt="brand" src="../static/images/logo-headphone.png">                
-            </a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="navbar-info">            
-            <ul class="nav navbar-nav navbar-right" id="sng-nav-menu">
-                {% if not current_user.is_authenticated %}
-                <li>
-                    <a href="#" ng-click="navCtlr.changeLanguage()">                        
-                        <img title="Mudar para Português" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">                       
-                        <img title="Switch to English" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
-                    </a>
-                </li>
-                <li>
-                    <a href="/contact">{{ _('Contact') }}</a>
-                </li>
-                <li>
-                    <a href="#" id="about" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
-                </li>
-                <li>
-                    <a href="/login">{{ _('Sign in') }}</a>
-                </li>
-                {% else %}               
-                 <li>
-                    <a href="#" ng-click="navCtlr.changeLanguage()">                        
-                        <img title="Mudar para Português" ng-show="navCtlr.language.code == 'en'" src="../static/images/Brazil.png">                       
-                        <img title="Switch to English" ng-show="navCtlr.language.code == 'pt'" src="../static/images/America.png">
-                    </a>
-                </li>                
-                <li>
-                    <a href="/songs">{{ _('Songs') }} ({{total_songs()}})</a>
-                </li>
-                <li>
-                    <a href="/shows">{{ _('Shows') }} ({{total_shows()}})</a>
-                </li>
-                <li>
-                    <a href="/bands">{{ _('Bands') }} ({{total_bands()}})</a>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="glyphicon glyphicon-user"></i>  <i class="caret"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="/profile">{{ _('Profile') }}</a>
-                        </li>         
-                        <li>
-                            <a href="/contact">{{ _('Contact') }}</a>
-                        </li>
-                        <li>
-                            <a href="#" id="about" data-toggle="modal" data-target="#about-modal">{{ _('About') }}</a>
-                        </li>                            
-                        <li>
-                            <a href="/logout">{{ _('Sign Out') }}</a>
-                        </li>  
-                    </ul>
-                </li>                 
-                {% endif %}
-            </ul>
-        </div>
     </div>
-</nav>
+    <!--End Page Content-->
 
-<div class="container">
-     {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
+    <div style="margin-top:30px" class="container text-center">
+        <footer class="footer">
+            <p class="footer-text">Copyright © Songlist Plus {{ current_year() }}</p>
+        </footer>
     </div>
-    {% endfor %}
 
-    <!-- Page content-->
-    {% block content %} {% endblock %}
+    <!-- About Modal -->
 
-</div>
-<!--End Page Content-->
+    <div id="about-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-<div style="margin-top:30px" class="container text-center">
-    <footer class="footer">
-        <p class="footer-text">Copyright © Songlist Plus {{ current_year() }}</p>
-    </footer>
-</div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="about-header">{{ _('About') }}</h4>
+                </div>
+                <div class="modal-body" id="about-modal-body">
+                    <p><b>Songlist Plus</b> {{_("is a website for managing songs, set lists, lyrics, chords and all the
+                        information your band needs to share in an easy and intuitive way.")}}</p>
 
-<!-- About Modal -->
+                    <p>{{_('No more printing tons of sheets of paper and carrying awkward binders to your gigs. Just
+                        add all your songs to Songlist Plus and you can easily find them and view lyrics or chords on
+                        your device.')}}</p>
 
-<div id="about-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+                    <p> {{_('The website is fully responsive, which means it works seamlessly across all devices, be it
+                        a desktop computer, notebook or mobile device.')}}</p>
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="about-header">{{ _('About') }}</h4>
-            </div>
-            <div class="modal-body" id="about-modal-body">
-                 <p><b>Songlist Plus</b> {{_("is a website for managing songs, set lists, lyrics, chords and all the information your band needs to share in an easy and intuitive way.")}}</p>
+                    <p> {{_("Create your ")}} <b> {{_('free ')}} </b> {{_("account and start rockin'!")}}</p>
 
-                <p>{{_('No more printing tons of sheets of paper and carrying awkward binders to your gigs. Just add all your songs to Songlist Plus and you can easily find them and view lyrics or chords on your device.')}}</p>
-
-                <p> {{_('The website is fully responsive, which means it works seamlessly across all devices, be it a desktop computer, notebook or mobile device.')}}</p>
-
-                <p> {{_("Create your ")}} <b> {{_('free ')}} </b> {{_("account and start rockin'!")}}</p>
-
-                <p>
-                    <em>{{_('p.s - mobile app coming soon')}}</em>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button id="btn-close-about-modal" type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
+                    <p>
+                        <em>{{_('p.s - mobile app coming soon')}}</em>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-close-about-modal" type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- jQuery -->
-<script src="../static/js/jquery/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="../static/js/jquery/jquery.min.js"></script>
 
-<!-- jQuery Columnizer -->
-<script src="../static/js/jquery/jquery.columnizer.js"></script>
+    <!-- jQuery Columnizer -->
+    <script src="../static/js/jquery/jquery.columnizer.js"></script>
 
-<!-- Angular -->
-<script src="../static/js/angular/angular.min.js"></script>
+    <!-- Angular -->
+    <script src="../static/js/angular/angular.min.js"></script>
 
-<!-- jQuery UI -->
-<script src="../static/js/jquery/jquery-ui.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="../static/js/jquery/jquery-ui.min.js"></script>
 
-<!-- Angular Sanitize -->
-<script src="../static/js/angular/angular-sanitize.min.js"></script>
+    <!-- Angular Sanitize -->
+    <script src="../static/js/angular/angular-sanitize.min.js"></script>
 
-<!-- Angular UI Mask-->
-<script src="../static/js/angular-ui/mask.min.js"></script>
+    <!-- Angular UI Mask-->
+    <script src="../static/js/angular-ui/mask.min.js"></script>
 
-<!-- Angular UI Sortable-->
-<script src="../static/js/angular-ui/sortable.js"></script>
+    <!-- Angular UI Sortable-->
+    <script src="../static/js/angular-ui/sortable.js"></script>
 
-<!-- Angular Select2-->
-<script src="../static/js/angular-select2/angular-select2.min.js"></script>
+    <!-- Angular Select2-->
+    <script src="../static/js/angular-select2/angular-select2.min.js"></script>
 
-<!-- Smart Tables -->
-<script src="../static/js/smart-table/smart-table.min.js"></script>
+    <!-- Smart Tables -->
+    <script src="../static/js/smart-table/smart-table.min.js"></script>
 
-<!-- Bootstrap JavaScript -->
-<script src="../static/css/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="../static/css/bootstrap/js/bootstrap.min.js"></script>
 
-<!-- Select2 -->
-<script src="../static/js/select2/select2.min.js"></script>
+    <!-- Select2 -->
+    <script src="../static/js/select2/select2.min.js"></script>
 
-<!-- SongList custom JavaScript -->
-<script src="../static/js/app.js"></script>
+    <!-- Angular-Busy -->
+    <script src="../static/js/angular-busy/angular-busy.min.js"></script>
 
-<!-- Increase and Decrease Font -->
-<script type="text/javascript">
+    <!-- Angular-Busy -->
+    <script src="../static/js/angular-animate/angular-animate.min.js"></script>
 
- jQuery('.incfont').click(function(){         
-    curSize= parseInt(jQuery('.lyrics').css('font-size')) + 2;
-            
-    if(curSize<=32) {
-        jQuery('.lyrics').css('font-size', curSize);
-        jQuery('.lyrics').find('pre').css('font-size', curSize);
+    <!-- SongList custom JavaScript -->
+    <script src="../static/js/app.js"></script>
 
-    }
+    <!-- Increase and Decrease Font -->
+    <script type="text/javascript">
 
-    }); 
+        jQuery('.incfont').click(function () {
+            curSize = parseInt(jQuery('.lyrics').css('font-size')) + 2;
 
-jQuery('.decfont').click(function(){   
-    curSize= parseInt(jQuery('.lyrics').css('font-size')) - 2;
-    
-  if(curSize>=12)
-    jQuery('.lyrics').css('font-size', curSize);
-    jQuery('.lyrics').find('pre').css('font-size', curSize);
-    
-    });
-</script>
+            if (curSize <= 32) {
+                jQuery('.lyrics').css('font-size', curSize);
+                jQuery('.lyrics').find('pre').css('font-size', curSize);
 
-<!--Invert Colors-->
-<script src="../static/js/rgbcolor.js"></script>
-<script type="text/javascript">
-
-    jQuery('#night, #day').click(function() {
-        
-        jQuery('#night, #day').toggle();
-
-        //set up color properties to iterate through
-        var colorProperties = ['color', 'background-color'];
-
-        //iterate through every element in reverse order...
-        jQuery(jQuery("*").get().reverse()).each(function() {
-            var color = null;
-
-            for (var prop in colorProperties) {
-                prop = colorProperties[prop];
-
-                //if we can't find this property or it's null, continue
-                if (!jQuery(this).css(prop)) continue; 
-
-                //create RGBColor object
-                color = new RGBColor(jQuery(this).css(prop));
-
-                if (color.ok) { 
-                    //good to go, let's build up this RGB baby!
-                    //subtract each color component from 255
-                    jQuery(this).css(prop, 'rgb(' + (255 - color.r) + ', ' + (255 - color.g) + ', ' + (255 - color.b) + ')');
-                }
-                color = null; //some cleanup
             }
+
         });
-    });
 
-</script>
+        jQuery('.decfont').click(function () {
+            curSize = parseInt(jQuery('.lyrics').css('font-size')) - 2;
 
-<!-- Two Columns -->
+            if (curSize >= 12)
+                jQuery('.lyrics').css('font-size', curSize);
+            jQuery('.lyrics').find('pre').css('font-size', curSize);
 
-<script type="text/javascript">     
+        });
+    </script>
 
-        jQuery('#twocolumns').click(function() {
+    <!--Invert Colors-->
+    <script src="../static/js/rgbcolor.js"></script>
+    <script type="text/javascript">
+
+        jQuery('#night, #day').click(function () {
+
+            jQuery('#night, #day').toggle();
+
+            //set up color properties to iterate through
+            var colorProperties = ['color', 'background-color'];
+
+            //iterate through every element in reverse order...
+            jQuery(jQuery("*").get().reverse()).each(function () {
+                var color = null;
+
+                for (var prop in colorProperties) {
+                    prop = colorProperties[prop];
+
+                    //if we can't find this property or it's null, continue
+                    if (!jQuery(this).css(prop)) continue;
+
+                    //create RGBColor object
+                    color = new RGBColor(jQuery(this).css(prop));
+
+                    if (color.ok) {
+                        //good to go, let's build up this RGB baby!
+                        //subtract each color component from 255
+                        jQuery(this).css(prop, 'rgb(' + (255 - color.r) + ', ' + (255 - color.g) + ', ' + (255 - color.b) + ')');
+                    }
+                    color = null; //some cleanup
+                }
+            });
+        });
+
+    </script>
+
+    <!-- Two Columns -->
+
+    <script type="text/javascript">
+
+        jQuery('#twocolumns').click(function () {
             jQuery('#lyrics-columns').columnize({ columns: 2 });
             jQuery('#onecolumn').show();
             jQuery('#twocolumns').hide();
-        });        
+        });
 
-        jQuery('#onecolumn').click(function() {
+        jQuery('#onecolumn').click(function () {
             jQuery('#lyrics-columns').uncolumnize();
             jQuery('#onecolumn').hide();
             jQuery('#twocolumns').show();
         });        
-</script>   
+    </script>
 
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-$(function() {
+        $(function () {
 
-  // We can attach the `fileselect` event to all file inputs on the page
-  $(document).on('change', ':file', function() {
-    var input = $(this),
-        numFiles = input.get(0).files ? input.get(0).files.length : 1,
-        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-    input.trigger('fileselect', [numFiles, label]);
-  });
+            // We can attach the `fileselect` event to all file inputs on the page
+            $(document).on('change', ':file', function () {
+                var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
+            });
 
-  // We can watch for our custom `fileselect` event like this
-  $(document).ready( function() {
-      $(':file').on('fileselect', function(event, numFiles, label) {
+            // We can watch for our custom `fileselect` event like this
+            $(document).ready(function () {
+                $(':file').on('fileselect', function (event, numFiles, label) {
 
-          var input = $(this).parents('.input-group').find(':text'),
-              log = numFiles > 1 ? numFiles + ' files selected' : label;
+                    var input = $(this).parents('.input-group').find(':text'),
+                        log = numFiles > 1 ? numFiles + ' files selected' : label;
 
-          if( input.length ) {
-              input.val(log);
-          } else {
-              if( log ) alert(log);
-          }
+                    if (input.length) {
+                        input.val(log);
+                    } else {
+                        if (log) alert(log);
+                    }
 
-      });
-  });
-  
-});
-</script>
+                });
+            });
+
+        });
+    </script>
 
 </body>
 

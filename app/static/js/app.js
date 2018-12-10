@@ -11,11 +11,6 @@
 
     var loadMessage = $('#about').text() == 'Sobre' ? 'Carregando, por favor espere...' : 'Loading, please wait...';
 
-    // angular.module('songlist').value('cgBusyDefaults', {
-    //     message: 'teste'       
-    // });
-
-
     app.config(['$interpolateProvider', '$httpProvider', function ($interpolateProvider, $httpProvider) {
         //Change template start and end symbol to play nice with Flask's Jinja2 Templates
         $interpolateProvider.startSymbol('[[');
@@ -608,7 +603,7 @@
     }]);
 
     //-------------------------------- Show Form Controller ------------------------------------------
-    app.controller('ShowFormController', ['$http', function ($http) {
+    app.controller('ShowFormController', ['$http', '$scope', function ($http, $scope) {
         var showCtlr = this;
         showCtlr.formData = {}; //Form to be serialized        
         showCtlr.message = ''; //Error or Success message
@@ -713,7 +708,7 @@
             showCtlr.calculateTotalDuration();
         });
 
-
+        // Add song
         showCtlr.songid = '';
         this.addSong = function () {
 
@@ -722,7 +717,9 @@
 
             showCtlr.errors = {}; //Init errors    
             var songToBeAdded = { 'songid': showCtlr.songid, 'showid': showCtlr.formData.showid };
-            $http({
+
+
+            showCtlr.myPromise =  $http({
                 method: 'POST',
                 url: '/add-song',
                 data: $.param(songToBeAdded)

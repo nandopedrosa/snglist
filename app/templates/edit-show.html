@@ -67,7 +67,7 @@
             <a href="/shows" class="btn btn-default" role="button">{{ _('Back') }}</a>
             <button ng-click="showCtlr.editShow()" type="button" class="btn btn-primary">{{_('Save')}}</button>
             <br><br>
-             <div cg-busy="myPromise" ng-show="showCtlr.formData.showid != ''" class="panel panel-primary">
+             <div ng-show="showCtlr.formData.showid != ''" class="panel panel-primary">
                 <div class="panel-heading"> 
                     <h3 class="panel-title">{{_('Setlist')}}</h3> 
                 </div> 

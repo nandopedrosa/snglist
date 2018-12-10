@@ -6,10 +6,9 @@
  */
 
 (function () {
-    var app = angular.module('songlist', ['cgBusy', 'smart-table', 'ui.mask', 'ui.sortable',
+    var app = angular.module('songlist', ['smart-table', 'ui.mask', 'ui.sortable',
         'ngSanitize', 'rt.select2']);
 
-    var loadMessage = $('#about').text() == 'Sobre' ? 'Carregando, por favor espere...' : 'Loading, please wait...';
 
     app.config(['$interpolateProvider', '$httpProvider', function ($interpolateProvider, $httpProvider) {
         //Change template start and end symbol to play nice with Flask's Jinja2 Templates
@@ -21,6 +20,20 @@
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')
         };
+
+        //Disable/Enable all buttons before/after http calls
+        $httpProvider.interceptors.push(function ($rootScope) {
+            return {
+                'request': function (config) {
+                    $(':button').prop('disabled', true);
+                    return config;
+                },
+                'response': function (config) {
+                    $(':button').prop('disabled', false);
+                    return config;
+                }
+            }
+        });
     }]);
 
 
@@ -40,16 +53,16 @@
     }]);
 
     //-------------------------------- Contact Form Controller ------------------------------------------
-    app.controller('ContactFormController', ['$http', '$scope', function ($http, $scope) {
+    app.controller('ContactFormController', ['$http', function ($http) {
 
         var contactCtlr = this;
         contactCtlr.formData = {}; //Form to be serialized
         contactCtlr.message = ''; //Error or Success message
 
         //Sends a new contact message and handles the response
-        this.sendMessage = function () {            
+        this.sendMessage = function () {
             contactCtlr.errors = {}; //Init errors              
-            contactCtlr.myPromise = $http({
+            $http({
                 method: 'POST',
                 url: '/contact',
                 data: $.param(contactCtlr.formData)
@@ -603,7 +616,7 @@
     }]);
 
     //-------------------------------- Show Form Controller ------------------------------------------
-    app.controller('ShowFormController', ['$http', '$scope', function ($http, $scope) {
+    app.controller('ShowFormController', ['$http', function ($http) {
         var showCtlr = this;
         showCtlr.formData = {}; //Form to be serialized        
         showCtlr.message = ''; //Error or Success message
@@ -717,9 +730,8 @@
 
             showCtlr.errors = {}; //Init errors    
             var songToBeAdded = { 'songid': showCtlr.songid, 'showid': showCtlr.formData.showid };
-
-
-            showCtlr.myPromise =  $http({
+        
+            $http({
                 method: 'POST',
                 url: '/add-song',
                 data: $.param(songToBeAdded)
@@ -742,6 +754,7 @@
                         break;
                     }
                 showCtlr.songid = '';
+                $(':button').prop('disabled', false);
             });
         };
 

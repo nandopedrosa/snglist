@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-26 00:03-0300\n"
-"PO-Revision-Date: 2018-09-26 00:04-0300\n"
+"POT-Creation-Date: 2018-12-11 15:20-0200\n"
+"PO-Revision-Date: 2018-12-11 15:26-0200\n"
 "Last-Translator: \n"
 "Language: pt\n"
 "Language-Team: pt <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgstr "Nome"
 
 #: app/forms.py:61 app/forms.py:82 app/forms.py:115
 msgid "Enter your name"
-msgstr "Digite seu nome\t"
+msgstr "Digite seu nome"
 
 #: app/forms.py:63 app/forms.py:84 app/forms.py:117
 msgid "Please, enter your name"
@@ -112,11 +112,11 @@ msgstr "Confirme a sua senha"
 
 #: app/forms.py:106
 msgid "Please, confirm your password"
-msgstr "Por favor, confirme a sua senha\t"
+msgstr "Por favor, confirme a sua senha"
 
 #: app/forms.py:111
 msgid "Email already registered."
-msgstr "Esse email já foi registrado, por favor escolha outra"
+msgstr "Esse email já foi registrado, por favor escolha outra."
 
 #: app/forms.py:122
 msgid "New Password"
@@ -128,7 +128,7 @@ msgstr "Confirme a Nova Senha"
 
 #: app/forms.py:134
 msgid "Please enter your current password to confirm changes:"
-msgstr "Por favor digite a sua senha atual para confirmar as mudanças"
+msgstr "Por favor digite a sua senha atual para confirmar as mudanças:"
 
 #: app/forms.py:136
 msgid "Enter your current password"
@@ -190,7 +190,7 @@ msgstr "Por favor, digite o email do seu companheiro de banda"
 msgid "The email must have a minimum of 6 characters"
 msgstr "O email deve ter no mínimo 6 caracteres"
 
-#: app/forms.py:216 app/templates/edit-show.html:88 app/templates/songs.html:51
+#: app/forms.py:216 app/templates/edit-show.html:107 app/templates/songs.html:51
 msgid "Title"
 msgstr "Título"
 
@@ -206,7 +206,7 @@ msgstr "Por favor, digite o título da música"
 msgid "The title of the song name must have a maximum of 128 characters"
 msgstr "O título da música deve ter no máximo 128 caracteres"
 
-#: app/forms.py:225 app/templates/edit-show.html:89 app/templates/songs.html:52
+#: app/forms.py:225 app/templates/edit-show.html:108 app/templates/songs.html:52
 #: app/views.py:818
 msgid "Artist"
 msgstr "Artista"
@@ -274,7 +274,7 @@ msgstr "Digite a letra/cifra da música"
 
 #: app/forms.py:270
 msgid "Please select the band/project associated with this show."
-msgstr "Por favor, selecione a banda ou projeto associado a este show"
+msgstr "Por favor, selecione a banda ou projeto associado a este show."
 
 #: app/forms.py:273
 msgid "Enter the name of the show"
@@ -429,7 +429,7 @@ msgstr "Email ou Senha inválidos"
 
 #: app/views.py:249
 msgid "Login unsuccessful. Check the errors below"
-msgstr "Não foi possível realizar o Login. Verifique os erros abaixo."
+msgstr "Não foi possível realizar o Login. Verifique os erros abaixo"
 
 #: app/views.py:262
 msgid "You have been logged out."
@@ -529,21 +529,21 @@ msgstr "Tempo"
 msgid "Show successfully deleted."
 msgstr "Show adicionado com sucesso."
 
-#: app/views.py:1007
+#: app/views.py:1018
 msgid "songs"
 msgstr "músicas"
 
-#: app/views.py:1009
+#: app/views.py:1020
 msgid "Setlist for "
-msgstr "Repertório de"
+msgstr "Repertório de "
 
-#: app/views.py:1010
+#: app/views.py:1021
 msgid ""
 "This Setlist was sent from Songlist Plus\n"
 "\n"
 msgstr "Esse repertório foi enviado a partir do Songlist Plus\n"
 
-#: app/views.py:1034
+#: app/views.py:1045
 msgid ""
 "An error occurred while sending your Setlist. Please contact the administrator. "
 "We are sorry for the incovenience."
@@ -551,21 +551,21 @@ msgstr ""
 "Ocorreu um erro ao enviar o seu Repertório. Por favor entre em contato com o "
 "administrador. Desculpe-nos pelo transtorno."
 
-#: app/views.py:1037
+#: app/views.py:1048
 msgid "The Setlist was sent to the chosen recipients"
-msgstr "O Repertório foi enviado aos destinatários."
+msgstr "O Repertório foi enviado aos destinatários"
 
-#: app/views.py:1076 app/views.py:1082
+#: app/views.py:1087 app/views.py:1093
 msgid "File not found"
 msgstr "Arquivo não encontrado"
 
-#: app/views.py:1086
+#: app/views.py:1097
 msgid "File not allowed"
 msgstr "Arquivo não permitido"
 
-#: app/views.py:1107
+#: app/views.py:1118
 msgid " songs successfully added"
-msgstr "músicas adicionadas com sucesso"
+msgstr " músicas adicionadas com sucesso"
 
 #: app/templates/404.html:6
 msgid "Page not found"
@@ -589,7 +589,7 @@ msgid ""
 "has been contacted and we will try to fix this as soon as possible."
 msgstr ""
 "Sentimos em informar que um erro interno ocorreu. O administrador do site foi "
-"contactado e tentaremos corrigir a situação o mais rápido possível"
+"contactado e tentaremos corrigir a situação o mais rápido possível."
 
 #: app/templates/bands.html:6
 msgid "Bands and Projects"
@@ -625,88 +625,91 @@ msgstr "Excluir Banda"
 msgid "Edit Band"
 msgstr "Editar Banda"
 
-#: app/templates/base.html:8
+#: app/templates/base.html:9
 msgid "Confirm this action?"
 msgstr "Confirmar esta ação ?"
 
-#: app/templates/base.html:73 app/templates/base.html:106
+#: app/templates/base.html:74 app/templates/base.html:107
 #: app/templates/contact.html:6
 msgid "Contact"
 msgstr "Contato"
 
-#: app/templates/base.html:76 app/templates/base.html:109
-#: app/templates/base.html:151
+#: app/templates/base.html:77 app/templates/base.html:110
+#: app/templates/base.html:152
 msgid "About"
 msgstr "Sobre"
 
-#: app/templates/base.html:79
+#: app/templates/base.html:80
 msgid "Sign in"
 msgstr "Entrar"
 
-#: app/templates/base.html:89 app/templates/songs.html:6
+#: app/templates/base.html:90 app/templates/songs.html:6
 msgid "Songs"
 msgstr "Músicas"
 
-#: app/templates/base.html:92 app/templates/shows.html:6
+#: app/templates/base.html:93 app/templates/shows.html:6
 msgid "Shows"
 msgstr "Shows"
 
-#: app/templates/base.html:95
+#: app/templates/base.html:96
 msgid "Bands"
 msgstr "Bandas"
 
-#: app/templates/base.html:103 app/templates/profile.html:6
+#: app/templates/base.html:104 app/templates/profile.html:6
 msgid "Profile"
 msgstr "Perfil"
 
-#: app/templates/base.html:112
+#: app/templates/base.html:113
 msgid "Sign Out"
 msgstr "Sair"
 
-#: app/templates/base.html:154
+#: app/templates/base.html:155
 msgid ""
-"is a website for managing songs, set lists, lyrics, chords and all the "
-"information your band needs to share in an easy and intuitive way."
+"is a website for managing songs, set lists, lyrics, chords and all the\n"
+"                        information your band needs to share in an easy and "
+"intuitive way."
 msgstr ""
-"é um site que gerencia músicas, repertórios, letras, cifras e toda a informação "
-"que sua banda precisa compartilhar de maneira fácil e intuitiva."
-
-#: app/templates/base.html:156
-msgid ""
-"No more printing tons of sheets of paper and carrying awkward binders to your "
-"gigs. Just add all your songs to Songlist Plus and you can easily find them and "
-"view lyrics or chords on your device."
-msgstr ""
-"Não carregue mais pastas com toneladas de papeis aos seus shows. Apenas adicione "
-"todas as suas músicas ao Songlist Plus e você poderá achá-las facilmente e "
-"visualizar suas letras e cifras."
+"é um site para gerenciar músicas, repertórios, letras, cifras e todas as "
+"informações que sua banda precisa compartilhar de uma maneira fácil e intuitiva."
 
 #: app/templates/base.html:158
 msgid ""
-"The website is fully responsive, which means it works seamlessly across all "
-"devices, be it a desktop computer, notebook or mobile device."
+"No more printing tons of sheets of paper and carrying awkward binders to your "
+"gigs. Just\n"
+"                        add all your songs to Songlist Plus and you can easily "
+"find them and view lyrics or chords on\n"
+"                        your device."
 msgstr ""
-"O site é totalmente responsivo, o que significa que ele funcionará elegantemente "
-"em todos os dispositivos, seja um computador pessoal, notebook ou dispositivo "
-"móvel."
+"Não imprima mais toneladas de papel nem carregue “pastinhas” para seus shows. "
+"Apenas adicione todas as suas músicas ao Songlist Plus e você poderá facilmente "
+"achá-las visualizar letras e cifras em qualquer dispositivo."
 
-#: app/templates/base.html:160
+#: app/templates/base.html:162
+msgid ""
+"The website is fully responsive, which means it works seamlessly across all "
+"devices, be it\n"
+"                        a desktop computer, notebook or mobile device."
+msgstr ""
+"O site é totalmente responsivo, o que significa que ele funciona em qualquer "
+"aparelho, seja um computador desktop, notebook ou celular."
+
+#: app/templates/base.html:165
 msgid "Create your "
-msgstr "Crie a sua"
+msgstr "Crie a sua "
 
-#: app/templates/base.html:160
+#: app/templates/base.html:165
 msgid "free "
-msgstr "conta gratuita"
+msgstr "conta gratuita "
 
-#: app/templates/base.html:160
+#: app/templates/base.html:165
 msgid "account and start rockin'!"
 msgstr "e comece a tocar!"
 
-#: app/templates/base.html:163
+#: app/templates/base.html:168
 msgid "p.s - mobile app coming soon"
 msgstr "p.s - aplicativo móvel em breve"
 
-#: app/templates/base.html:167 app/templates/edit-song.html:127
+#: app/templates/base.html:172 app/templates/edit-song.html:127
 #: app/templates/shows.html:119 app/templates/songs.html:104
 #: app/templates/songs.html:138
 msgid "Close"
@@ -720,12 +723,12 @@ msgstr "Enviar"
 msgid "Edit Band/Project"
 msgstr "Editar Banda/Projeto"
 
-#: app/templates/edit-band.html:33 app/templates/edit-show.html:67
+#: app/templates/edit-band.html:33 app/templates/edit-show.html:77
 #: app/templates/edit-song.html:105
 msgid "Back"
 msgstr "Voltar"
 
-#: app/templates/edit-band.html:34 app/templates/edit-show.html:68
+#: app/templates/edit-band.html:34 app/templates/edit-show.html:78
 #: app/templates/edit-song.html:106
 msgid "Save"
 msgstr "Salvar"
@@ -757,24 +760,32 @@ msgstr "Editar Show"
 msgid "Add Show"
 msgstr "Adicionar Show"
 
-#: app/templates/edit-show.html:30
+#: app/templates/edit-show.html:32
 msgid "Band/Project:"
-msgstr "Banda/Projeto"
+msgstr "Banda/Projeto:"
 
-#: app/templates/edit-show.html:72
+#: app/templates/edit-show.html:82
 msgid "Setlist"
 msgstr "Repertório"
 
-#: app/templates/edit-show.html:81 app/templates/edit-song.html:9
+#: app/templates/edit-show.html:87
+msgid "Filter by Band/Project:"
+msgstr "Filtrar Banda/Projeto:"
+
+#: app/templates/edit-show.html:96
+msgid "Search for a song"
+msgstr "Procure por uma música"
+
+#: app/templates/edit-show.html:100 app/templates/edit-song.html:9
 #: app/templates/songs.html:21
 msgid "Add Song"
 msgstr "Adicionar Música"
 
-#: app/templates/edit-show.html:90 app/templates/songs.html:55
+#: app/templates/edit-show.html:109 app/templates/songs.html:55
 msgid "Duration"
 msgstr "Duração"
 
-#: app/templates/edit-show.html:102
+#: app/templates/edit-show.html:120
 msgid "Remove Song from Setlist"
 msgstr "Excluir Música do Repertório do Show"
 
@@ -833,7 +844,7 @@ msgid ""
 msgstr ""
 "Songlist Plus é uma aplicação web e mobile que todas as funcionalidades que sua "
 "banda precisa. Gerencie bandas, músicas, shows e compartilhe seu repertório com "
-"seus amigos. Sincronize tudo com seu dispositivo móvel e comece a tocar!"
+"seus amigos. Sincronize tudo com seu dispositivo móvel e comece a tocar "
 
 #: app/templates/home.html:9 app/templates/signup.html:6
 msgid "Create free account"
@@ -974,7 +985,7 @@ msgid ""
 "You may delete your account at any time. However, this action is irreversible."
 msgstr ""
 "Você pode excluir a sua conta a qualquer momento. Entretanto, essa ação é "
-"irreversível"
+"irreversível."
 
 #: app/templates/profile.html:62
 msgid "I understand, delete my account"
@@ -1038,7 +1049,7 @@ msgstr "Excluir Música"
 
 #: app/templates/songs.html:73
 msgid " Edit Song"
-msgstr "Editar Música"
+msgstr " Editar Música"
 
 #: app/templates/songs.html:76
 msgid "View Lyrics"
@@ -1080,3 +1091,27 @@ msgstr "Procurar…"
 
 #~ msgid "Song successfully added!"
 #~ msgstr "Música adicionada com sucesso!"
+
+#~ msgid ""
+#~ "is a website for managing songs, set lists, lyrics, chords and all the "
+#~ "information your band needs to share in an easy and intuitive way."
+#~ msgstr ""
+#~ "é um site que gerencia músicas, repertórios, letras, cifras e toda a "
+#~ "informação que sua banda precisa compartilhar de maneira fácil e intuitiva."
+
+#~ msgid ""
+#~ "No more printing tons of sheets of paper and carrying awkward binders to your "
+#~ "gigs. Just add all your songs to Songlist Plus and you can easily find them "
+#~ "and view lyrics or chords on your device."
+#~ msgstr ""
+#~ "Não carregue mais pastas com toneladas de papeis aos seus shows. Apenas "
+#~ "adicione todas as suas músicas ao Songlist Plus e você poderá achá-las "
+#~ "facilmente e visualizar suas letras e cifras."
+
+#~ msgid ""
+#~ "The website is fully responsive, which means it works seamlessly across all "
+#~ "devices, be it a desktop computer, notebook or mobile device."
+#~ msgstr ""
+#~ "O site é totalmente responsivo, o que significa que ele funcionará "
+#~ "elegantemente em todos os dispositivos, seja um computador pessoal, notebook "
+#~ "ou dispositivo móvel."

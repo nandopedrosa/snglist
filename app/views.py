@@ -588,7 +588,7 @@ def fetch_songs():
 
     for song in song_list:
         return_data.append(dict(id=song.id, title=song.title, artist=song.artist, tempo=song.tempo, key=song.key,
-                                duration=song.pretty_duration(), lyrics=song.lyrics))
+                                duration=song.pretty_duration(), lyrics=song.lyrics, bands=song.get_list_of_associated_bands()))
 
     return jsonify(data=return_data)
 
@@ -834,14 +834,17 @@ def delete_show():
     return jsonify(dict(msg=gettext('Show successfully deleted.')))
 
 
-@app.route('/fetch-available-songs/<int:show_id>', methods=['GET'])
+@app.route('/fetch-available-songs/<show_id>/<filtered_band_id>', methods=['GET'])
 @login_required
-def fetch_available_songs(show_id):
+def fetch_available_songs(show_id, filtered_band_id):
     """
     Fetch all the available songs of the current user from his or her Song Catalogue
     not yet added to a given show's setlist
+    :param filtered_band_id: to filter from which associated band the song comes from
+    :param show_id: to prevent duplicate songs
     :return: JSON with the songs list
     """
+
     available_songs = current_user.songs.order_by(Song.title).all()
 
     show = Show.query.get(show_id)
@@ -855,7 +858,15 @@ def fetch_available_songs(show_id):
 
     return_data = []
     for song in available_songs:
-        return_data.append(dict(id=song.id, title=song.title + ' (' + song.artist + ')'))
+        # Now we check if the song belongs to the filteredband (-1 = all)
+        if int(filtered_band_id) == -1:
+             return_data.append(dict(id=song.id, title=song.title + ' (' + song.artist + ')'))
+        else:
+            for band in song.bands:
+                if band.id == int(filtered_band_id):
+                    return_data.append(dict(id=song.id, title=song.title + ' (' + song.artist + ')'))
+
+
 
     return jsonify(data=return_data)
 

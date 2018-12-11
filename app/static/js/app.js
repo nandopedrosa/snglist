@@ -637,8 +637,16 @@
 
         showCtlr.bands = []; // List of bands                
         showCtlr.selectedband = {}; //Selected band
+        showCtlr.filteredband = {}; //Filtered band
+        showCtlr.filteredband.id = showCtlr.formData.bandid;
+
         $http.get('/fetch-bands/').success(function (data) {
             showCtlr.bands = data;
+            showCtlr.filteredbands = data;
+
+            all = $('#about').text() == 'Sobre' ? 'Todas' : 'All';
+
+            showCtlr.filteredbands.data.unshift({ 'id': -1, 'members': '', 'name': all, 'style': '' });
         });
 
         //Total setlist duration
@@ -694,7 +702,7 @@
                             showCtlr.formData.showid = response.data.addedid; //The show just added    
 
                         //Populate quick add
-                        $http.get('/fetch-available-songs/' + showCtlr.formData.showid).success(function (data) {
+                        $http.get('/fetch-available-songs/' + showCtlr.formData.showid + '/' + showCtlr.filteredband.id).success(function (data) {
                             showCtlr.quickList = data;
                         });
 
@@ -710,10 +718,13 @@
                 });
         };
 
-        //Quick Add                               
-        $http.get('/fetch-available-songs/' + showCtlr.formData.showid).success(function (data) {
-            showCtlr.quickList = data;
-        });
+        //Quick Add     
+        this.fetchAvailableSongs = function () {
+            $http.get('/fetch-available-songs/' + showCtlr.formData.showid + '/' + showCtlr.filteredband.id).success(function (data) {
+                showCtlr.quickList = data;
+            });
+        }
+        this.fetchAvailableSongs();
 
         //Setlist        
         $http.get('/fetch-setlist/' + showCtlr.formData.showid).success(function (data) {
@@ -730,7 +741,7 @@
 
             showCtlr.errors = {}; //Init errors    
             var songToBeAdded = { 'songid': showCtlr.songid, 'showid': showCtlr.formData.showid };
-        
+
             $http({
                 method: 'POST',
                 url: '/add-song',

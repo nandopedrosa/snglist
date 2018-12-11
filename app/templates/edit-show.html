@@ -1,114 +1,132 @@
 {% extends "base.html" %}
 {% block content %}
- 
-    <div class="row">
-        <div class="col-xs-12">
-            {% if show_form.showid.data %}
-            <h1 class="page-header">{{ _('Edit Show') }}</h1>
-            {% else %}
-            <h1 class="page-header">{{ _('Add Show') }}</h1>
-            {% endif %}
+
+<div class="row">
+    <div class="col-xs-12">
+        {% if show_form.showid.data %}
+        <h1 class="page-header">{{ _('Edit Show') }}</h1>
+        {% else %}
+        <h1 class="page-header">{{ _('Add Show') }}</h1>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row" ng-cloak>
+    <div class="col-xs-12" ng-controller="ShowFormController as showCtlr">
+        <div class="alert" ng-class="{'alert-danger': showCtlr.errors.error == true, 'alert-success': showCtlr.errors.error == false}"
+            ng-show="showCtlr.message != ''" role="alert">[[ showCtlr.message ]]</div>
+        <form id="show-form">
+            <div class="form-group">
+                {{show_form.showid(class="form-control", ng_model="showCtlr.formData.showid")}}
+            </div>
+            <div class="form-group">
+                {{show_form.bandid(class="form-control", ng_model="showCtlr.formData.bandid")}}
+            </div>
+            <div class="form-group">
+                {{ show_form.name.label }} *
+                {{ show_form.name(class="form-control", ng_model="showCtlr.formData.name",
+                placeholder=show_form.name.description) }}
+                <p class="text-danger">[[ showCtlr.errors.name ]]</p>
+            </div>
+            <div class="form-group">
+                <label>{{_('Band/Project:')}} *</label>
+                <select class="form-control" ng-model="showCtlr.selectedband" ng-init="showCtlr.selectedband.id = showCtlr.formData.bandid"
+                    ng-options="band.name for band in showCtlr.bands.data track by band.id">
+                </select>
+                <p class="text-danger">[[ showCtlr.errors.bandid ]]</p>
+            </div>
+            <div class="form-group">
+                {{ show_form.start.label }}
+                {{ show_form.start(class="form-control", ng_model="showCtlr.formData.start",
+                placeholder=show_form.date_time_placeholder, **{'ui-mask':'9999/99/99 99:99', 'ui-mask-placeholder':'',
+                'model-view-value':'true'}) }}
+                <p class="text-danger">[[ showCtlr.errors.start ]]</p>
+            </div>
+            <div class="form-group">
+                {{ show_form.end.label }}
+                {{ show_form.end(class="form-control", ng_model="showCtlr.formData.end",
+                placeholder=show_form.date_time_placeholder, **{'ui-mask':'9999/99/99 99:99', 'ui-mask-placeholder':'',
+                'model-view-value':'true'}) }}
+                <p class="text-danger">[[ showCtlr.errors.end ]]</p>
+            </div>
+            <div class="form-group">
+                {{ show_form.pay.label }}
+                {{ show_form.pay(class="form-control", ng_model="showCtlr.formData.pay",
+                placeholder=show_form.pay.description) }}
+                <p class="text-danger">[[ showCtlr.errors.pay ]]</p>
+            </div>
+            <div class="form-group">
+                {{ show_form.address.label }}
+                {{ show_form.address(class="form-control", ng_model="showCtlr.formData.address",
+                placeholder=show_form.address.description) }}
+                <p class="text-danger">[[ showCtlr.errors.address ]]</p>
+            </div>
+            <div class="form-group">
+                {{ show_form.contact.label }}
+                {{ show_form.contact(class="form-control", rows="4", ng_model="showCtlr.formData.contact",
+                placeholder=show_form.contact.description) }}
+                <p class="text-danger">[[ showCtlr.errors.contact ]]</p>
+            </div>
+            <div class="form-group">
+                {{ show_form.notes.label }}
+                {{ show_form.notes(class="form-control", rows="4", ng_model="showCtlr.formData.notes",
+                placeholder=show_form.notes.description) }}
+                <p class="text-danger">[[ showCtlr.errors.notes ]]</p>
+            </div>
+        </form>
+        <a href="/shows" class="btn btn-default" role="button">{{ _('Back') }}</a>
+        <button ng-click="showCtlr.editShow()" type="button" class="btn btn-primary">{{_('Save')}}</button>
+        <br><br>
+        <div ng-show="showCtlr.formData.showid != ''" class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{_('Setlist')}}</h3>
+            </div>
+            <div class="panel-body">
+                <form id="setlist-form">
+                    <div class="form-group">
+                        <label>{{_('Filter by Band/Project:')}}</label>
+                        <select class="form-control" ng-model="showCtlr.filteredband" ng-init="showCtlr.filteredband.id = showCtlr.formData.bandid"
+                        ng-options="band.name for band in showCtlr.filteredbands.data track by band.id"
+                        ng-change="showCtlr.fetchAvailableSongs()"
+                        >
+                        </select>
+                    </div>
+                    <div class="form-group">
+
+                        <label>{{_('Search for a song')}}</label>
+                        <select2 id="songs-to-add" style="width:100%" ng-model="showCtlr.songid" s2-options="song.id as song.title for song in showCtlr.quickList.data"></select2>
+                    </div>
+                </form>
+                <button ng-click="showCtlr.addSong()" type="button" class="btn btn-success">{{_('Add Song')}}</button>
+                <h3 style="display:inline; margin-left:10px"> <small>Total duration: [[showCtlr.totalDuration]] </small></h3>
+                <br><br>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th>{{_('Title')}}</th>
+                            <th>{{_('Artist')}}</th>
+                            <th>{{_('Duration')}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody ui-sortable="showCtlr.sortableOptions" ng-model="showCtlr.setlist.data">
+                        <tr ng-repeat="song in showCtlr.setlist.data" style="cursor: move;">
+                            <td> [[ $index + 1 ]] </td>
+                            <td> [[ song.title ]] </td>
+                            <td> [[ song.artist ]] </td>
+                            <td> [[ song.duration ]] </td>
+                            <td>
+                                <button title="{{_('Remove Song from Setlist')}}" type="button" ng-click="showCtlr.removeFromSetlist(song.id)"
+                                    class="btn btn-sm btn-danger">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
-     <div class="row" ng-cloak>
-        <div class="col-xs-12" ng-controller="ShowFormController as showCtlr">
-            <div class="alert" ng-class="{'alert-danger': showCtlr.errors.error == true, 'alert-success': showCtlr.errors.error == false}" ng-show="showCtlr.message != ''" role="alert">[[ showCtlr.message ]]</div>                            
-            <form id="show-form">
-                <div class="form-group">
-                    {{show_form.showid(class="form-control", ng_model="showCtlr.formData.showid")}}
-                </div>                
-                <div class="form-group">
-                    {{show_form.bandid(class="form-control", ng_model="showCtlr.formData.bandid")}}
-                </div>
-                <div class="form-group">
-                    {{ show_form.name.label }} *
-                    {{ show_form.name(class="form-control", ng_model="showCtlr.formData.name", placeholder=show_form.name.description) }}
-                    <p class="text-danger">[[ showCtlr.errors.name ]]</p>
-                </div>  
-                <div class="form-group">    
-                    <label>{{_('Band/Project:')}} *</label>
-                    <select class="form-control" 
-                    ng-model="showCtlr.selectedband" ng-init="showCtlr.selectedband.id = showCtlr.formData.bandid" ng-options="band.name for band in showCtlr.bands.data track by band.id">
-                    </select>
-                    <p class="text-danger">[[ showCtlr.errors.bandid ]]</p>
-                </div> 
-                <div class="form-group">
-                    {{ show_form.start.label }} 
-                    {{ show_form.start(class="form-control", ng_model="showCtlr.formData.start", placeholder=show_form.date_time_placeholder, **{'ui-mask':'9999/99/99 99:99', 'ui-mask-placeholder':'', 'model-view-value':'true'}) }}
-                    <p class="text-danger">[[ showCtlr.errors.start ]]</p>
-                </div>                
-                 <div class="form-group">
-                    {{ show_form.end.label }} 
-                    {{ show_form.end(class="form-control", ng_model="showCtlr.formData.end", placeholder=show_form.date_time_placeholder, **{'ui-mask':'9999/99/99 99:99', 'ui-mask-placeholder':'', 'model-view-value':'true'}) }}
-                    <p class="text-danger">[[ showCtlr.errors.end ]]</p>
-                </div> 
-                <div class="form-group">
-                    {{ show_form.pay.label }} 
-                    {{ show_form.pay(class="form-control", ng_model="showCtlr.formData.pay", placeholder=show_form.pay.description) }}
-                    <p class="text-danger">[[ showCtlr.errors.pay ]]</p>
-                </div> 
-                <div class="form-group">
-                    {{ show_form.address.label }} 
-                    {{ show_form.address(class="form-control", ng_model="showCtlr.formData.address", placeholder=show_form.address.description) }}
-                    <p class="text-danger">[[ showCtlr.errors.address ]]</p>
-                </div> 
-                <div class="form-group">
-                    {{ show_form.contact.label }} 
-                    {{ show_form.contact(class="form-control", rows="4", ng_model="showCtlr.formData.contact", placeholder=show_form.contact.description) }}
-                    <p class="text-danger">[[ showCtlr.errors.contact ]]</p>
-                </div>          
-                <div class="form-group">
-                    {{ show_form.notes.label }} 
-                    {{ show_form.notes(class="form-control", rows="4", ng_model="showCtlr.formData.notes", placeholder=show_form.notes.description) }}
-                    <p class="text-danger">[[ showCtlr.errors.notes ]]</p>
-                </div>          
-            </form> 
-            <a href="/shows" class="btn btn-default" role="button">{{ _('Back') }}</a>
-            <button ng-click="showCtlr.editShow()" type="button" class="btn btn-primary">{{_('Save')}}</button>
-            <br><br>
-             <div ng-show="showCtlr.formData.showid != ''" class="panel panel-primary">
-                <div class="panel-heading"> 
-                    <h3 class="panel-title">{{_('Setlist')}}</h3> 
-                </div> 
-                <div class="panel-body">                                          
-                     <form id="setlist-form">
-                       <div class="form-group">                            
-                            <select2 style="width:100%" ng-model="showCtlr.songid" s2-options="song.id as song.title for song in showCtlr.quickList.data" options="{'placeholder': 'search for song...'}" ></select2>
-                            
-                       </div>
-                     </form>                      
-                     <button ng-click="showCtlr.addSong()" type="button" class="btn btn-success">{{_('Add Song')}}</button>
-                     <h3 style="display:inline; margin-left:10px"> <small>Total duration: [[showCtlr.totalDuration]] </small></h3>                    
-                     <br><br>
-                      <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th> # </th>
-                                <th>{{_('Title')}}</th>
-                                <th >{{_('Artist')}}</th>                             
-                                <th >{{_('Duration')}}</th>
-                                <th></th>   
-                            </tr>
-                        </thead>
-                        <tbody ui-sortable="showCtlr.sortableOptions" ng-model="showCtlr.setlist.data">
-                            <tr ng-repeat="song in showCtlr.setlist.data" style="cursor: move;">
-                                <td> [[ $index + 1 ]]    </td>
-                                <td> [[ song.title ]]    </td>
-                                <td> [[ song.artist ]]   </td>
-                                <td> [[ song.duration ]] </td>
-                                <td>
-                                   <button 
-                                        title = "{{_('Remove Song from Setlist')}}"
-                                        type="button" ng-click="showCtlr.removeFromSetlist(song.id)" class="btn btn-sm btn-danger">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>                                    
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>                
-            </div>  
-        </div>        
-    </div>    
+</div>
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-26 00:03-0300\n"
+"POT-Creation-Date: 2018-12-11 15:20-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,7 +185,8 @@ msgstr ""
 msgid "The email must have a minimum of 6 characters"
 msgstr ""
 
-#: app/forms.py:216 app/templates/edit-show.html:88 app/templates/songs.html:51
+#: app/forms.py:216 app/templates/edit-show.html:107
+#: app/templates/songs.html:51
 msgid "Title"
 msgstr ""
 
@@ -201,8 +202,8 @@ msgstr ""
 msgid "The title of the song name must have a maximum of 128 characters"
 msgstr ""
 
-#: app/forms.py:225 app/templates/edit-show.html:89 app/templates/songs.html:52
-#: app/views.py:818
+#: app/forms.py:225 app/templates/edit-show.html:108
+#: app/templates/songs.html:52 app/views.py:818
 msgid "Artist"
 msgstr ""
 
@@ -504,39 +505,39 @@ msgstr ""
 msgid "Show successfully deleted."
 msgstr ""
 
-#: app/views.py:1007
+#: app/views.py:1018
 msgid "songs"
 msgstr ""
 
-#: app/views.py:1009
+#: app/views.py:1020
 msgid "Setlist for "
 msgstr ""
 
-#: app/views.py:1010
+#: app/views.py:1021
 msgid ""
 "This Setlist was sent from Songlist Plus\n"
 "\n"
 msgstr ""
 
-#: app/views.py:1034
+#: app/views.py:1045
 msgid ""
 "An error occurred while sending your Setlist. Please contact the "
 "administrator. We are sorry for the incovenience."
 msgstr ""
 
-#: app/views.py:1037
+#: app/views.py:1048
 msgid "The Setlist was sent to the chosen recipients"
 msgstr ""
 
-#: app/views.py:1076 app/views.py:1082
+#: app/views.py:1087 app/views.py:1093
 msgid "File not found"
 msgstr ""
 
-#: app/views.py:1086
+#: app/views.py:1097
 msgid "File not allowed"
 msgstr ""
 
-#: app/views.py:1107
+#: app/views.py:1118
 msgid " songs successfully added"
 msgstr ""
 
@@ -597,80 +598,84 @@ msgstr ""
 msgid "Edit Band"
 msgstr ""
 
-#: app/templates/base.html:8
+#: app/templates/base.html:9
 msgid "Confirm this action?"
 msgstr ""
 
-#: app/templates/base.html:73 app/templates/base.html:106
+#: app/templates/base.html:74 app/templates/base.html:107
 #: app/templates/contact.html:6
 msgid "Contact"
 msgstr ""
 
-#: app/templates/base.html:76 app/templates/base.html:109
-#: app/templates/base.html:151
+#: app/templates/base.html:77 app/templates/base.html:110
+#: app/templates/base.html:152
 msgid "About"
 msgstr ""
 
-#: app/templates/base.html:79
+#: app/templates/base.html:80
 msgid "Sign in"
 msgstr ""
 
-#: app/templates/base.html:89 app/templates/songs.html:6
+#: app/templates/base.html:90 app/templates/songs.html:6
 msgid "Songs"
 msgstr ""
 
-#: app/templates/base.html:92 app/templates/shows.html:6
+#: app/templates/base.html:93 app/templates/shows.html:6
 msgid "Shows"
 msgstr ""
 
-#: app/templates/base.html:95
+#: app/templates/base.html:96
 msgid "Bands"
 msgstr ""
 
-#: app/templates/base.html:103 app/templates/profile.html:6
+#: app/templates/base.html:104 app/templates/profile.html:6
 msgid "Profile"
 msgstr ""
 
-#: app/templates/base.html:112
+#: app/templates/base.html:113
 msgid "Sign Out"
 msgstr ""
 
-#: app/templates/base.html:154
+#: app/templates/base.html:155
 msgid ""
-"is a website for managing songs, set lists, lyrics, chords and all the "
-"information your band needs to share in an easy and intuitive way."
-msgstr ""
-
-#: app/templates/base.html:156
-msgid ""
-"No more printing tons of sheets of paper and carrying awkward binders to "
-"your gigs. Just add all your songs to Songlist Plus and you can easily "
-"find them and view lyrics or chords on your device."
+"is a website for managing songs, set lists, lyrics, chords and all the\n"
+"                        information your band needs to share in an easy "
+"and intuitive way."
 msgstr ""
 
 #: app/templates/base.html:158
 msgid ""
-"The website is fully responsive, which means it works seamlessly across "
-"all devices, be it a desktop computer, notebook or mobile device."
+"No more printing tons of sheets of paper and carrying awkward binders to "
+"your gigs. Just\n"
+"                        add all your songs to Songlist Plus and you can "
+"easily find them and view lyrics or chords on\n"
+"                        your device."
 msgstr ""
 
-#: app/templates/base.html:160
+#: app/templates/base.html:162
+msgid ""
+"The website is fully responsive, which means it works seamlessly across "
+"all devices, be it\n"
+"                        a desktop computer, notebook or mobile device."
+msgstr ""
+
+#: app/templates/base.html:165
 msgid "Create your "
 msgstr ""
 
-#: app/templates/base.html:160
+#: app/templates/base.html:165
 msgid "free "
 msgstr ""
 
-#: app/templates/base.html:160
+#: app/templates/base.html:165
 msgid "account and start rockin'!"
 msgstr ""
 
-#: app/templates/base.html:163
+#: app/templates/base.html:168
 msgid "p.s - mobile app coming soon"
 msgstr ""
 
-#: app/templates/base.html:167 app/templates/edit-song.html:127
+#: app/templates/base.html:172 app/templates/edit-song.html:127
 #: app/templates/shows.html:119 app/templates/songs.html:104
 #: app/templates/songs.html:138
 msgid "Close"
@@ -684,12 +689,12 @@ msgstr ""
 msgid "Edit Band/Project"
 msgstr ""
 
-#: app/templates/edit-band.html:33 app/templates/edit-show.html:67
+#: app/templates/edit-band.html:33 app/templates/edit-show.html:77
 #: app/templates/edit-song.html:105
 msgid "Back"
 msgstr ""
 
-#: app/templates/edit-band.html:34 app/templates/edit-show.html:68
+#: app/templates/edit-band.html:34 app/templates/edit-show.html:78
 #: app/templates/edit-song.html:106
 msgid "Save"
 msgstr ""
@@ -720,24 +725,32 @@ msgstr ""
 msgid "Add Show"
 msgstr ""
 
-#: app/templates/edit-show.html:30
+#: app/templates/edit-show.html:32
 msgid "Band/Project:"
 msgstr ""
 
-#: app/templates/edit-show.html:72
+#: app/templates/edit-show.html:82
 msgid "Setlist"
 msgstr ""
 
-#: app/templates/edit-show.html:81 app/templates/edit-song.html:9
+#: app/templates/edit-show.html:87
+msgid "Filter by Band/Project:"
+msgstr ""
+
+#: app/templates/edit-show.html:96
+msgid "Search for a song"
+msgstr ""
+
+#: app/templates/edit-show.html:100 app/templates/edit-song.html:9
 #: app/templates/songs.html:21
 msgid "Add Song"
 msgstr ""
 
-#: app/templates/edit-show.html:90 app/templates/songs.html:55
+#: app/templates/edit-show.html:109 app/templates/songs.html:55
 msgid "Duration"
 msgstr ""
 
-#: app/templates/edit-show.html:102
+#: app/templates/edit-show.html:120
 msgid "Remove Song from Setlist"
 msgstr ""
 

@@ -102,7 +102,7 @@ app.json_encoder = JSONEncoder
 
 # Flask-Login
 login_manager = LoginManager()
-login_manager.session_protection = 'strong'
+login_manager.session_protection = 'basic'
 login_manager.login_view = 'login'
 login_manager.login_message = lazy_gettext('Please enter your credentials to confirm this request')
 login_manager.init_app(app)

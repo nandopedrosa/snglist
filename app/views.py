@@ -108,6 +108,14 @@ def info():
     """
     return render_template("info.html")
 
+@app.route('/.well-known/acme-challenge/4T5mlz4hMO2k369CVJfDh8U6QW5ZhN45TF9iRPBXuKY')
+def acme_challenge():
+    """
+    Returns the acme challenge for SSL encryption
+    :return: The string expected by acme challenge
+    """
+    return '4T5mlz4hMO2k369CVJfDh8U6QW5ZhN45TF9iRPBXuKY.uDoHR-kRnnAD06puViwp6KJ5905ShQbuqm7Q9aKRhwY'
+
 
 # --------------------------------------  Users, Auth, Token, Profile ---------------------------------------
 
